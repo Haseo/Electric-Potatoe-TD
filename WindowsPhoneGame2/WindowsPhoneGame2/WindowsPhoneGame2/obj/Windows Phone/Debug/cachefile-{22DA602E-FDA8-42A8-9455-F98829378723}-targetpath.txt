@@ -1,0 +1,12 @@
+Content\Font1.xnb
+Content\MenuFont.xnb
+Content\Cadre.xnb
+Content\Tetris Logo.xnb
+Content\carre.xnb
+Content\GameFont1.xnb
+Content\GameFont2.xnb
+Content\Down.xnb
+Content\Left.xnb
+Content\Right.xnb
+Content\Flip_Left.xnb
+Content\Flip_Right.xnb
