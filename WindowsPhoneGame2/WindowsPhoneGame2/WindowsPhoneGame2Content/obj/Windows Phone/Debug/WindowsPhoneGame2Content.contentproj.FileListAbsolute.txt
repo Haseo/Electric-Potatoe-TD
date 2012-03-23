@@ -1,1 +1,0 @@
-c:\users\florian\documents\visual studio 2010\Projects\WindowsPhoneGame2\WindowsPhoneGame2\WindowsPhoneGame2Content\obj\Windows Phone\Debug\ResolveAssemblyReference.cache
