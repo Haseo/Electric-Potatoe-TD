@@ -10,88 +10,160 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 
-namespace ElectricPotato
+namespace ElectricPotatoe
 {
-    /// <summary>
-    /// This is the main type for your game
-    /// </summary>
+    public enum EMap
+    {
+        BACKGROUND = 0,
+        CANYON = 1,
+        CENTRAL = 2,
+    };
+
     public class Game : Microsoft.Xna.Framework.Game
     {
+        EMap[,] map;
+        int mapX, mapY;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        Texture2D myTexture;
 
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            // Frame rate is 30 fps by default for Windows Phone.
             TargetElapsedTime = TimeSpan.FromTicks(333333);
-
-            // Extend battery life under lock.
             InactiveSleepTime = TimeSpan.FromSeconds(1);
+            mapFiller();
         }
 
-        /// <summary>
-        /// Allows the game to perform any initialization it needs to before starting to run.
-        /// This is where it can query for any required services and load any non-graphic
-        /// related content.  Calling base.Initialize will enumerate through any components
-        /// and initialize them as well.
-        /// </summary>
+        public void  mapFiller()
+        {
+            this.mapX = 80;
+            this.mapY = 5;
+            this.map = new EMap[,]
+            {
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CENTRAL, EMap.CENTRAL, EMap.CENTRAL},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CENTRAL, EMap.CENTRAL, EMap.CENTRAL},
+            };
+        }
+
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            myTexture = base.Content.Load<Texture2D>("grass");
         }
 
-        /// <summary>
-        /// UnloadContent will be called once per game and is the place to unload
-        /// all content.
-        /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
-        /// <summary>
-        /// Allows the game to run logic such as updating the world,
-        /// checking for collisions, gathering input, and playing audio.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
-            // TODO: Add your update logic here
-
             base.Update(gameTime);
         }
 
-        /// <summary>
-        /// This is called when the game should draw itself.
-        /// </summary>
-        /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-
+            int x = 0, y = 0;
+            spriteBatch.Begin();
+            for (x = 0; x < mapX; x++)
+            {
+                for (y = 0; y < mapY; y++)
+                {
+                    switch(this.map[x, y])
+                    {
+                        case EMap.BACKGROUND :  spriteBatch.Draw(myTexture, new Rectangle(10 * x, 10 * y, 10, 10), Color.Green);    break;
+                        case EMap.CANYON :      spriteBatch.Draw(myTexture, new Rectangle(10 * x, 10 * y, 10, 10), Color.Red);      break;
+                        case EMap.CENTRAL :     spriteBatch.Draw(myTexture, new Rectangle(10 * x, 10 * y, 10, 10), Color.Blue);     break;
+                    }
+                }
+            }
+            spriteBatch.End();
             base.Draw(gameTime);
         }
     }

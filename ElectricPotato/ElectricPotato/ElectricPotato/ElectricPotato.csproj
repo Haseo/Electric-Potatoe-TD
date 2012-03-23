@@ -73,7 +73,7 @@
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </None>
     <Compile Include="Program.cs" />
-    <Compile Include="Game1.cs" />
+    <Compile Include="Game.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
