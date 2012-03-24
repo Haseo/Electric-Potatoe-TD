@@ -43,9 +43,9 @@ namespace Electric_Potatoe_TD
          * 
          * */
 
-        public Boolean levelUp(int capital)
+        public Boolean levelUpTower(int capital)
         {
-            if (_cost > capital)
+            if (_cost * _level > capital)
                 return false;
             capital -= _cost * _level;
             _level += 1;

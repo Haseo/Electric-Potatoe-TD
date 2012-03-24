@@ -19,6 +19,7 @@ namespace Electric_Potatoe_TD.Mob
         PEON,
         SPEED,
         TANK,
+        BERSERK,
         BOSS
     };
 
@@ -52,9 +53,10 @@ namespace Electric_Potatoe_TD.Mob
         #region Methode
 
         #region Attack-defence
-        public virtual void TakeDamage(int damage)
+        public virtual bool TakeDamage(int damage)
         {
             this.mobPV -= damage;
+            return this.IsDead();
         }
 
         public virtual bool IsDead()
@@ -64,14 +66,15 @@ namespace Electric_Potatoe_TD.Mob
             return false;
         }
 
-        protected virtual void Attack()
+        protected virtual int Attack()
         {
             if (this.Waypoint != null && this.Waypoint.Count < 0)
                 if (this.Waypoint.Count == 1 && this.Waypoint[0] == this.mobPos)
                 {
-                    //                this.game.cental.takeDamage(this.mobAttack);
                     Console.WriteLine("le mob attaque la central : ");
+                    return this.mobAttack;
                 }
+            return 0;
         }
         #endregion
         #region move
@@ -127,17 +130,18 @@ namespace Electric_Potatoe_TD.Mob
         #endregion
         #region update
 
-        public virtual void update()
+        public virtual int update()
         {
             if (this.isMoving())
             {
                 this.CalcNewCoord();
                 Console.WriteLine(this.mobPos.ToString());
-                this.Attack();
+                return (this.Attack());
                 
             }
             else
                 this.currentLoop++;
+            return (-1);
         }
 
         #endregion

@@ -88,24 +88,15 @@
     <Reference Include="System.Xml.Serialization, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actors.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Actors.cs" />
+    <Compile Include="ElectricityManager.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="MapLoader.cs" />
-    <Compile Include="Map\Map1.cs" />
+    <Compile Include="Generator.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Menu_IG.cs" />
-    <Compile Include="Mob\Mob.cs" />
-    <Compile Include="Mob\Peon.cs" />
-    <Compile Include="Node.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Node.cs" />
     <Compile Include="Potatoe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Shooter.cs" />
-    <Compile Include="Speed.cs" />
-    <Compile Include="Strengh.cs" />
     <Compile Include="Tower.cs" />
     <None Include="Properties\AppManifest.xml">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>

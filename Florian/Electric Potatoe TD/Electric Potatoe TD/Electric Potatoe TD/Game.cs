@@ -49,7 +49,7 @@ namespace Electric_Potatoe_TD
         Dictionary<EType, Texture2D> TypeTexture;
         Dictionary<EMapTexture, Texture2D> MapTexture;
         Dictionary<int, Color> LevelColor;
-        List<Node> TurretList;
+        public List<Node> TurretList;
 
         Potatoe _central;
 
@@ -68,10 +68,17 @@ namespace Electric_Potatoe_TD
         Texture2D turretTextureHeavy;
         Texture2D nodeTexture;
 
-        Vector2 Zoom;
         Vector2 Touch;
+        bool _moveTouch;
         int _TouchFlag;
+        int _ValueTouch;
+
+        Vector2 Zoom;
         bool _zoom;
+
+        // Selection
+        Node _node;
+        String test = "";
 
         public List<Electric_Potatoe_TD.Mob.Mob> listTarget = new List<Electric_Potatoe_TD.Mob.Mob>();
 
@@ -81,6 +88,8 @@ namespace Electric_Potatoe_TD
             RageMetter = 0;
             RageMetter_flag = 0;
             _TouchFlag = 0;
+            _ValueTouch = 0;
+            _moveTouch = false;
             _zoom = false;
             Zoom = new Vector2(0, 0);
             _central = new Potatoe();
@@ -165,6 +174,52 @@ namespace Electric_Potatoe_TD
             return (true);
         }
 
+        public bool Select_Node()
+        {
+            test = "Select_Node";
+            int x, y;
+
+            if (Touch.X >= ((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) ||
+                Touch.Y >= ((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10))
+                return (false);
+            x = ((int)Touch.X - 10) / size_caseZoom;
+            y = ((int)Touch.Y - 10) / size_caseZoom;
+            if (x > 0)
+                x--;
+            if (y > 0)
+                y--;
+            while ((x + 6) >= mapX && x > 0)
+                x--;
+            while ((y + 4) >= mapY && y > 0)
+                y--;
+            return (true);
+        }
+
+
+        public bool Active_Desactive_Node()
+        {
+            test = "Active_Desactive_Node";
+            return (true);
+        }
+
+        public bool init_wayTouch()
+        {
+            test = "init_wayTouch : " + Touch.X + "/" + Touch.Y; ;
+            return (true);
+        }
+
+        public bool add_wayTouch()
+        {
+            test = "Add_wayTouch : " + Touch.X + "/" + Touch.Y;
+            return (true);
+        }
+
+        public bool end_wayTouch()
+        {
+            test = "End_wayTouch : " + Touch.X + "/" + Touch.Y; ;
+            return (true);
+        }
+
         public void update()
         {
             if (RageMetter_flag >= 20 && RageMetter > 0)
@@ -183,32 +238,89 @@ namespace Electric_Potatoe_TD
                 {
                     Vector2 PositionTouch = touches[0].Position;
 
-                    if (_zoom == false && touches[0].State == TouchLocationState.Pressed &&
+                    if (_zoom == false && _moveTouch == false && touches[0].State == TouchLocationState.Pressed &&
                         (PositionTouch.X >= _position[0].X && PositionTouch.X <= (_position[0].X + _position[0].Width)) &&
                         (PositionTouch.Y >= _position[0].Y && PositionTouch.Y <= (_position[0].Y + _position[0].Height)))
                     {
                         _origin.change_statut(Game1.Game_Statut.Menu_Ig);
+                        _ValueTouch = 0;
                     }
-                    if (touches[0].State == TouchLocationState.Pressed && _TouchFlag > 0 &&
-                        PositionTouch.X == Touch.X && PositionTouch.Y == Touch.Y)
-                    {
-                        if (_zoom == false)
-                            _zoom = calc_posZoom();
-                        else
-                            _zoom = false;
-                        _TouchFlag = -3;
-                    }
-                    else if (_TouchFlag == 0 && touches[0].State == TouchLocationState.Released)
+                    else if (touches[0].State == TouchLocationState.Pressed && _moveTouch == false)
                     {
                         Touch = PositionTouch;
-                        _TouchFlag = 4;
+                        _ValueTouch = 1;
                     }
-                    else if (_TouchFlag < 0)
-                        _TouchFlag++;
+
+                    if (_zoom == true && _moveTouch == false && _ValueTouch > 10 && touches[0].State == TouchLocationState.Moved && _ValueTouch > 1)
+                    {
+                        _TouchFlag = -1; ;
+                        _ValueTouch = 0;
+                        _moveTouch = true;
+                        init_wayTouch();
+                    }
+                    else if (_moveTouch == false)
+                    {
+                        if (touches[0].State == TouchLocationState.Pressed && _TouchFlag > 0 &&
+                            PositionTouch.X == Touch.X && PositionTouch.Y == Touch.Y)
+                        {
+                            if (_zoom == false)
+                                _zoom = calc_posZoom();
+                            else
+                                _zoom = false;
+                            _TouchFlag = -1;
+                            _moveTouch = false;
+                        }
+                        else if (_TouchFlag == 0 && _zoom == true)
+                        {
+                            Active_Desactive_Node();
+                            _TouchFlag = -1;
+                            _moveTouch = false;
+                        }
+                        else if (touches[0].State == TouchLocationState.Released)
+                        {
+                            if (_ValueTouch < 10)
+                            {
+                                Touch = PositionTouch;
+                                _ValueTouch = 0;
+                                _TouchFlag = 6;
+                                _moveTouch = false;
+                            }
+                            else if (_zoom == true)
+                            {
+                                Select_Node();
+                                _ValueTouch = 0;
+                                _TouchFlag = -1;
+                                _moveTouch = false;
+                            }
+                        }
+                        else if (_ValueTouch > 20 && _zoom == true)
+                        {
+                            Select_Node();
+                            _ValueTouch = 0;
+                            _TouchFlag = -1;
+                            _moveTouch = false;
+                        }
+                    }
+                    else if (_moveTouch == true)
+                    {
+                        if (_zoom == true && touches[0].State == TouchLocationState.Moved)
+                        {
+                            Touch = PositionTouch;
+                            add_wayTouch();
+                        }
+                        if (_zoom == true && touches[0].State == TouchLocationState.Released)
+                        {
+                            Touch = PositionTouch;
+                            end_wayTouch();
+                            _moveTouch = false;
+                        }
+                    }
                 }
+                if (_ValueTouch > 0)
+                    _ValueTouch++;
+                if (_TouchFlag > 0)
+                    _TouchFlag--;
             }
-            if (_TouchFlag > 0)
-                _TouchFlag--;
         }
 
         public void draw()
@@ -221,6 +333,7 @@ namespace Electric_Potatoe_TD
             else
             {
                 draw_mapZoom();
+                draw_contentZoom();
             }
 
         }
@@ -297,12 +410,20 @@ namespace Electric_Potatoe_TD
             _origin.spriteBatch.DrawString(RageMetter_font, "Capital : " + _central.getCapital().ToString(), new Vector2(_position[4].X, _position[4].Y), Color.Black);
         }
 
+        public void draw_contentZoom()
+        {
+            //     _origin.spriteBatch.DrawString(RageMetter_font, "Capital : " + _central.getCapital().ToString(), new Vector2(_position[4].X, _position[4].Y), Color.Black);
+            _origin.spriteBatch.DrawString(RageMetter_font, "test : " + test, new Vector2(_position[4].X, _position[4].Y), Color.Black);
+        }
+
         public void Restart()
         {
             RageMetter = 0;
             RageMetter_flag = 0;
             _TouchFlag = 0;
+            _ValueTouch = 0;
             Zoom = new Vector2(0, 0);
+            _moveTouch = false;
             _zoom = false;
             mapFiller();
             turretFiller();
@@ -328,10 +449,10 @@ namespace Electric_Potatoe_TD
             {
                 size_case = (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / mapY);
             }
-            if ((((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) / 2) <=
-                (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / 2))
+            if ((((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) / 7) <=
+                (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / 5))
             {
-                size_caseZoom = (((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) / 5);
+                size_caseZoom = (((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) / 7);
             }
             else
             {
