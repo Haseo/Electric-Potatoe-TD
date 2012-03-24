@@ -19,7 +19,8 @@ namespace Electric_Potatoe_TD
         Node,
         Shooter,
         Strenght,
-        Speed
+        Speed,
+        Generator
     }
 
     public abstract class Actor
