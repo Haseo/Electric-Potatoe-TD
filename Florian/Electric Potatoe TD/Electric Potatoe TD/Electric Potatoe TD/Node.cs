@@ -15,23 +15,28 @@ namespace Electric_Potatoe_TD
 {
     public class Node : Actor
     {
+        const double POWER_GIVE_BY_LEVEL = 0.1;
+
+        protected Game _game;
+        protected int _nodeLvl { get; set; }
+
         protected int _resistor { get; set; }
+        protected double _volt { get; set; }
+        protected double _intensity { get; set; }
+
+        protected List<Node> _peerOut { get; set; }
+        protected Boolean _activated = false;
         protected int _cost { get; set; }
 
-        protected float _volt { get; set; }
-        protected float _int { get; set; }
-
-        protected Boolean _isIn = false;
-        protected List<Node> _peerOut { get; set; }
-        protected Node _peerIn;
-
-        public Node(float xPos, float yPos, int resistor, int cost) : base(xPos, yPos)
+        public Node(float xPos, float yPos, int resistor, int cost, Game data) : base(xPos, yPos)
         {
             _resistor = resistor;
             _cost = cost;
+            _nodeLvl = 1;
+            _game = data;
         }
 
-        Boolean addOutput(Node contact)
+        public Boolean addLink(Node contact)
         {
             if (_peerOut.Count > 3)
                 return false;
@@ -39,12 +44,12 @@ namespace Electric_Potatoe_TD
             return true;
         }
 
-        Boolean addInput(Node contact)
+        public double energyDiv()
         {
-            if (!_isIn)
-                return false;
-            _peerIn = contact;
-            return true;
+            double tmp = _intensity / _peerOut.Count;
+            if (_nodeLvl == 1)
+                return tmp;
+            return tmp + (POWER_GIVE_BY_LEVEL * _nodeLvl * tmp);
         }
     }
 }
