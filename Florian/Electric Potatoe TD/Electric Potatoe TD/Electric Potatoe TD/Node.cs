@@ -15,6 +15,8 @@ namespace Electric_Potatoe_TD
 {
     public class Node : Actor
     {
+        protected Game _game;
+
         protected int _resistor { get; set; }
         protected int _cost { get; set; }
 
@@ -25,10 +27,11 @@ namespace Electric_Potatoe_TD
         protected List<Node> _peerOut { get; set; }
         protected Node _peerIn;
 
-        public Node(float xPos, float yPos, int resistor, int cost) : base(xPos, yPos)
+        public Node(float xPos, float yPos, int resistor, int cost, Game game) : base(xPos, yPos)
         {
             _resistor = resistor;
             _cost = cost;
+            _game = game;
         }
 
         Boolean addOutput(Node contact)

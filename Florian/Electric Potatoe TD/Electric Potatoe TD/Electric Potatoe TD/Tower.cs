@@ -22,9 +22,9 @@ namespace Electric_Potatoe_TD
         protected double _coef_speed { get; set; }
         protected double _coef_range { get; set; }
 
-        protected double _multPowerAtt;
-        protected double _multSpeedAtt;
-        protected double _range;
+        protected double _multPowerAtt { get; }
+        protected double _multSpeedAtt { get; }
+        protected double _range { public get;}
 
         protected int _lastShoot;
         protected Boolean _bactivated { set; get; }
@@ -55,5 +55,7 @@ namespace Electric_Potatoe_TD
             return true;
         }
 
+
+        public double get { get; set; }
     }
 }
