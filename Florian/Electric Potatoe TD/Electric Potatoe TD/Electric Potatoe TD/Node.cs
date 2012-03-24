@@ -64,7 +64,7 @@ namespace Electric_Potatoe_TD
             return true;
         }
 
-        public double energyDiv()
+        public override double energyDiv()
         {
             double tmp = _intensity / _peerOut.Count;
             if (_nodeLvl == 1)
