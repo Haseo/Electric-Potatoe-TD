@@ -3,7 +3,6 @@ Content\Start.xnb
 Content\Menu.xnb
 Content\Resume.xnb
 Content\Surrend.xnb
-Content\RageMeterHigh.xnb
 Content\RageMeterLow.xnb
 Content\RageMeterMiddle.xnb
 Content\ReactorA.xnb
@@ -15,5 +14,15 @@ Content\Mob1.xnb
 Content\Mob2.xnb
 Content\Mob3.xnb
 Content\Mob4.xnb
+Content\Button.xnb
+Content\Level1.xnb
+Content\Level2.xnb
+Content\Level3.xnb
+Content\Level4.xnb
+Content\Node.xnb
+Content\TowerFast.xnb
+Content\TowerHeavy.xnb
+Content\TowerNormal.xnb
+Content\RageMeterHigh.xnb
 Content\RageMetter.xnb
 Content\MenuIG.xnb

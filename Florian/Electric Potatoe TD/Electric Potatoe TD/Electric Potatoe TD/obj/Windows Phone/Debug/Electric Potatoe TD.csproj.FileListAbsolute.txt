@@ -112,6 +112,15 @@ C:\Users\Winter\proj\ElectricPotatoeTD\Florian\Electric Potatoe TD\Electric Pota
 C:\Users\Winter\proj\ElectricPotatoeTD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\AppManifest.xaml
 C:\Users\Winter\proj\ElectricPotatoeTD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\WMAppManifest.xml.g
 C:\Users\Winter\proj\ElectricPotatoeTD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\WMAppManifest.xml
-bin\Windows Phone\Debug\
 C:\Users\Winter\proj\ElectricPotatoeTD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Electric Potatoe TD.xap
 C:\Users\Winter\proj\ElectricPotatoeTD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\XapCacheFile.xml
+C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\Button.xnb
+C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\Level1.xnb
+C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\Level2.xnb
+C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\Level3.xnb
+C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\Level4.xnb
+C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\Node.xnb
+C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\TowerFast.xnb
+C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\TowerHeavy.xnb
+C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\TowerNormal.xnb
+bin\Windows Phone\Debug\GameThumbnail.png
