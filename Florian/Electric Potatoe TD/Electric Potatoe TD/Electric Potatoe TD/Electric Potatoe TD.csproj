@@ -96,7 +96,12 @@
     <Compile Include="Generator.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Menu_IG.cs" />
-    <Compile Include="Mob.cs" />
+    <Compile Include="Mob\Berserk.cs" />
+    <Compile Include="Mob\Boss.cs" />
+    <Compile Include="Mob\Mob.cs" />
+    <Compile Include="Mob\Peon.cs" />
+    <Compile Include="Mob\Speed.cs" />
+    <Compile Include="Mob\Tank.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Peon.cs" />
     <Compile Include="Potatoe.cs" />

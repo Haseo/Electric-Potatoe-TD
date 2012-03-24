@@ -11,12 +11,13 @@ namespace Electric_Potatoe_TD
         {
             List<Node> emp = new List<Node>();
             Node tmp = game.TurretList.First<Node>();
-            ElectricityCalcul(tmp, game.getScore(), game.getScore(), true, emp);
+            int Volt = game.getScore();
+            int In = game.getScore();
+            ElectricityCalcul(tmp, ref Volt, In, true, ref emp);
         }
 
-        static void ElectricityCalcul(Node actual, int VoltageColector, int Intansity, bool previous, List<Node>Visited)
+        static void ElectricityCalcul(Node actual, ref int VoltageColector, int Intensity, bool previous, ref List<Node>Visited)
         {
-
             if (VoltageColector <= 0 || previous ==  false)
             {
                 actual._activated = false;
@@ -30,21 +31,26 @@ namespace Electric_Potatoe_TD
                 else
                 {
                    actual._activated = true;
+                   actual._intensity = Intensity;
                    VoltageColector = -actual.getCost();
                 }
             }
             Visited.Add(actual);
+            List<Node> tmp = Visited;
+            int localVoltage  = VoltageColector;
             actual._peerOut.ForEach(delegate(Node other)
             {
                 bool visit = false;
-                Visited.ForEach(delegate(Node buf)
+                foreach (Node buf in tmp)
                 {
                     if (buf == other)
                         visit = true;
-                });
+                }
                  if (visit == false)
-                    ElectricityCalcul(other, VoltageColector, (int)actual.energyDiv(), actual._activated, Visited); 
+                     ElectricityCalcul(other, ref localVoltage, (int)actual.energyDiv(), actual._activated, ref tmp); 
                 });
+            VoltageColector = localVoltage;
+            Visited.AddRange(tmp);
         }
     }
 }

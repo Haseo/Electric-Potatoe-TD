@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Electric_Potatoe_TD
 {
-    class Generator : Node
+    class Generator : Tower
     {
         const int GENERATOR__COST = 200;
         public override double energyDiv()

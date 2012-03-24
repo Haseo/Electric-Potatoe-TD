@@ -23,7 +23,7 @@ namespace Electric_Potatoe_TD
 
         protected int _resistor { get; set; }
         protected double _volt { get; set; }
-        protected double _intensity { get; set; }
+        public double _intensity { get; set; }
 
         public List<Node> _peerOut { get; set; }
         public Boolean _activated {set; get;}
