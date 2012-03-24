@@ -16,7 +16,7 @@ namespace Electric_Potatoe_TD
             ElectricityCalcul(tmp, ref Volt, In, true, ref emp);
         }
 
-        static void ElectricityCalcul(Node actual, ref int VoltageColector, int Intansity, bool previous, ref List<Node>Visited)
+        static void ElectricityCalcul(Node actual, ref int VoltageColector, int Intensity, bool previous, ref List<Node>Visited)
         {
             if (VoltageColector <= 0 || previous ==  false)
             {
@@ -31,6 +31,7 @@ namespace Electric_Potatoe_TD
                 else
                 {
                    actual._activated = true;
+                   actual._intensity = Intensity;
                    VoltageColector = -actual.getCost();
                 }
             }
