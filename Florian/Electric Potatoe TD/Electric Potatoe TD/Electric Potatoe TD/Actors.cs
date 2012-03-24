@@ -31,5 +31,10 @@ namespace Electric_Potatoe_TD
             _position.X = xPos;
             _position.Y = yPos;
         }
+
+        public Vector2 getPosition()
+        {
+            return (_position);
+        }
     }
 }

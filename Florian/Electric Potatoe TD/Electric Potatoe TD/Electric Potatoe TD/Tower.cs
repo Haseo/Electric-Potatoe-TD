@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
-
+using Electric_Potatoe_TD.Mob;
 
 namespace Electric_Potatoe_TD
 {
@@ -29,7 +29,7 @@ namespace Electric_Potatoe_TD
         protected int _lastShoot;
         protected Boolean _bactivated { set; get; }
 
-        public List<Mob> listTarget = new List<Mob>();
+        public List<Electric_Potatoe_TD.Mob.Mob> listTarget = new List<Electric_Potatoe_TD.Mob.Mob>();
 
         public Tower(float xPos, float yPos, int resistor, int cost)
             : base(xPos, yPos, resistor, cost)
