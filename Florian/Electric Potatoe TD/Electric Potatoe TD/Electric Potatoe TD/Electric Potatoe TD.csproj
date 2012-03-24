@@ -89,21 +89,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actors.cs" />
-    <Compile Include="Berserk.cs" />
-    <Compile Include="Boss.cs" />
     <Compile Include="ElectricityManager.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Generator.cs" />
+    <Compile Include="Map1.cs" />
+    <Compile Include="MapLoader.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Menu_IG.cs" />
+    <Compile Include="Mob\Mob.cs" />
     <Compile Include="Mob\Berserk.cs" />
     <Compile Include="Mob\Boss.cs" />
-    <Compile Include="Mob\Mob.cs" />
     <Compile Include="Mob\Peon.cs" />
     <Compile Include="Mob\Speed.cs" />
     <Compile Include="Mob\Tank.cs" />
+    <Compile Include="Mob\Wave.cs" />
     <Compile Include="Node.cs" />
-    <Compile Include="Peon.cs" />
     <Compile Include="Potatoe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shooter.cs" />

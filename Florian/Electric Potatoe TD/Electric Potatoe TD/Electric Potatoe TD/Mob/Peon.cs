@@ -25,7 +25,7 @@ namespace Electric_Potatoe_TD.Mob
             this.mobName = "peon";
             this.Waypoint = NewWay;
             this.mobAttack = 10;
-            this.mobType = ETypes.PEON;
+            this.mobType = EMobType.PEON;
             if (NewWay != null && NewWay.Count > 0)
                 this.mobPos = NewWay[0];
         }

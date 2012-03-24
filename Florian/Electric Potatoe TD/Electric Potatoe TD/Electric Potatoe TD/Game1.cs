@@ -28,6 +28,12 @@ namespace Electric_Potatoe_TD
         private Menu _menu;
         private Game _game;
         private Menu_IG _menuIg;
+        private int CurrentFrame;
+        private int FrameStart;
+        private int FPS;
+        private int SheetSize;
+        private int FrameCounter;
+
 
         public Game1()
         {
@@ -38,6 +44,10 @@ namespace Electric_Potatoe_TD
             _game = new Game(this);
             _menuIg = new Menu_IG(this);
             TargetElapsedTime = TimeSpan.FromTicks(333333);
+            FrameStart = 0;
+            FPS = 30;
+            SheetSize = 5;
+            FrameCounter = 0;
             this.Window.OrientationChanged += new EventHandler<EventArgs>(this.Oriented_changed);
         }
 
@@ -98,6 +108,20 @@ namespace Electric_Potatoe_TD
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+            FrameStart += gameTime.ElapsedGameTime.Milliseconds;
+            if (FrameStart > FPS)
+            {
+                ++FrameCounter;
+                FrameStart -= FPS;
+                if (FrameCounter == 4)
+                {
+                    ++CurrentFrame;
+                    FrameCounter = 0;
+                }
+                if (CurrentFrame >= SheetSize)
+                    CurrentFrame = 0;
+            }
+
             switch (_statut)
             {
                 case Game_Statut.Menu:
@@ -120,7 +144,7 @@ namespace Electric_Potatoe_TD
                 case Game_Statut.Menu:
                     _menu.draw(); break;
                 case Game_Statut.Game:
-                    _game.draw(); break;
+                    _game.draw(FrameStart, FPS, CurrentFrame, SheetSize); break;
                 case Game_Statut.Menu_Ig:
                     _menuIg.draw(); break;
             }
