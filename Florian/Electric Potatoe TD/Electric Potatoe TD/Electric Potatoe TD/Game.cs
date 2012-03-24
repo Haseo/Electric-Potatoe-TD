@@ -496,5 +496,17 @@ namespace Electric_Potatoe_TD
             TurretList[3].levelUpTower(ref capital);
             TurretList[3].levelUpTower(ref capital);
         }
+
+        public void mobIsDead(Mob.Mob mob)
+        {
+            int     i = 0;
+
+            while (i <= listTarget.Count)
+            {
+                if (mob == listTarget[i])
+                    listTarget.RemoveAt(i);
+                i++;
+            }
+        }
     }
 }
