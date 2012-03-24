@@ -23,7 +23,7 @@ namespace Electric_Potatoe_TD
         protected double _coef_range { get; set; }
 
         protected double _multPowerAtt { get; set; }
-        protected double _multSpeedAtt { get; set;}
+        protected double _multSpeedAtt { get; set; }
         protected double _range { get; set; }
 
         protected int _lastShoot;
@@ -57,20 +57,19 @@ namespace Electric_Potatoe_TD
 
         public double get { get; set; }
 
-        /*
-         * * En construction
-
-        public Mob.Mob checkRange(Tower tower, Mob.Mob mob)
+        public void checkOutOfRange()
         {
-            Vector2 mobpos;
+            int i = 0;
 
-            if ((System.Math.Sqrt(System.Math.Pow((mob.MobPos.X - tower._position.X), 2)
-                    + System.Math.Pow((mob.MobPos.Y - tower._position.Y), 2))) < tower._range)
+            while (i <= listTarget.Count)
             {
-                return (mob);
+                if ((System.Math.Sqrt(System.Math.Pow((listTarget[i].MobPos.X - _position.X), 2)
+                        + System.Math.Pow((listTarget[i].MobPos.Y - _position.Y), 2))) > _range)
+                {
+                    listTarget.RemoveAt(i);
+                }
+                i++;
             }
-            return (false);
         }
-        */
     }
 }
