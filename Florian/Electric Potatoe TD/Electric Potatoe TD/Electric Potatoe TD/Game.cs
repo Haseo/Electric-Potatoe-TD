@@ -302,5 +302,22 @@ namespace Electric_Potatoe_TD
             TurretList.Add(new Vector2(0, 1));
             TurretList.Add(new Vector2(2, 4));
         }
+
+        /*
+         * * Tower's bussiness
+         * *
+         * */
+
+        public Mob checkRange(Tower tower, Mob mob)
+        {
+            Vector2 mobpos;
+
+            if ((System.Math.Sqrt(System.Math.Pow((mob.MobPos.X - tower._position.X), 2)
+                    + System.Math.Pow((mob.MobPos.Y - tower._position.Y), 2))) < tower._range)
+                {
+                return (mob);
+            }
+            return (false);
+        }
     }
 }
