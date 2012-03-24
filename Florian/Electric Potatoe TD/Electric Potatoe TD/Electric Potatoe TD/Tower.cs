@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
-
+using Electric_Potatoe_TD.Mob;
 
 namespace Electric_Potatoe_TD
 {
@@ -22,14 +22,14 @@ namespace Electric_Potatoe_TD
         protected double _coef_speed { get; set; }
         protected double _coef_range { get; set; }
 
-        protected double _multPowerAtt;
-        protected double _multSpeedAtt;
-        protected double _range;
+        protected double _multPowerAtt { get; }
+        protected double _multSpeedAtt { get; }
+        protected double _range { public get;}
 
         protected int _lastShoot;
         protected Boolean _bactivated { set; get; }
 
-        public List<Mob> listTarget = new List<Mob>();
+        public List<Electric_Potatoe_TD.Mob.Mob> listTarget = new List<Electric_Potatoe_TD.Mob.Mob>();
 
         public Tower(float xPos, float yPos, int resistor, int cost)
             : base(xPos, yPos, resistor, cost)
@@ -55,5 +55,7 @@ namespace Electric_Potatoe_TD
             return true;
         }
 
+
+        public double get { get; set; }
     }
 }

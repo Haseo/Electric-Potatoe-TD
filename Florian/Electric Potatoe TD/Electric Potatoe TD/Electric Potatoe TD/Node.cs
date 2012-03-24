@@ -15,7 +15,14 @@ namespace Electric_Potatoe_TD
 {
     public class Node : Actor
     {
+<<<<<<< HEAD
         const double POWER_GIVE_BY_LEVEL = 0.1;
+=======
+        protected Game _game;
+
+        protected int _resistor { get; set; }
+        protected int _cost { get; set; }
+>>>>>>> 1ab63844b8d26ad93605da4b3e3fe5b86995bfe4
 
         protected Game _game;
         protected int _nodeLvl { get; set; }
@@ -28,12 +35,20 @@ namespace Electric_Potatoe_TD
         protected Boolean _activated = false;
         protected int _cost { get; set; }
 
+<<<<<<< HEAD
         public Node(float xPos, float yPos, int resistor, int cost, Game data) : base(xPos, yPos)
         {
             _resistor = resistor;
             _cost = cost;
             _nodeLvl = 1;
             _game = data;
+=======
+        public Node(float xPos, float yPos, int resistor, int cost, Game game) : base(xPos, yPos)
+        {
+            _resistor = resistor;
+            _cost = cost;
+            _game = game;
+>>>>>>> 1ab63844b8d26ad93605da4b3e3fe5b86995bfe4
         }
 
         public Boolean addLink(Node contact)

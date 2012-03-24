@@ -26,6 +26,7 @@ namespace Electric_Potatoe_TD
         const double COEF_RESIST = 1.0;
 
         const int COST = 100;
+        const int RESIST = 50;
 
         public Shooter(float xPos, float yPos, int resistor, int cost) : base(xPos, yPos, resistor, cost)
         {
@@ -36,8 +37,9 @@ namespace Electric_Potatoe_TD
             _coef_range = COEF_RANGE;
             _coef_speed = COEF_SPEED;
             _cost = COST;
+            _resistor = RESIST;
         }
 
-
+        public EType
     }
 }

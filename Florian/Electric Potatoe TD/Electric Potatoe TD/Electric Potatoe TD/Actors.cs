@@ -14,15 +14,27 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Electric_Potatoe_TD
 {
+    public enum EType
+    {
+        Node,
+        Shooter,
+        Strenght,
+        Speed
+    }
+
     public abstract class Actor
     {
-        // Les setters etaient en private
-        Vector2 _position;
+        public Vector2 _position;
 
         public Actor(float xPos, float yPos)
         {
             _position.X = xPos;
             _position.Y = yPos;
+        }
+
+        public Vector2 getPosition()
+        {
+            return (_position);
         }
     }
 }
