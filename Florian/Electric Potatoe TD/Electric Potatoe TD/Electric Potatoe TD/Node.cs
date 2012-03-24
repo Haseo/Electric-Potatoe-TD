@@ -52,7 +52,7 @@ namespace Electric_Potatoe_TD
             return tmp + (POWER_GIVEN_BY_LEVEL * _nodeLvl * tmp);
         }
 
-        public EType getType()
+        public virtual EType getType()
         {
             return   EType.NODE;
         }

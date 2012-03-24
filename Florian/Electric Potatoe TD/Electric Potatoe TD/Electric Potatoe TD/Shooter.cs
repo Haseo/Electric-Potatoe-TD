@@ -41,7 +41,7 @@ namespace Electric_Potatoe_TD
             _resistor = RESIST;
         }
 
-        public new EType getType()
+        public override EType getType()
         {
             return (EType.SHOOTER);
         }

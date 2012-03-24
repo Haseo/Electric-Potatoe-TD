@@ -30,7 +30,7 @@ namespace Electric_Potatoe_TD
         Texture2D RageMetter_bot;
         SpriteFont RageMetter_font;
         Rectangle[] _position;
-
+        Dictionary<EType, Texture2D> TypeTexture;
         List<Node> TurretList;
 
         Potatoe _central;
@@ -66,6 +66,7 @@ namespace Electric_Potatoe_TD
             _zoom = false;
             Zoom = new Vector2(0, 0);
             _central = new Potatoe();
+            TypeTexture = new Dictionary<EType,Texture2D>();
         }
 
 
@@ -100,10 +101,10 @@ namespace Electric_Potatoe_TD
             RageMetter_bot = _origin.Content.Load<Texture2D>("RageMeterLow");
             RageMetter_font = _origin.Content.Load<SpriteFont>("RageMetter");
             groundTexture = _origin.Content.Load<Texture2D>("grass");
-            turretTextureSpeed = _origin.Content.Load<Texture2D>("TowerFast");
-            turretTextureShooter = _origin.Content.Load<Texture2D>("TowerNormal");
-            turretTextureHeavy = _origin.Content.Load<Texture2D>("TowerHeavy");
-            nodeTexture = _origin.Content.Load<Texture2D>("Node");
+            TypeTexture[EType.SPEED] = _origin.Content.Load<Texture2D>("TowerFast");
+            TypeTexture[EType.SHOOTER] = _origin.Content.Load<Texture2D>("TowerNormal");
+            TypeTexture[EType.STRENGHT] = _origin.Content.Load<Texture2D>("TowerHeavy");
+            TypeTexture[EType.NODE] = _origin.Content.Load<Texture2D>("Node");
         }
 
         public void UnloadContent()
@@ -209,22 +210,12 @@ namespace Electric_Potatoe_TD
                     }
                 }
             }
-
-            int i = 0;
             foreach (Node myTurret in TurretList)
             {
                 if ((int)myTurret.getPosition().X >= (int)Zoom.X && (int)myTurret.getPosition().X < (int)Zoom.X + 7 && (int)myTurret.getPosition().Y >= (int)Zoom.Y && (int)myTurret.getPosition().Y < (int)Zoom.Y + 5)
                 {
-                    if (i == 0)
-                        _origin.spriteBatch.Draw(turretTextureShooter, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.getPosition().X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.getPosition().Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
-                    if (i == 1)
-                        _origin.spriteBatch.Draw(turretTextureSpeed, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.getPosition().X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.getPosition().Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
-                    if (i == 2)
-                        _origin.spriteBatch.Draw(turretTextureHeavy, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.getPosition().X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.getPosition().Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
-                    if (i == 3)
-                        _origin.spriteBatch.Draw(nodeTexture, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.getPosition().X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.getPosition().Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
+                   _origin.spriteBatch.Draw(TypeTexture[myTurret.getType()], new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.getPosition().X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.getPosition().Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
                 } 
-                i++;
             }
         }
 
@@ -243,18 +234,9 @@ namespace Electric_Potatoe_TD
                     }
                 }
             }
-            int i = 0;
             foreach (Node myTurret in TurretList)
             {
-                if (i == 0)
-                    _origin.spriteBatch.Draw(turretTextureShooter, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), Color.White);
-                if (i == 1)
-                    _origin.spriteBatch.Draw(turretTextureSpeed, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), Color.White);
-                if (i == 2)
-                    _origin.spriteBatch.Draw(turretTextureHeavy, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), Color.White);
-                if (i == 3)
-                    _origin.spriteBatch.Draw(nodeTexture, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), Color.White);
-                i++;
+                _origin.spriteBatch.Draw(TypeTexture[myTurret.getType()], new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), Color.White);
             }
         }
 
@@ -339,7 +321,7 @@ namespace Electric_Potatoe_TD
             TurretList.Add(new Node(0, 1, 10, 10, this));
             TurretList.Add(new Strenght(2, 4, 10, 10, this));
             TurretList.Add(new Speed(4, 2, 10, 10, this));
-            TurretList.Add(new Tower(0, 0, 10, 10, this));
+            TurretList.Add(new Shooter(0, 0, 10, 10, this));
         }
     }
 }
