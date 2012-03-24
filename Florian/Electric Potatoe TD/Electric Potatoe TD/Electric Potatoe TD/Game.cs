@@ -479,8 +479,8 @@ namespace Electric_Potatoe_TD
             {
                 if (RageMetter_flag == 1)
                 {
-                    CoefBonus = 0;
-                    RageMetter = 0;
+                    CoefBonus = 1;
+                    RageMetter = 1;
                 }
                 RageMetter_flag--;
                 return;
@@ -494,7 +494,7 @@ namespace Electric_Potatoe_TD
                 }
                 else if (RageMetter < 50)
                 {
-                    moreThan = 0.2;
+                    moreThan = 0.15;
                     CoefBonus = 2;
                 }
                 else if (RageMetter < 70)
@@ -514,15 +514,17 @@ namespace Electric_Potatoe_TD
                 }
                 else if (RageMetter < 110)
                 {
-                    RageMetter_flag = 500;
+                    RageMetter_flag = 175;
                     CoefBonus = 0;
                 }
              }
             
-            if (RageMetter_tmp > 8)
+            if (RageMetter_tmp > 2)
             {
-                RageMetter_flag = (int)(CoefBonus * 40);
-                RageMetter_tmp = 0;
+                if (RageMetter_tmp > 200)
+                    RageMetter_tmp = 10;
+                if (RageMetter > 1)
+                    RageMetter--;
             }
 
             if ((accelReading.X > accelBuff.X && accelReading.X - accelBuff.X > moreThan)
