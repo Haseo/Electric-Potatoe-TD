@@ -82,6 +82,11 @@ namespace Electric_Potatoe_TD
             return true;
         }
 
+        public virtual void update()
+        {
+
+        }
+
         public virtual double energyDiv()
         {
             double tmp = _intensity / _peerOut.Count;

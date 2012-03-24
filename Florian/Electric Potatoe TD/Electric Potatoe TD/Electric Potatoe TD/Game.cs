@@ -53,6 +53,7 @@ namespace Electric_Potatoe_TD
         Dictionary<int, Texture2D> LevelTexture;
         Texture2D NoConstruct;
         public List<Node> TurretList;
+        public List<Mob.Mob> MobList;
 
         Potatoe _central;
 
@@ -338,6 +339,31 @@ namespace Electric_Potatoe_TD
             }
         }
 
+        private void game_loop()
+        {
+            foreach (Mob.Mob mob in MobList)
+            {
+                int ret = mob.update();
+
+                if (ret == 0)
+                {
+                    foreach (Node myTurret in TurretList)
+                    {
+                        if (myTurret.getType() == EType.STRENGHT || myTurret.getType() == EType.SPEED || myTurret.getType() == EType.SHOOTER)
+                           ;// Check si la creature arrive a la portee d'une new tourelle
+                    }
+                }
+                else if (ret > 0)
+                    ;
+                // Change capital en fonction ret
+            }
+            // Manager Electric : update
+            foreach (Node myTurret in TurretList)
+            {
+                // myTurret.update();
+            }
+        }
+
         public void update()
         {
             if (RageMetter_flag >= 20 && RageMetter > 0)
@@ -477,7 +503,7 @@ namespace Electric_Potatoe_TD
             if (can_access() == true)
             {
                 _origin.spriteBatch.Draw(TypeTexture[EType.NODE], new Rectangle((int)pos_map.X + (size_caseZoom * ((int)stand.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)stand.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), new Rectangle(0 * FrameSize.X, 0, FrameSize.X, FrameSize.Y), Color.White);
-         }
+            }
             else
             {
                 _origin.spriteBatch.Draw(NoConstruct, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)stand.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)stand.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
