@@ -49,6 +49,7 @@ namespace Electric_Potatoe_TD
         Dictionary<EType, Texture2D> TypeTexture;
         Dictionary<EMapTexture, Texture2D> MapTexture;
         Dictionary<int, Color> LevelColor;
+        Dictionary<int, Texture2D> LevelTexture;
         public List<Node> TurretList;
 
         Potatoe _central;
@@ -62,11 +63,6 @@ namespace Electric_Potatoe_TD
         Vector2 pos_map;
         int size_case;
         int size_caseZoom;
-        Texture2D groundTexture;
-        Texture2D turretTextureSpeed;
-        Texture2D turretTextureShooter;
-        Texture2D turretTextureHeavy;
-        Texture2D nodeTexture;
 
         Vector2 Touch;
         bool _moveTouch;
@@ -96,6 +92,7 @@ namespace Electric_Potatoe_TD
             TypeTexture = new Dictionary<EType,Texture2D>();
             MapTexture = new Dictionary<EMapTexture, Texture2D>();
             LevelColor = new Dictionary<int, Color>();
+            LevelTexture = new Dictionary<int, Texture2D>();
         }
 
 
@@ -142,9 +139,14 @@ namespace Electric_Potatoe_TD
             TypeTexture[EType.NODE] = _origin.Content.Load<Texture2D>("Node");
             TypeTexture[EType.GENERATOR] = _origin.Content.Load<Texture2D>("TowerGenerator");
             LevelColor[0] = Color.White;
-            LevelColor[1] = Color.Yellow;
+            LevelColor[1] = Color.Green;
             LevelColor[2] = Color.Orange;
             LevelColor[3] = Color.Red;
+            LevelTexture[0] = _origin.Content.Load<Texture2D>("Level1");
+            LevelTexture[1] = _origin.Content.Load<Texture2D>("Level1");
+            LevelTexture[2] = _origin.Content.Load<Texture2D>("Level2");
+            LevelTexture[3] = _origin.Content.Load<Texture2D>("Level3");
+            LevelTexture[4] = _origin.Content.Load<Texture2D>("Level4");
         }
 
         public void UnloadContent()
@@ -390,7 +392,9 @@ namespace Electric_Potatoe_TD
             }
             foreach (Node myTurret in TurretList)
             {
-                _origin.spriteBatch.Draw(TypeTexture[myTurret.getType()], new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), Color.White);
+                _origin.spriteBatch.Draw(TypeTexture[myTurret.getType()], new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), LevelColor[myTurret.getNodeLevel()]); 
+                if (myTurret.getType() == EType.STRENGHT || myTurret.getType() == EType.SPEED || myTurret.getType() == EType.SHOOTER || myTurret.getType() == EType.GENERATOR)
+                    _origin.spriteBatch.Draw(LevelTexture[myTurret.getTowerLevel()], new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), LevelColor[myTurret.getNodeLevel()]);
             }
         }
 
@@ -479,11 +483,18 @@ namespace Electric_Potatoe_TD
 
         public void turretFiller()
         {
+            int capital = 6000;
             TurretList = new List<Node>();
             TurretList.Add(new Node(0, 1, 10, 10, this));
             TurretList.Add(new Strenght(2, 4, 10, 10, this));
             TurretList.Add(new Speed(4, 2, 10, 10, this));
             TurretList.Add(new Shooter(0, 0, 10, 10, this));
+            TurretList[2].levelUpNode(ref capital);
+            TurretList[2].levelUpNode(ref capital);
+            TurretList[3].levelUpNode(ref capital);
+            TurretList[3].levelUpTower(ref capital);
+            TurretList[3].levelUpTower(ref capital);
+            TurretList[3].levelUpTower(ref capital);
         }
     }
 }

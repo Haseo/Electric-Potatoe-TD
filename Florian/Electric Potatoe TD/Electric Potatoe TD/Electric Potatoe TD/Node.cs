@@ -38,7 +38,17 @@ namespace Electric_Potatoe_TD
             return _nodeLvl;
         }
 
-        public Boolean levelUpNode(int capital)
+        public virtual int getTowerLevel()
+        {
+            return 0;
+        }
+
+        public virtual Boolean levelUpTower(ref int capital)
+        {
+            return false;
+        }
+
+        public Boolean levelUpNode(ref int capital)
         {
             if (_cost * _nodeLvl > capital)
                 return false;
@@ -64,7 +74,7 @@ namespace Electric_Potatoe_TD
             return true;
         }
 
-        public double energyDiv()
+        public virtual double energyDiv()
         {
             double tmp = _intensity / _peerOut.Count;
             if (_nodeLvl == 1)
