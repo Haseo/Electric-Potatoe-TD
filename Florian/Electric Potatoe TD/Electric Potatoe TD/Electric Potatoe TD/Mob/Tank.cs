@@ -15,17 +15,17 @@ using Microsoft.Phone.Controls;
 
 namespace Electric_Potatoe_TD.Mob
 {
-    public class Peon : Mob
+    public class Tank : Mob
     {
-        public Peon(List<Vector2> NewWay)
+        public Tank(List<Vector2> NewWay)
         {
-            this.mobMaxPV = 100;
-            this.mobPV = 100;
-            this.mobSpeed = 4;
-            this.mobName = "peon";
+            this.mobMaxPV = 300;
+            this.mobPV = 300;
+            this.mobSpeed = 8;
+            this.mobName = "Tank";
             this.Waypoint = NewWay;
-            this.mobAttack = 10;
-            this.mobType = ETypes.PEON;
+            this.mobAttack = 5;
+            this.mobType = ETypes.TANK;
             if (NewWay != null && NewWay.Count > 0)
                 this.mobPos = NewWay[0];
         }

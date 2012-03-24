@@ -12,20 +12,19 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 using Microsoft.Phone.Controls;
 
-
 namespace Electric_Potatoe_TD.Mob
 {
-    public class Peon : Mob
+    public class Boss : Mob
     {
-        public Peon(List<Vector2> NewWay)
+        public Boss(List<Vector2> NewWay)
         {
-            this.mobMaxPV = 100;
-            this.mobPV = 100;
-            this.mobSpeed = 4;
-            this.mobName = "peon";
+            this.mobMaxPV = 500;
+            this.mobPV = 500;
+            this.mobSpeed = 5;
+            this.mobName = "Boss";
             this.Waypoint = NewWay;
-            this.mobAttack = 10;
-            this.mobType = ETypes.PEON;
+            this.mobAttack = 50;
+            this.mobType = ETypes.BOSS;
             if (NewWay != null && NewWay.Count > 0)
                 this.mobPos = NewWay[0];
         }

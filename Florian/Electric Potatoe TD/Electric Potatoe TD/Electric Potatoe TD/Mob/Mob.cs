@@ -14,6 +14,14 @@ using Microsoft.Phone.Controls;
 
 namespace Electric_Potatoe_TD.Mob
 {
+    public enum ETypes
+    {
+        PEON,
+        SPEED,
+        TANK,
+        BOSS
+    };
+
     public abstract class Mob
     {
         #region Propriétés
@@ -26,6 +34,19 @@ namespace Electric_Potatoe_TD.Mob
         protected Vector2          mobPos;
         protected int               currentLoop;
         protected List<Vector2>   Waypoint;
+        protected ETypes            mobType;
+        #endregion
+
+        #region asseceurs
+
+        public ETypes MobType { get { return this.mobType; } }
+        public String ModName {get{return this.mobName;}}
+        public int MobPV { get { return this.mobPV; } }
+        public int MobMaxPV{ get {return this.mobMaxPV; }}
+        public int MobSpeed { get { return this.mobSpeed; } }
+        public int MobAttack { get { return this.mobAttack; } }
+        public Vector2 MobPos { get { return this.mobPos; } }
+        
         #endregion
 
         #region Methode
