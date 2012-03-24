@@ -29,7 +29,7 @@ namespace Electric_Potatoe_TD.Mob
             this.mobName = "Berserk";
             this.Waypoint = NewWay;
             this.mobAttack = 5;
-            this.mobType = ETypes.BERSERK;
+            this.mobType = EMobType.BERSERK;
             if (NewWay != null && NewWay.Count > 0)
                 this.mobPos = NewWay[0];
             modificator = 1;

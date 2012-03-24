@@ -24,7 +24,7 @@ namespace Electric_Potatoe_TD.Mob
             this.mobName = "Boss";
             this.Waypoint = NewWay;
             this.mobAttack = 50;
-            this.mobType = ETypes.BOSS;
+            this.mobType = EMobType.BOSS;
             if (NewWay != null && NewWay.Count > 0)
                 this.mobPos = NewWay[0];
         }

@@ -25,7 +25,7 @@ namespace Electric_Potatoe_TD.Mob
             this.mobName = "Tank";
             this.Waypoint = NewWay;
             this.mobAttack = 5;
-            this.mobType = ETypes.TANK;
+            this.mobType = EMobType.TANK;
             if (NewWay != null && NewWay.Count > 0)
                 this.mobPos = NewWay[0];
         }

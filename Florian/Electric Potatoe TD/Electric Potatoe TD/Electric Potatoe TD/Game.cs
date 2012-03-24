@@ -35,6 +35,7 @@ namespace Electric_Potatoe_TD
         BOTLEFT = 4,
         TOPRIGHT = 5,
         BOTRIGHT = 6,
+        CENTRALTEX = 7,
     };
 
     public class Game
@@ -54,6 +55,9 @@ namespace Electric_Potatoe_TD
         public List<Node> TurretList;
 
         Potatoe _central;
+
+        //Animations
+        Point   FrameSize;
 
         int RageMetter;
         int RageMetter_flag;
@@ -96,6 +100,7 @@ namespace Electric_Potatoe_TD
             MapTexture = new Dictionary<EMapTexture, Texture2D>();
             LevelColor = new Dictionary<int, Color>();
             LevelTexture = new Dictionary<int, Texture2D>();
+            FrameSize = new Point(40, 40);
         }
 
 
@@ -138,6 +143,7 @@ namespace Electric_Potatoe_TD
             MapTexture[EMapTexture.TOPRIGHT] = _origin.Content.Load<Texture2D>("CanyonTopRight");
             MapTexture[EMapTexture.BOTLEFT] = _origin.Content.Load<Texture2D>("CanyonBotLeft");
             MapTexture[EMapTexture.BOTRIGHT] = _origin.Content.Load<Texture2D>("CanyonBotRight");
+            MapTexture[EMapTexture.CENTRALTEX] = _origin.Content.Load<Texture2D>("ReactorN");
             TypeTexture[EType.SPEED] = _origin.Content.Load<Texture2D>("TowerFast");
             TypeTexture[EType.SHOOTER] = _origin.Content.Load<Texture2D>("TowerNormal");
             TypeTexture[EType.STRENGHT] = _origin.Content.Load<Texture2D>("TowerHeavy");
@@ -148,7 +154,7 @@ namespace Electric_Potatoe_TD
             LevelColor[1] = Color.Green;
             LevelColor[2] = Color.Orange;
             LevelColor[3] = Color.Red;
-            LevelTexture[0] = _origin.Content.Load<Texture2D>("Level1");
+            LevelTexture[0] = _origin.Content.Load<Texture2D>("Level0");
             LevelTexture[1] = _origin.Content.Load<Texture2D>("Level1");
             LevelTexture[2] = _origin.Content.Load<Texture2D>("Level2");
             LevelTexture[3] = _origin.Content.Load<Texture2D>("Level3");
@@ -447,16 +453,16 @@ namespace Electric_Potatoe_TD
             }
         }
 
-        public void draw()
+        public void draw(int FrameStart, int FPS, int CurrentFrame, int SheetSize)
         {
             if (_zoom == false)
             {
-                draw_map();
+                draw_map(FrameStart, FPS, CurrentFrame, SheetSize);
                 draw_content();
             }
             else
             {
-                draw_mapZoom();
+                draw_mapZoom(FrameStart, FPS, CurrentFrame, SheetSize);
                 draw_contentZoom();
                 if (_moveTouch == true && _ListWay.Count > 0)
                     draw_newNode();
@@ -464,7 +470,7 @@ namespace Electric_Potatoe_TD
 
         }
 
-        public void draw_newNode()
+		public void draw_newNode()
         {
             Vector2 stand = _ListWay.Last<Vector2>();
 
@@ -477,8 +483,8 @@ namespace Electric_Potatoe_TD
                 _origin.spriteBatch.Draw(NoConstruct, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)stand.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)stand.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
             }
         }
-
-        public void draw_mapZoom()
+		
+        public void draw_mapZoom(int FrameStart, int FPS, int CurrentFrame, int SheetSize)
         {
             int x = (int)Zoom.X, y = (int)Zoom.Y;
 
@@ -490,7 +496,7 @@ namespace Electric_Potatoe_TD
                     {
                         case EMap.BACKGROUND: _origin.spriteBatch.Draw(MapTexture[EMapTexture.GROUND], new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White); break;
                         case EMap.CANYON_HORIZONTAL: _origin.spriteBatch.Draw(MapTexture[EMapTexture.HORIZONTAL], new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White); break;
-                        case EMap.CENTRAL: _origin.spriteBatch.Draw(MapTexture[EMapTexture.GROUND], new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.Blue); break;
+                        case EMap.CENTRAL: _origin.spriteBatch.Draw(MapTexture[EMapTexture.GROUND], new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom * 2, size_caseZoom * 2), Color.White); break;
                         case EMap.CANYON_VERTICAL: _origin.spriteBatch.Draw(MapTexture[EMapTexture.VERTICAL], new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White); break;
                         case EMap.CANYON_TOPRIGHT: _origin.spriteBatch.Draw(MapTexture[EMapTexture.TOPRIGHT], new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White); break;
                         case EMap.CANYON_TOPLEFT: _origin.spriteBatch.Draw(MapTexture[EMapTexture.TOPLEFT], new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White); break;
@@ -499,18 +505,29 @@ namespace Electric_Potatoe_TD
                     }
                 }
             }
+            for (x = (int)Zoom.X; x < Zoom.X + 7 && x < mapX; x++)
+            {
+                for (y = (int)Zoom.Y; y < Zoom.Y + 5 && y < mapY; y++)
+                {
+                    if (this.map[x, y] == EMap.CENTRAL)
+                        _origin.spriteBatch.Draw(MapTexture[EMapTexture.CENTRALTEX], new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), ((int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y))) - size_caseZoom, size_caseZoom * 2, size_caseZoom * 2), Color.White);
+                }
+            }
             foreach (Node myTurret in TurretList)
             {
                 if ((int)myTurret.getPosition().X >= (int)Zoom.X && (int)myTurret.getPosition().X < (int)Zoom.X + 7 && (int)myTurret.getPosition().Y >= (int)Zoom.Y && (int)myTurret.getPosition().Y < (int)Zoom.Y + 5)
                 {
-                   _origin.spriteBatch.Draw(TypeTexture[myTurret.getType()], new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.getPosition().X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.getPosition().Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), LevelColor[myTurret.getNodeLevel()]);
+                   _origin.spriteBatch.Draw(TypeTexture[myTurret.getType()], new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.getPosition().X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.getPosition().Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), LevelColor[myTurret.getNodeLevel()]);
+                   if (myTurret.getType() == EType.STRENGHT || myTurret.getType() == EType.SPEED || myTurret.getType() == EType.SHOOTER || myTurret.getType() == EType.GENERATOR)
+                      _origin.spriteBatch.Draw(LevelTexture[myTurret.getTowerLevel()], new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.getPosition().X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.getPosition().Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), LevelColor[myTurret.getNodeLevel()]);
                 } 
             }
         }
 
-        public void draw_map()
+        public void draw_map(int FrameStart, int FPS, int CurrentFrame, int SheetSize)
         {
             int x = 0, y = 0;
+
             for (x = 0; x < mapX; x++)
             {
                 for (y = 0; y < mapY; y++)
@@ -519,7 +536,7 @@ namespace Electric_Potatoe_TD
                     {
                         case EMap.BACKGROUND: _origin.spriteBatch.Draw(MapTexture[EMapTexture.GROUND], new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case, size_case), Color.White); break;
                         case EMap.CANYON_HORIZONTAL: _origin.spriteBatch.Draw(MapTexture[EMapTexture.HORIZONTAL], new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case, size_case), Color.White); break;
-                        case EMap.CENTRAL: _origin.spriteBatch.Draw(MapTexture[EMapTexture.GROUND], new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case, size_case), Color.Blue); break;
+                        case EMap.CENTRAL: _origin.spriteBatch.Draw(MapTexture[EMapTexture.GROUND], new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case * 2, size_case * 2), Color.White); break;
                         case EMap.CANYON_VERTICAL: _origin.spriteBatch.Draw(MapTexture[EMapTexture.VERTICAL], new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case, size_case), Color.White); break;
                         case EMap.CANYON_TOPLEFT: _origin.spriteBatch.Draw(MapTexture[EMapTexture.TOPLEFT], new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case, size_case), Color.White); break;
                         case EMap.CANYON_TOPRIGHT: _origin.spriteBatch.Draw(MapTexture[EMapTexture.TOPRIGHT], new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case, size_case), Color.White); break;
@@ -528,9 +545,20 @@ namespace Electric_Potatoe_TD
                     }
                 }
             }
+            for (x = 0; x < mapX; x++)
+            {
+                for (y = 0; y < mapY; y++)
+                {
+                    if(this.map[x, y] == EMap.CENTRAL)
+                        _origin.spriteBatch.Draw(MapTexture[EMapTexture.CENTRALTEX], new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y) - size_case, size_case * 2, size_case * 2), Color.White);
+                }
+            }
+            Vector2 pos = new Vector2();
             foreach (Node myTurret in TurretList)
             {
-                _origin.spriteBatch.Draw(TypeTexture[myTurret.getType()], new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), LevelColor[myTurret.getNodeLevel()]); 
+                pos.X = (int)pos_map.X + (size_case * (int)myTurret.getPosition().X);
+                pos.Y = (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y);
+                _origin.spriteBatch.Draw(TypeTexture[myTurret.getType()], new Rectangle((int)pos.X, (int)pos.Y, size_case, size_case), new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), LevelColor[myTurret.getNodeLevel()]); 
                 if (myTurret.getType() == EType.STRENGHT || myTurret.getType() == EType.SPEED || myTurret.getType() == EType.SHOOTER || myTurret.getType() == EType.GENERATOR)
                     _origin.spriteBatch.Draw(LevelTexture[myTurret.getTowerLevel()], new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), LevelColor[myTurret.getNodeLevel()]);
             }
@@ -578,8 +606,11 @@ namespace Electric_Potatoe_TD
 
         public void mapFiller()
         {
-            this.mapX = 14;
-            this.mapY = 7;
+            MapLoader NewMap = new MapLoader();
+            NewMap.Load(1);
+            int[] size = NewMap.getSize();
+            this.mapX = size[1];
+            this.mapY = size[0];
             pos_map.X = 10;
             pos_map.Y = 10;
             if ((((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) / mapX) <=
@@ -600,23 +631,7 @@ namespace Electric_Potatoe_TD
             {
                 size_caseZoom = (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / 5);
             }
-            this.map = new EMap[,]
-            {
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON_HORIZONTAL, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON_HORIZONTAL, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON_HORIZONTAL, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON_HORIZONTAL, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},                
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON_HORIZONTAL, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON_HORIZONTAL, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON_HORIZONTAL, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON_HORIZONTAL, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON_TOPLEFT, EMap.CANYON_BOTRIGHT, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON_HORIZONTAL, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON_HORIZONTAL, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON_HORIZONTAL, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CENTRAL, EMap.CENTRAL, EMap.CENTRAL, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CENTRAL, EMap.CENTRAL, EMap.CENTRAL, EMap.BACKGROUND, EMap.BACKGROUND},
-            };
+            this.map = NewMap.getMap();
         }
 
         public void turretFiller()
