@@ -16,11 +16,11 @@ namespace Electric_Potatoe_TD
 {
     public enum EType
     {
-        Node,
-        Shooter,
-        Strenght,
-        Speed,
-        Generator
+        NODE,
+        SHOOTER,
+        STRENGHT,
+        SPEED,
+        GENERATOR
     }
 
     public abstract class Actor

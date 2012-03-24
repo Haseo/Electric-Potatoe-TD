@@ -19,7 +19,7 @@ namespace Electric_Potatoe_TD
         const double POWER_GIVEN_BY_LEVEL = 0.1;
 
         protected Game _game;
-        protected int _nodeLvl { get; set; }
+        protected int _nodeLvl;
 
         protected int _resistor { get; set; }
         protected double _volt { get; set; }
@@ -31,6 +31,11 @@ namespace Electric_Potatoe_TD
         public int getCost()
         {
             return _cost;
+        }
+
+        public int getNodeLevel()
+        {
+            return _nodeLvl;
         }
 
         public Boolean levelUpNode(int capital)
@@ -46,7 +51,7 @@ namespace Electric_Potatoe_TD
         {
             _resistor = resistor;
             _cost = cost;
-            _nodeLvl = 1;
+            _nodeLvl = 0;
             _game = data;
             _activated = false;
         }
@@ -69,7 +74,7 @@ namespace Electric_Potatoe_TD
 
         public virtual EType getType()
         {
-         return   EType.Node;
+         return   EType.NODE;
         }
     }
 }

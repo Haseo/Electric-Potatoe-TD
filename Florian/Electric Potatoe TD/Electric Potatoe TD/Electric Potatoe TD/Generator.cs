@@ -19,7 +19,7 @@ namespace Electric_Potatoe_TD
 
         public override EType getType()
         {
-            return EType.Generator;
+            return EType.GENERATOR;
         }
     }
 }
