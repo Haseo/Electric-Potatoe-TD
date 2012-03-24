@@ -17,11 +17,12 @@ namespace Electric_Potatoe_TD
 {
     class Menu_IG
     {
-        
+
         Game1 _origin;
         Texture2D Logo;
         Texture2D Resume;
         Texture2D Surrend;
+        SpriteFont MenuIGFont;
         Rectangle[] _position;
 
         public Menu_IG(Game1 game)
@@ -35,6 +36,7 @@ namespace Electric_Potatoe_TD
              {  new Rectangle(_origin.graphics.PreferredBackBufferWidth / 3, _origin.graphics.PreferredBackBufferHeight / 12, 248, 248),
                 new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 3, _origin.graphics.PreferredBackBufferHeight * 2 / 3, 100, 60),
                 new Rectangle(_origin.graphics.PreferredBackBufferWidth * 2 / 3, _origin.graphics.PreferredBackBufferHeight * 2 / 3, 100, 60),
+                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 3, _origin.graphics.PreferredBackBufferHeight * 7 / 8, 100, 60),
              };
         }
 
@@ -43,11 +45,12 @@ namespace Electric_Potatoe_TD
             Logo = _origin.Content.Load<Texture2D>("Logo");
             Resume = _origin.Content.Load<Texture2D>("Resume");
             Surrend = _origin.Content.Load<Texture2D>("Surrend");
+            MenuIGFont = _origin.Content.Load<SpriteFont>("MenuIG");
         }
 
         public void UnloadContent()
         {
-            
+
         }
 
 
@@ -83,6 +86,7 @@ namespace Electric_Potatoe_TD
             _origin.spriteBatch.Draw(Logo, _position[0], Color.White);
             _origin.spriteBatch.Draw(Resume, _position[1], Color.White);
             _origin.spriteBatch.Draw(Surrend, _position[2], Color.White);
+            _origin.spriteBatch.DrawString(MenuIGFont, "Score : " + _origin.getScore().ToString(), new Vector2(_position[3].X, _position[3].Y), Color.Black);
         }
     }
 }

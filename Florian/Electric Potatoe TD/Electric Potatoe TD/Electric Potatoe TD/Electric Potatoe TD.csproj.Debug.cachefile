@@ -3,9 +3,6 @@ Content\Start.xnb
 Content\Menu.xnb
 Content\Resume.xnb
 Content\Surrend.xnb
-Content\Mob.xnb
-Content\Mob2.xnb
-Content\Mob3.xnb
 Content\RageMeterHigh.xnb
 Content\RageMeterLow.xnb
 Content\RageMeterMiddle.xnb
@@ -14,4 +11,9 @@ Content\ReactorN.xnb
 Content\ReactorW.xnb
 Content\grass.xnb
 Content\Logo.xnb
+Content\Mob1.xnb
+Content\Mob2.xnb
+Content\Mob3.xnb
+Content\Mob4.xnb
 Content\RageMetter.xnb
+Content\MenuIG.xnb

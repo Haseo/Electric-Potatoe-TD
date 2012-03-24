@@ -28,7 +28,7 @@ namespace Electric_Potatoe_TD
         private Menu _menu;
         private Game _game;
         private Menu_IG _menuIg;
-        
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -42,16 +42,21 @@ namespace Electric_Potatoe_TD
         }
 
         private void Oriented_changed(object sender, EventArgs e)
-        {            
+        {
             switch (_statut)
             {
                 case Game_Statut.Menu:
-                     break;
+                    break;
                 case Game_Statut.Game:
                     _game.Oriented_changed(); break;
                 case Game_Statut.Menu_Ig:
-                     break;
+                    break;
             }
+        }
+
+        public int getScore()
+        {
+            return (_game.getScore());
         }
 
         public void change_statut(Game_Statut statut)
@@ -112,7 +117,7 @@ namespace Electric_Potatoe_TD
             spriteBatch.Begin();
             switch (_statut)
             {
-                case Game_Statut.Menu :
+                case Game_Statut.Menu:
                     _menu.draw(); break;
                 case Game_Statut.Game:
                     _game.draw(); break;
