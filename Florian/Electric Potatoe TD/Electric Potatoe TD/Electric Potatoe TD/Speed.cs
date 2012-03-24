@@ -27,7 +27,8 @@ namespace Electric_Potatoe_TD
         const int COST = 500;
         const int RESIST = 50;
 
-        public Speed(float xPos, float yPos, int resistor, int cost) : base(xPos, yPos, resistor, cost)
+        public Speed(float xPos, float yPos, int resistor, int cost, Game game)
+            : base(xPos, yPos, resistor, cost, game)
         {
             _multPowerAtt = POWER;
             _multSpeedAtt = SPEED;
@@ -37,6 +38,11 @@ namespace Electric_Potatoe_TD
             _coef_speed = COEF_SPEED;
             _cost = COST;
             _resistor = RESIST;
+        }
+        
+        public new EType getType()
+        {
+            return (EType.SPEED);
         }
     }
 }

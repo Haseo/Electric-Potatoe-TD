@@ -21,7 +21,7 @@ namespace Electric_Potatoe_TD
         CENTRAL = 2,
     };
 
-    class Game
+    public class Game
     {
         Game1 _origin;
         Texture2D Menu;
@@ -336,27 +336,10 @@ namespace Electric_Potatoe_TD
         public void turretFiller()
         {
             TurretList = new List<Node>();
-            TurretList.Add(new Node(0, 1, 10, 10));
-            TurretList.Add(new Strenght(2, 4, 10, 10));
-            TurretList.Add(new Speed(4, 2, 10, 10));
-            TurretList.Add(new Tower(0, 0, 10, 10));
-        }
-
-        /*
-         * * Tower's bussiness
-         * *
-         * */
-
-        public Mob checkRange(Tower tower, Mob mob)
-        {
-            Vector2 mobpos;
-
-            if ((System.Math.Sqrt(System.Math.Pow((mob.MobPos.X - tower._position.X), 2)
-                    + System.Math.Pow((mob.MobPos.Y - tower._position.Y), 2))) < tower._range)
-                {
-                return (mob);
-            }
-            return (false);
+            TurretList.Add(new Node(0, 1, 10, 10, this));
+            TurretList.Add(new Strenght(2, 4, 10, 10, this));
+            TurretList.Add(new Speed(4, 2, 10, 10, this));
+            TurretList.Add(new Tower(0, 0, 10, 10, this));
         }
     }
 }

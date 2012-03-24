@@ -28,7 +28,8 @@ namespace Electric_Potatoe_TD
         const int COST = 100;
         const int RESIST = 50;
 
-        public Shooter(float xPos, float yPos, int resistor, int cost) : base(xPos, yPos, resistor, cost)
+        public Shooter(float xPos, float yPos, int resistor, int cost, Game game)
+            : base(xPos, yPos, resistor, cost, game)
         {
             _multPowerAtt = POWER;
             _multSpeedAtt = SPEED;
@@ -40,6 +41,9 @@ namespace Electric_Potatoe_TD
             _resistor = RESIST;
         }
 
-        public EType
+        public new EType getType()
+        {
+            return (EType.SHOOTER);
+        }
     }
 }

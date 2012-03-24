@@ -22,17 +22,17 @@ namespace Electric_Potatoe_TD
         protected double _coef_speed { get; set; }
         protected double _coef_range { get; set; }
 
-        protected double _multPowerAtt { get; }
-        protected double _multSpeedAtt { get; }
-        protected double _range { public get;}
+        protected double _multPowerAtt { get; set; }
+        protected double _multSpeedAtt { get; set;}
+        protected double _range { get; set; }
 
         protected int _lastShoot;
         protected Boolean _bactivated { set; get; }
 
         public List<Electric_Potatoe_TD.Mob.Mob> listTarget = new List<Electric_Potatoe_TD.Mob.Mob>();
 
-        public Tower(float xPos, float yPos, int resistor, int cost)
-            : base(xPos, yPos, resistor, cost)
+        public Tower(float xPos, float yPos, int resistor, int cost, Game game)
+            : base(xPos, yPos, resistor, cost, game)
         {
         }
 
@@ -55,7 +55,22 @@ namespace Electric_Potatoe_TD
             return true;
         }
 
-
         public double get { get; set; }
+
+        /*
+         * * En construction
+
+        public Mob.Mob checkRange(Tower tower, Mob.Mob mob)
+        {
+            Vector2 mobpos;
+
+            if ((System.Math.Sqrt(System.Math.Pow((mob.MobPos.X - tower._position.X), 2)
+                    + System.Math.Pow((mob.MobPos.Y - tower._position.Y), 2))) < tower._range)
+            {
+                return (mob);
+            }
+            return (false);
+        }
+        */
     }
 }
