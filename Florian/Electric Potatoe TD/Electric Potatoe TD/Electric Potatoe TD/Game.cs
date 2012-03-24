@@ -38,6 +38,7 @@ namespace Electric_Potatoe_TD
         int mapX, mapY;
         Vector2 pos_map;
         int size_case;
+        int size_caseZoom;
         Texture2D myTexture;
 
         bool _zoom;
@@ -140,6 +141,24 @@ namespace Electric_Potatoe_TD
             }
         }
 
+        public void draw_mapZoom(int zoomX, int zoomY)
+        {
+            int x = zoomX, y = zoomY;
+
+            for (x = zoomX; x < zoomX + 4 && x < mapX; x++)
+            {
+                for (y = zoomY; y < zoomY + 3 && y < mapY; y++)
+                {
+                    switch (this.map[x, y])
+                    {
+                        case EMap.BACKGROUND: _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_caseZoom * (x - zoomX)), (int)pos_map.Y + (size_caseZoom * (y - zoomY)), size_caseZoom, size_caseZoom), Color.Green); break;
+                        case EMap.CANYON: _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_caseZoom * (x - zoomX)), (int)pos_map.Y + (size_caseZoom * (y - zoomY)), size_caseZoom, size_caseZoom), Color.Red); break;
+                        case EMap.CENTRAL: _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_caseZoom * (x - zoomX)), (int)pos_map.Y + (size_caseZoom * (y - zoomY)), size_caseZoom, size_caseZoom), Color.Blue); break;
+                    }
+                }
+            }
+        }
+
         public void draw_content()
         {
             int i = 1;
@@ -178,6 +197,15 @@ namespace Electric_Potatoe_TD
             {
                 size_case = (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / mapY);
             }
+            if ((((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) / 2) <=
+                (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / 2))
+            {
+                size_caseZoom = (((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) /3);
+            }
+            else
+            {
+                size_caseZoom = (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) /3);
+            }
             this.map = new EMap[,]
             {
                 {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
@@ -188,10 +216,9 @@ namespace Electric_Potatoe_TD
                 {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
                 {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
                 {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CENTRAL, EMap.CENTRAL, EMap.CENTRAL},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CENTRAL, EMap.CENTRAL, EMap.CENTRAL},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CENTRAL, EMap.BACKGROUND},
             };
         }
-
     }
 }
