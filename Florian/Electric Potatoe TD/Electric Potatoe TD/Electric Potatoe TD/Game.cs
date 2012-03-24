@@ -42,7 +42,11 @@ namespace Electric_Potatoe_TD
         Vector2 pos_map;
         int size_case;
         int size_caseZoom;
-        Texture2D myTexture;
+        Texture2D groundTexture;
+        Texture2D turretTextureSpeed;
+        Texture2D turretTextureShooter;
+        Texture2D turretTextureHeavy;
+        Texture2D nodeTexture;
 
         Vector2 Zoom;
         Vector2 Touch;
@@ -91,7 +95,11 @@ namespace Electric_Potatoe_TD
             RageMetter_mid = _origin.Content.Load<Texture2D>("RageMeterMiddle");
             RageMetter_bot = _origin.Content.Load<Texture2D>("RageMeterLow");
             RageMetter_font = _origin.Content.Load<SpriteFont>("RageMetter");
-            myTexture = _origin.Content.Load<Texture2D>("grass");
+            groundTexture = _origin.Content.Load<Texture2D>("grass");
+            turretTextureSpeed = _origin.Content.Load<Texture2D>("TowerFast");
+            turretTextureShooter = _origin.Content.Load<Texture2D>("TowerNormal");
+            turretTextureHeavy = _origin.Content.Load<Texture2D>("TowerHeavy");
+            nodeTexture = _origin.Content.Load<Texture2D>("Node");
         }
 
         public void UnloadContent()
@@ -112,9 +120,9 @@ namespace Electric_Potatoe_TD
                 x--;
             if (y > 0)
                 y--;
-            while ((x + 3) >= mapX && x > 0)
+            while ((x + 6) >= mapX && x > 0)
                 x--;
-            while ((y + 2) >= mapY && y > 0)
+            while ((y + 4) >= mapY && y > 0)
                 y--;
             Zoom.X = x;
             Zoom.Y = y;
@@ -185,22 +193,34 @@ namespace Electric_Potatoe_TD
         {
             int x = (int)Zoom.X, y = (int)Zoom.Y;
 
-            for (x = (int)Zoom.X; x < Zoom.X + 4 && x < mapX; x++)
+            for (x = (int)Zoom.X; x < Zoom.X + 7 && x < mapX; x++)
             {
-                for (y = (int)Zoom.Y; y < Zoom.Y + 3 && y < mapY; y++)
+                for (y = (int)Zoom.Y; y < Zoom.Y + 5 && y < mapY; y++)
                 {
                     switch (this.map[x, y])
                     {
-                        case EMap.BACKGROUND: _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.Green); break;
-                        case EMap.CANYON: _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.Red); break;
-                        case EMap.CENTRAL: _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.Blue); break;
+                        case EMap.BACKGROUND: _origin.spriteBatch.Draw(groundTexture, new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.Green); break;
+                        case EMap.CANYON: _origin.spriteBatch.Draw(groundTexture, new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.Red); break;
+                        case EMap.CENTRAL: _origin.spriteBatch.Draw(groundTexture, new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.Blue); break;
                     }
                 }
-            } 
+            }
+
+            int i = 0;
             foreach (Vector2 myTurret in TurretList)
             {
-                if ((int)myTurret.X >= (int)Zoom.X && (int)myTurret.X < (int)Zoom.X + 4 && (int)myTurret.Y >= (int)Zoom.Y && (int)myTurret.Y < (int)Zoom.Y + 3)
-                    _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.Yellow);
+                if ((int)myTurret.X >= (int)Zoom.X && (int)myTurret.X < (int)Zoom.X + 7 && (int)myTurret.Y >= (int)Zoom.Y && (int)myTurret.Y < (int)Zoom.Y + 5)
+                {
+                    if (i == 0)
+                        _origin.spriteBatch.Draw(turretTextureShooter, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
+                    if (i == 1)
+                        _origin.spriteBatch.Draw(turretTextureSpeed, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
+                    if (i == 2)
+                        _origin.spriteBatch.Draw(turretTextureHeavy, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
+                    if (i == 3)
+                        _origin.spriteBatch.Draw(nodeTexture, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
+                } 
+                i++;
             }
         }
 
@@ -213,15 +233,24 @@ namespace Electric_Potatoe_TD
                 {
                     switch (this.map[x, y])
                     {
-                        case EMap.BACKGROUND: _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case, size_case), Color.Green); break;
-                        case EMap.CANYON: _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case, size_case), Color.Red); break;
-                        case EMap.CENTRAL: _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case, size_case), Color.Blue); break;
+                        case EMap.BACKGROUND: _origin.spriteBatch.Draw(groundTexture, new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case, size_case), Color.Green); break;
+                        case EMap.CANYON: _origin.spriteBatch.Draw(groundTexture, new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case, size_case), Color.Red); break;
+                        case EMap.CENTRAL: _origin.spriteBatch.Draw(groundTexture, new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case, size_case), Color.Blue); break;
                     }
                 }
             }
+            int i = 0;
             foreach (Vector2 myTurret in TurretList)
             {
-                _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.X), (int)pos_map.Y + (size_case * (int)myTurret.Y), size_case, size_case), Color.Yellow);
+                if (i == 0)
+                _origin.spriteBatch.Draw(turretTextureShooter, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.X), (int)pos_map.Y + (size_case * (int)myTurret.Y), size_case, size_case), Color.White);
+                if (i == 1)
+                    _origin.spriteBatch.Draw(turretTextureSpeed, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.X), (int)pos_map.Y + (size_case * (int)myTurret.Y), size_case, size_case), Color.White);
+                if (i == 2)
+                    _origin.spriteBatch.Draw(turretTextureHeavy, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.X), (int)pos_map.Y + (size_case * (int)myTurret.Y), size_case, size_case), Color.White);
+                if (i == 3)
+                    _origin.spriteBatch.Draw(nodeTexture, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.X), (int)pos_map.Y + (size_case * (int)myTurret.Y), size_case, size_case), Color.White);
+                i++;
             }
         }
 
@@ -259,8 +288,8 @@ namespace Electric_Potatoe_TD
 
         public void mapFiller()
         {
-            this.mapX = 10;
-            this.mapY = 5;
+            this.mapX = 14;
+            this.mapY = 7;
             pos_map.X = 10;
             pos_map.Y = 10;
             if ((((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) / mapX) <=
@@ -275,24 +304,28 @@ namespace Electric_Potatoe_TD
             if ((((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) / 2) <=
                 (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / 2))
             {
-                size_caseZoom = (((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) / 3);
+                size_caseZoom = (((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) / 5);
             }
             else
             {
-                size_caseZoom = (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / 3);
+                size_caseZoom = (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / 5);
             }
             this.map = new EMap[,]
             {
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.CANYON, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CENTRAL, EMap.CENTRAL, EMap.CENTRAL},
-                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CENTRAL, EMap.CENTRAL, EMap.CENTRAL},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},                
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND, EMap.CANYON, EMap.BACKGROUND, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CENTRAL, EMap.CENTRAL, EMap.CENTRAL, EMap.BACKGROUND, EMap.BACKGROUND},
+                {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CENTRAL, EMap.CENTRAL, EMap.CENTRAL, EMap.BACKGROUND, EMap.BACKGROUND},
             };
         }
 
@@ -301,6 +334,8 @@ namespace Electric_Potatoe_TD
             TurretList = new List<Vector2>();
             TurretList.Add(new Vector2(0, 1));
             TurretList.Add(new Vector2(2, 4));
+            TurretList.Add(new Vector2(4, 2));
+            TurretList.Add(new Vector2(0, 0));
         }
     }
 }
