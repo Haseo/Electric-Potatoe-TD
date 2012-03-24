@@ -24,6 +24,7 @@ namespace Electric_Potatoe_TD
 
     public class Game
     {
+        double CoefBonus;
         Accelerometer accSensor;
         Vector3 accelReading = new Vector3();
         Vector3 accelBuff = new Vector3();
@@ -42,7 +43,7 @@ namespace Electric_Potatoe_TD
 
         int RageMetter;
         int RageMetter_flag;
-
+        int RageMetter_tmp;
         // Map
         EMap[,] map;
         int mapX, mapY;
@@ -71,6 +72,7 @@ namespace Electric_Potatoe_TD
 
         public Game(Game1 game)
         {
+            RageMetter_tmp = 0; 
             _origin = game;
             RageMetter = 0;
             RageMetter_flag = 0;
@@ -469,40 +471,86 @@ namespace Electric_Potatoe_TD
 
         private void mvtBonus()
         {
+            double moreThan = 0;
+
             if (!AccAllow)
                 return;
+            if (RageMetter_flag > 0)
+            {
+                if (RageMetter_flag == 1)
+                {
+                    CoefBonus = 0;
+                    RageMetter = 0;
+                }
+                RageMetter_flag--;
+                return;
+            }
+            else
+            {
+                if (RageMetter < 20)
+                {
+                    moreThan = 0.3;
+                    CoefBonus = 1.5;
+                }
+                else if (RageMetter < 50)
+                {
+                    moreThan = 0.2;
+                    CoefBonus = 2;
+                }
+                else if (RageMetter < 70)
+                {
+                    moreThan = 0.1;
+                    CoefBonus = 3.5;
+                }
+                else if (RageMetter < 90)
+                {
+                    moreThan = 0.03;
+                    CoefBonus = 4;
+                }
+                else if (RageMetter < 100)
+                {
+                    moreThan = 0.03;
+                    CoefBonus = 4;
+                }
+                else if (RageMetter < 110)
+                {
+                    RageMetter_flag = 500;
+                    CoefBonus = 0;
+                }
+             }
+            
+            if (RageMetter_tmp > 8)
+            {
+                RageMetter_flag = (int)(CoefBonus * 40);
+                RageMetter_tmp = 0;
+            }
 
-            if ((accelReading.X > accelBuff.X && accelReading.X - accelBuff.X > 0.02)
-                    || accelReading.X > accelBuff.X && accelBuff.X - accelReading.X > 0.02)
+            if ((accelReading.X > accelBuff.X && accelReading.X - accelBuff.X > moreThan)
+                    || accelReading.X > accelBuff.X && accelBuff.X - accelReading.X > moreThan)
             {
-                RageMetter_flag++;
+                RageMetter++;
+                RageMetter_tmp = 0;
+            }
+            else if ((accelReading.Y > accelBuff.Y && accelReading.Y - accelBuff.Y > moreThan)
+            || accelReading.Y > accelBuff.Y && accelBuff.Y - accelReading.Y > moreThan)
+            {
+                RageMetter_tmp = 0;
                 RageMetter++;
             }
-            else if ((accelReading.Y > accelBuff.Y && accelReading.Y - accelBuff.Y > 0.02)
-            || accelReading.Y > accelBuff.Y && accelBuff.Y - accelReading.Y > 0.02)
+            else if ((accelReading.Z > accelBuff.Z && accelReading.Z - accelBuff.Y > moreThan)
+            || accelReading.Y > accelBuff.Y && accelBuff.Y - accelReading.Y > moreThan)
             {
-                RageMetter_flag++;
+                RageMetter_tmp = 0;
                 RageMetter++;
             }
-            else if ((accelReading.Z > accelBuff.Z && accelReading.Z - accelBuff.Y > 0.02)
-            || accelReading.Y > accelBuff.Y && accelBuff.Y - accelReading.Y > 0.02)
+            else
             {
-                RageMetter_flag++;
-                RageMetter++;
+                RageMetter_tmp++;
             }
 
             accelBuff.X = accelReading.X;
             accelBuff.Y = accelReading.Y;
             accelBuff.Z = accelReading.Z;
-
-            if (RageMetter_flag >= 20 && RageMetter > 0)
-            {
-                RageMetter--;
-                RageMetter_flag -= 5;
-            }
-            if (RageMetter_flag < 20)
-                RageMetter_flag++;
-            Console.WriteLine("accelReading.X : " + accelReading.X.ToString());
         }
 
         public void turretFiller()

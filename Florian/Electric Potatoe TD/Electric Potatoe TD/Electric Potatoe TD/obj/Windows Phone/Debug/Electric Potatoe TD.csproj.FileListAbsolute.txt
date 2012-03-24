@@ -163,9 +163,3 @@ C:\Users\besomb_a\Prog\Electric-Potatoe-TD\Electric-Potatoe-TD\Florian\Electric 
 bin\Windows Phone\Debug\
 C:\Users\besomb_a\Prog\Electric-Potatoe-TD\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Electric Potatoe TD.xap
 C:\Users\besomb_a\Prog\Electric-Potatoe-TD\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\XapCacheFile.xml
-C:\Users\besomb_a\Prog\Electric-Potatoe-TD\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Electric Potatoe TD.xap
-C:\Users\besomb_a\Prog\Electric-Potatoe-TD\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\XapCacheFile.xml
-C:\Users\besomb_a\Prog\Electric-Potatoe-TD\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\AppManifest.xaml
-C:\Users\besomb_a\Prog\Electric-Potatoe-TD\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\WMAppManifest.xml.g
-C:\Users\besomb_a\Prog\Electric-Potatoe-TD\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\WMAppManifest.xml
-bin\Windows Phone\Debug\
