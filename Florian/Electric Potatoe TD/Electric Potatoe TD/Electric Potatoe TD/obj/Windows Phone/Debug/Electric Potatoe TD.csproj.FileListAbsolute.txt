@@ -124,9 +124,7 @@ C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potato
 C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\TowerHeavy.xnb
 C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\TowerNormal.xnb
 bin\Windows Phone\Debug\GameThumbnail.png
-C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Electric Potatoe TD.xap
-C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\XapCacheFile.xml
-C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\AppManifest.xaml
-C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\WMAppManifest.xml.g
-C:\Users\florian\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\WMAppManifest.xml
-bin\Windows Phone\Debug\GameThumbnail.png
+C:\Users\besomb_a\Prog\Electric-Potatoe-TD\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\ResolveAssemblyReference.cache
+C:\Users\besomb_a\Prog\Electric-Potatoe-TD\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\besomb_a\Prog\Electric-Potatoe-TD\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\Electric Potatoe TD.dll
+C:\Users\besomb_a\Prog\Electric-Potatoe-TD\Electric-Potatoe-TD\Florian\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\obj\Windows Phone\Debug\Electric Potatoe TD.pdb

@@ -15,11 +15,10 @@ namespace Electric_Potatoe_TD
 {
     public class Node : Actor
     {
-        const double POWER_GIVE_BY_LEVEL = 0.1;
+        protected int _cost { get; set; }
+        const double POWER_GIVEN_BY_LEVEL = 0.1;
 
         protected Game _game;
-
-        protected int _cost { get; set; }
         protected int _nodeLvl { get; set; }
 
         protected int _resistor { get; set; }
@@ -32,6 +31,15 @@ namespace Electric_Potatoe_TD
         public int getCost()
         {
             return _cost;
+        }
+
+        public Boolean levelUpNode(int capital)
+        {
+            if (_cost * _nodeLvl > capital)
+                return false;
+            capital -= _cost * _nodeLvl;
+            _nodeLvl++;
+            return true;
         }
 
         public Node(float xPos, float yPos, int resistor, int cost, Game data) : base(xPos, yPos)
@@ -56,10 +64,10 @@ namespace Electric_Potatoe_TD
             double tmp = _intensity / _peerOut.Count;
             if (_nodeLvl == 1)
                 return tmp;
-            return tmp + (POWER_GIVE_BY_LEVEL * _nodeLvl * tmp);
+            return tmp + (POWER_GIVEN_BY_LEVEL * _nodeLvl * tmp);
         }
 
-        public EType getType()
+        public virtual EType getType()
         {
          return   EType.Node;
         }

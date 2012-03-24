@@ -25,6 +25,7 @@ namespace Electric_Potatoe_TD
 
     public abstract class Actor
     {
+        // Les setters etaient en private
         public Vector2 _position;
 
         public Actor(float xPos, float yPos)

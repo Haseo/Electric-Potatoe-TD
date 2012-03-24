@@ -22,17 +22,17 @@ namespace Electric_Potatoe_TD
         protected double _coef_speed { get; set; }
         protected double _coef_range { get; set; }
 
-        protected double _multPowerAtt { get; }
-        protected double _multSpeedAtt { get; }
-        protected double _range { public get;}
+        protected double _multPowerAtt { get; set; }
+        protected double _multSpeedAtt { get; set; }
+        protected double _range { get; set; }
 
         protected int _lastShoot;
         protected Boolean _bactivated { set; get; }
 
         public List<Electric_Potatoe_TD.Mob.Mob> listTarget = new List<Electric_Potatoe_TD.Mob.Mob>();
 
-        public Tower(float xPos, float yPos, int resistor, int cost)
-            : base(xPos, yPos, resistor, cost)
+        public Tower(float xPos, float yPos, int resistor, int cost, Game game)
+            : base(xPos, yPos, resistor, cost, game)
         {
         }
 
@@ -43,9 +43,9 @@ namespace Electric_Potatoe_TD
          * 
          * */
 
-        public Boolean levelUp(int capital)
+        public Boolean levelUpTower(int capital)
         {
-            if (_cost > capital)
+            if (_cost * _level > capital)
                 return false;
             capital -= _cost * _level;
             _level += 1;
@@ -55,7 +55,21 @@ namespace Electric_Potatoe_TD
             return true;
         }
 
-
         public double get { get; set; }
+
+        public void checkOutOfRange()
+        {
+            int i = 0;
+
+            while (i <= listTarget.Count)
+            {
+                if ((System.Math.Sqrt(System.Math.Pow((listTarget[i].MobPos.X - _position.X), 2)
+                        + System.Math.Pow((listTarget[i].MobPos.Y - _position.Y), 2))) > _range)
+                {
+                    listTarget.RemoveAt(i);
+                }
+                i++;
+            }
+        }
     }
 }
