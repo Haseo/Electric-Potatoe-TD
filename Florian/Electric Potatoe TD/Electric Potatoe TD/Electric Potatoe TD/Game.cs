@@ -51,6 +51,7 @@ namespace Electric_Potatoe_TD
         Dictionary<EMapTexture, Texture2D> MapTexture;
         Dictionary<int, Color> LevelColor;
         Dictionary<int, Texture2D> LevelTexture;
+        Texture2D NoConstruct;
         public List<Node> TurretList;
 
         Potatoe _central;
@@ -75,6 +76,8 @@ namespace Electric_Potatoe_TD
 
         Vector2 Zoom;
         bool _zoom;
+        List<Vector2> _ListWay;
+        List<bool> _ValidWay;
 
         // Selection
         Node _node;
@@ -115,6 +118,8 @@ namespace Electric_Potatoe_TD
         {
             int stand = (_origin.graphics.PreferredBackBufferHeight - (_origin.graphics.PreferredBackBufferHeight / 6)) / 55;
 
+            _ListWay = new List<Vector2>();
+            _ValidWay = new List<bool>();
             _position = new Rectangle[]
              { new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 10, _origin.graphics.PreferredBackBufferHeight * 5 / 6, _origin.graphics.PreferredBackBufferWidth / 10, _origin.graphics.PreferredBackBufferHeight / 6),
                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 10, stand, _origin.graphics.PreferredBackBufferWidth / 10, stand * 2),
@@ -143,7 +148,8 @@ namespace Electric_Potatoe_TD
             TypeTexture[EType.SHOOTER] = _origin.Content.Load<Texture2D>("TowerNormal");
             TypeTexture[EType.STRENGHT] = _origin.Content.Load<Texture2D>("TowerHeavy");
             TypeTexture[EType.NODE] = _origin.Content.Load<Texture2D>("Node");
-            TypeTexture[EType.GENERATOR] = _origin.Content.Load<Texture2D>("TowerGenerator");
+            TypeTexture[EType.GENERATOR] = _origin.Content.Load<Texture2D>("TowerFast");
+            NoConstruct = _origin.Content.Load<Texture2D>("NoConstruct");
             LevelColor[0] = Color.White;
             LevelColor[1] = Color.Green;
             LevelColor[2] = Color.Orange;
@@ -159,16 +165,33 @@ namespace Electric_Potatoe_TD
         {
         }
 
-        public bool calc_posZoom()
+        protected Vector2 ident_pos(Vector2 pos)
         {
             int x, y;
-            //  PosZoom;
-            //  Touch;
-            if (Touch.X >= ((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) ||
-                Touch.Y >= ((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10))
-                return (false);
-            x = ((int)Touch.X - 10) / size_case;
-            y = ((int)Touch.Y - 10) / size_case;
+
+            if (pos.X >= ((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) ||
+                pos.Y >= ((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10))
+                return (new Vector2(-1, -1));
+            if (_zoom == true)
+            {
+                x = ((int)pos.X - 10) / size_caseZoom;
+                y = ((int)pos.Y - 10) / size_caseZoom;
+            }
+            else
+            {
+                x = ((int)pos.X - 10) / size_case;
+                y = ((int)pos.Y - 10) / size_case;
+            }
+            if (_zoom == true)
+                return (new Vector2(x + Zoom.X, y + Zoom.Y));
+            return (new Vector2(x, y));
+        }
+
+        public bool calc_posZoom()
+        {
+            test = "calc_posZoom" + Touch.X + "/" + Touch.Y;
+            int x = (int)Touch.X, y = (int)Touch.Y;
+
             if (x > 0)
                 x--;
             if (y > 0)
@@ -182,50 +205,137 @@ namespace Electric_Potatoe_TD
             return (true);
         }
 
+
         public bool Select_Node()
         {
-            test = "Select_Node";
-            int x, y;
-
-            if (Touch.X >= ((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) ||
-                Touch.Y >= ((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10))
-                return (false);
-            x = ((int)Touch.X - 10) / size_caseZoom;
-            y = ((int)Touch.Y - 10) / size_caseZoom;
-            if (x > 0)
-                x--;
-            if (y > 0)
-                y--;
-            while ((x + 6) >= mapX && x > 0)
-                x--;
-            while ((y + 4) >= mapY && y > 0)
-                y--;
+            test = "Select_Node" + Touch.X + "/" + Touch.Y;
             return (true);
         }
 
 
         public bool Active_Desactive_Node()
         {
-            test = "Active_Desactive_Node";
+            test = "Active_Desactive_Node" + Touch.X + "/" + Touch.Y;
             return (true);
         }
 
         public bool init_wayTouch()
         {
+            if (map[(int)Touch.X, (int)Touch.Y] == EMap.BACKGROUND)
+            {
+                bool stand = false;
+
+                foreach (Node turret in TurretList)
+                {
+                    if (turret._position.X == Touch.X && turret._position.Y == Touch.Y && turret.CanaddLink() == true)
+                    {
+                        stand = true;
+                        break;
+                    }
+                }
+
+                if (stand == true)
+                {
+                    _ListWay.Add(Touch);
+                    _ValidWay.Add(true);
+                    return (true);
+                }
+            }
             test = "init_wayTouch : " + Touch.X + "/" + Touch.Y; ;
-            return (true);
+            return (false);
         }
 
         public bool add_wayTouch()
         {
+            int x = -1;
+            int stand = 0;
+
+            foreach (Vector2 pos in _ListWay)
+            {
+                if (x == -1 && pos.X == Touch.X && pos.Y == Touch.Y)
+                    x = stand;
+                stand++;
+            }
+            if (x != -1)
+            {
+                if (x < _ListWay.Count)
+                {
+                    while ((x + 1) < _ListWay.Count && x > 0)
+                    {
+                        _ValidWay.RemoveAt(_ListWay.Count - 1);
+                        _ListWay.RemoveAt(_ListWay.Count - 1);
+                    }
+                }
+            }
+            else
+            {
+                bool value = true;
+                _ListWay.Add(Touch);
+                if (map[(int)Touch.X, (int)Touch.Y] == EMap.BACKGROUND) // || ((int)Touch.X == _central.getPos().X && (int)Touch.Y == _central.getPos().Y))
+                {
+                    foreach (Node turret in TurretList)
+                    {
+                        if (turret._position.X == Touch.X && turret._position.Y == Touch.Y)
+                        {
+                            value = false;
+                            break;
+                        }
+                    }
+                }
+                else
+                    value = false;
+                _ValidWay.Add(value);
+            }
             test = "Add_wayTouch : " + Touch.X + "/" + Touch.Y;
             return (true);
         }
 
+        private  bool can_access()
+        {
+            bool can_create = true;
+
+            add_wayTouch();
+            foreach (bool value in _ValidWay)
+            {
+                if (value == false)
+                {
+                    can_create = false;
+                }
+            }
+            return (can_create);
+        }
+
         public bool end_wayTouch()
         {
-            test = "End_wayTouch : " + Touch.X + "/" + Touch.Y; ;
+            if (can_access() == true && _ListWay.Count > 0)
+            {
+                Vector2 stand = _ListWay.Last<Vector2>();
+
+                TurretList.Add(new Node(stand.X, stand.Y, 10, 10, this));
+                make_connect(stand, _ListWay.First<Vector2>());
+                test += "End_wayTouch : " + TurretList.Count.ToString() + "  ==  " + TurretList.Last<Node>()._position.ToString();
+            }
+            _ListWay.Clear();
+            _ValidWay.Clear();
             return (true);
+        }
+
+        private void make_connect(Vector2 new_node, Vector2 old_node)
+        {
+            Node newn = null, oldn = null;
+
+            foreach (Node turret in TurretList)
+            {
+                if (turret._position.X == new_node.X && turret._position.Y == new_node.Y)
+                    newn = turret;
+                if (turret._position.X == old_node.X && turret._position.Y == old_node.Y)
+                    oldn = turret;
+            }
+            if (newn != null && oldn != null)
+            {
+                newn.addLink(oldn);
+                oldn.addLink(newn);
+            }
         }
 
         public void update()
@@ -255,21 +365,30 @@ namespace Electric_Potatoe_TD
                     }
                     else if (touches[0].State == TouchLocationState.Pressed && _moveTouch == false)
                     {
-                        Touch = PositionTouch;
-                        _ValueTouch = 1;
+                        Touch = ident_pos(PositionTouch);
+                        if (Touch.X != -1 && Touch.Y != -1)
+                            _ValueTouch = 1;
                     }
-
-                    if (_zoom == true && _moveTouch == false && _ValueTouch > 10 && touches[0].State == TouchLocationState.Moved && _ValueTouch > 1)
+                    if (_zoom == true && _moveTouch == false && _ValueTouch > 10 && touches[0].State == TouchLocationState.Moved && _ValueTouch > 1 &&
+                         (Touch.X != ident_pos(PositionTouch).X || Touch.Y != ident_pos(PositionTouch).Y))
                     {
-                        _TouchFlag = -1; ;
+                        _TouchFlag = -1;
                         _ValueTouch = 0;
-                        _moveTouch = true;
-                        init_wayTouch();
+                        _moveTouch = init_wayTouch();
                     }
                     else if (_moveTouch == false)
                     {
-                        if (touches[0].State == TouchLocationState.Pressed && _TouchFlag > 0 &&
-                            PositionTouch.X == Touch.X && PositionTouch.Y == Touch.Y)
+                        /* if (_release == 0 && _zoom == true)
+                         {
+                             Active_Desactive_Node();
+                             _TouchFlag = -1;
+                             _moveTouch = false;
+                             _release = -1;
+                         }
+                         else*/
+                        if (_moveTouch == false && touches[0].State == TouchLocationState.Pressed && _TouchFlag > 0 &&
+                            (Touch.X == ident_pos(PositionTouch).X && Touch.Y == ident_pos(PositionTouch).Y) &&
+                            Touch.X != -1 && Touch.Y != -1)
                         {
                             if (_zoom == false)
                                 _zoom = calc_posZoom();
@@ -278,20 +397,19 @@ namespace Electric_Potatoe_TD
                             _TouchFlag = -1;
                             _moveTouch = false;
                         }
-                        else if (_TouchFlag == 0 && _zoom == true)
-                        {
-                            Active_Desactive_Node();
-                            _TouchFlag = -1;
-                            _moveTouch = false;
-                        }
                         else if (touches[0].State == TouchLocationState.Released)
                         {
                             if (_ValueTouch < 10)
                             {
-                                Touch = PositionTouch;
-                                _ValueTouch = 0;
-                                _TouchFlag = 6;
-                                _moveTouch = false;
+                                Touch = ident_pos(PositionTouch);
+                                if (Touch.X != -1 && Touch.Y != -1)
+                                {
+                                    _ValueTouch = 0;
+                                    _TouchFlag = 6;
+                                    _moveTouch = false;
+                                }
+                                else
+                                    _TouchFlag = -1;
                             }
                             else if (_zoom == true)
                             {
@@ -313,14 +431,18 @@ namespace Electric_Potatoe_TD
                     {
                         if (_zoom == true && touches[0].State == TouchLocationState.Moved)
                         {
-                            Touch = PositionTouch;
-                            add_wayTouch();
+                            Touch = ident_pos(PositionTouch);
+                            if (Touch.X != -1 && Touch.Y != -1)
+                                add_wayTouch();
+                            _TouchFlag = -1;
                         }
                         if (_zoom == true && touches[0].State == TouchLocationState.Released)
                         {
-                            Touch = PositionTouch;
-                            end_wayTouch();
+                            Touch = ident_pos(PositionTouch);
+                            if (Touch.X != -1 && Touch.Y != -1)
+                                end_wayTouch();
                             _moveTouch = false;
+                            _TouchFlag = -1;
                         }
                     }
                 }
@@ -342,10 +464,26 @@ namespace Electric_Potatoe_TD
             {
                 draw_mapZoom(FrameStart, FPS, CurrentFrame, SheetSize);
                 draw_contentZoom();
+                if (_moveTouch == true && _ListWay.Count > 0)
+                    draw_newNode();
             }
 
         }
 
+		public void draw_newNode()
+        {
+            Vector2 stand = _ListWay.Last<Vector2>();
+
+            if (can_access() == true)
+            {
+                _origin.spriteBatch.Draw(TypeTexture[EType.NODE], new Rectangle((int)pos_map.X + (size_caseZoom * ((int)stand.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)stand.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), LevelColor[0]);
+            }
+            else
+            {
+                _origin.spriteBatch.Draw(NoConstruct, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)stand.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)stand.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
+            }
+        }
+		
         public void draw_mapZoom(int FrameStart, int FPS, int CurrentFrame, int SheetSize)
         {
             int x = (int)Zoom.X, y = (int)Zoom.Y;
