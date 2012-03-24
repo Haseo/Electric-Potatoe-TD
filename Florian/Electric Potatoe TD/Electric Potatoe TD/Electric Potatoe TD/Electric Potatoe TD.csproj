@@ -92,6 +92,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Game.cs" />
+    <Compile Include="MapLoader.cs" />
+    <Compile Include="Map\Map1.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Menu_IG.cs" />
     <Compile Include="Mob\Mob.cs" />
