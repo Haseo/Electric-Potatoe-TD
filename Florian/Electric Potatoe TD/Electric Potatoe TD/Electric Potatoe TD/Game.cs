@@ -14,15 +14,15 @@ using Electric_Potatoe_TD.Mob;
 
 namespace Electric_Potatoe_TD
 {
+    public enum EMap
+    {
+        BACKGROUND = 0,
+        CANYON = 1,
+        CENTRAL = 2,
+    };
+
     class Game
     {
-        public enum EMap
-        {
-            BACKGROUND = 0,
-            CANYON = 1,
-            CENTRAL = 2,
-        };
-
         Game1 _origin;
         Texture2D Menu;
         Texture2D RageMetter_top;
