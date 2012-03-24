@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Phone.Controls;
 
 namespace Electric_Potatoe_TD
 {
@@ -37,6 +38,20 @@ namespace Electric_Potatoe_TD
             _game = new Game(this);
             _menuIg = new Menu_IG(this);
             TargetElapsedTime = TimeSpan.FromTicks(333333);
+            this.Window.OrientationChanged += new EventHandler<EventArgs>(this.Oriented_changed);
+        }
+
+        private void Oriented_changed(object sender, EventArgs e)
+        {            
+            switch (_statut)
+            {
+                case Game_Statut.Menu:
+                     break;
+                case Game_Statut.Game:
+                    _game.Oriented_changed(); break;
+                case Game_Statut.Menu_Ig:
+                     break;
+            }
         }
 
         public void change_statut(Game_Statut statut)

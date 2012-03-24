@@ -11,10 +11,13 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 
+using System.Runtime.Serialization;
+
 namespace Electric_Potatoe_TD
 {
     class Menu_IG
     {
+        
         Game1 _origin;
         Texture2D Logo;
         Texture2D Resume;
@@ -29,9 +32,9 @@ namespace Electric_Potatoe_TD
         public void Initialize()
         {
             _position = new Rectangle[]
-             {  new Rectangle(_origin.graphics.PreferredBackBufferWidth / 3, _origin.graphics.PreferredBackBufferHeight / 4, 300, 150),
-                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 3, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 100, 60),
-                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 2 / 3, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 100, 60),
+             {  new Rectangle(_origin.graphics.PreferredBackBufferWidth / 3, _origin.graphics.PreferredBackBufferHeight / 12, 248, 248),
+                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 3, _origin.graphics.PreferredBackBufferHeight * 2 / 3, 100, 60),
+                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 2 / 3, _origin.graphics.PreferredBackBufferHeight * 2 / 3, 100, 60),
              };
         }
 
@@ -44,6 +47,7 @@ namespace Electric_Potatoe_TD
 
         public void UnloadContent()
         {
+            
         }
 
 

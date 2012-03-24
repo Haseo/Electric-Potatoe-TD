@@ -25,3 +25,5 @@ C:\Users\florian\documents\visual studio 2010\Projects\Electric Potatoe TD\Elect
 C:\Users\florian\documents\visual studio 2010\Projects\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\ReactorA.xnb
 C:\Users\florian\documents\visual studio 2010\Projects\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\ReactorN.xnb
 C:\Users\florian\documents\visual studio 2010\Projects\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\ReactorW.xnb
+C:\Users\florian\documents\visual studio 2010\Projects\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\RageMetter.xnb
+C:\Users\florian\documents\visual studio 2010\Projects\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\grass.xnb

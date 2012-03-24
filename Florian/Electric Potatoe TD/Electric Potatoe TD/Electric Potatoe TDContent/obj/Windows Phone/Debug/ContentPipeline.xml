@@ -2,15 +2,6 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>Logo.jpg</Source>
-      <Name>Logo</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>c:\users\florian\documents\visual studio 2010\Projects\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\Logo.xnb</Output>
-      <Time>2012-03-23T21:56:23.7633623+01:00</Time>
-    </Item>
-    <Item>
       <Source>Quit.png</Source>
       <Name>Quit</Name>
       <Importer>TextureImporter</Importer>
@@ -135,6 +126,33 @@
       <Options>None</Options>
       <Output>C:\Users\florian\documents\visual studio 2010\Projects\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\ReactorW.xnb</Output>
       <Time>2012-03-23T23:45:42.7341789+01:00</Time>
+    </Item>
+    <Item>
+      <Source>RageMetter.spritefont</Source>
+      <Name>RageMetter</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\florian\documents\visual studio 2010\Projects\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\RageMetter.xnb</Output>
+      <Time>2012-03-24T07:51:12.514002+01:00</Time>
+    </Item>
+    <Item>
+      <Source>grass.jpg</Source>
+      <Name>grass</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\florian\documents\visual studio 2010\Projects\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\grass.xnb</Output>
+      <Time>2012-03-24T08:53:52.198228+01:00</Time>
+    </Item>
+    <Item>
+      <Source>Logo.png</Source>
+      <Name>Logo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\florian\documents\visual studio 2010\Projects\Electric Potatoe TD\Electric Potatoe TD\Electric Potatoe TD\bin\Windows Phone\Debug\Content\Logo.xnb</Output>
+      <Time>2012-03-24T10:30:11.7609971+01:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
