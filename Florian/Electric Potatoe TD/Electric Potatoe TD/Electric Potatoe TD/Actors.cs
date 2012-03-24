@@ -2,22 +2,27 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Media;
 
-namespace ElectricPotato
+
+namespace Electric_Potatoe_TD
 {
-    abstract class Actor
+    public abstract class Actor
     {
-        float _positionX { get; private set; }
-        float _positiony { get; private set; }
-        int _width;
-        int _height;
+        // Les setters etaient en private
+        Vector2 _position;
 
-        public Actor(float xPos, float yPos, int width, int height)
+        public Actor(float xPos, float yPos)
         {
-            _positionX = xPos;
-            _positiony = yPos;
-            _width = width;
-            _height = height;
+            _position.X = xPos;
+            _position.Y = yPos;
         }
     }
 }
