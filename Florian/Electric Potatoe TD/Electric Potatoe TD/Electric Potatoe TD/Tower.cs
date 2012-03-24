@@ -36,13 +36,6 @@ namespace Electric_Potatoe_TD
         {
         }
 
-        /*
-         * Le level up coute son prix initial multiplie par le level actuel
-         * Pour chaque level, la puissance d'attaque, la vitesse d'attaque et la portee augmente
-         * Le coeficient est determine par les classes filles
-         * 
-         * */
-
         public override Boolean levelUpTower(ref int capital)
         {
             if (_cost * _level > capital)
