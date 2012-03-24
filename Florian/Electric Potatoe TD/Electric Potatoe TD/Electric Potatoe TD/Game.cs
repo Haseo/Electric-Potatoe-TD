@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
+using Electric_Potatoe_TD.Mob;
 
 namespace Electric_Potatoe_TD
 {
@@ -29,7 +30,8 @@ namespace Electric_Potatoe_TD
         Texture2D RageMetter_bot;
         SpriteFont RageMetter_font;
         Rectangle[] _position;
-        List<Vector2> TurretList;
+
+        List<Node> TurretList;
 
         Potatoe _central;
 
@@ -52,6 +54,8 @@ namespace Electric_Potatoe_TD
         Vector2 Touch;
         int _TouchFlag;
         bool _zoom;
+
+        public List<Electric_Potatoe_TD.Mob.Mob> listTarget = new List<Electric_Potatoe_TD.Mob.Mob>();
 
         public Game(Game1 game)
         {
@@ -207,18 +211,18 @@ namespace Electric_Potatoe_TD
             }
 
             int i = 0;
-            foreach (Vector2 myTurret in TurretList)
+            foreach (Node myTurret in TurretList)
             {
-                if ((int)myTurret.X >= (int)Zoom.X && (int)myTurret.X < (int)Zoom.X + 7 && (int)myTurret.Y >= (int)Zoom.Y && (int)myTurret.Y < (int)Zoom.Y + 5)
+                if ((int)myTurret.getPosition().X >= (int)Zoom.X && (int)myTurret.getPosition().X < (int)Zoom.X + 7 && (int)myTurret.getPosition().Y >= (int)Zoom.Y && (int)myTurret.getPosition().Y < (int)Zoom.Y + 5)
                 {
                     if (i == 0)
-                        _origin.spriteBatch.Draw(turretTextureShooter, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
+                        _origin.spriteBatch.Draw(turretTextureShooter, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.getPosition().X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.getPosition().Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
                     if (i == 1)
-                        _origin.spriteBatch.Draw(turretTextureSpeed, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
+                        _origin.spriteBatch.Draw(turretTextureSpeed, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.getPosition().X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.getPosition().Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
                     if (i == 2)
-                        _origin.spriteBatch.Draw(turretTextureHeavy, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
+                        _origin.spriteBatch.Draw(turretTextureHeavy, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.getPosition().X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.getPosition().Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
                     if (i == 3)
-                        _origin.spriteBatch.Draw(nodeTexture, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
+                        _origin.spriteBatch.Draw(nodeTexture, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.getPosition().X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.getPosition().Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
                 } 
                 i++;
             }
@@ -240,16 +244,16 @@ namespace Electric_Potatoe_TD
                 }
             }
             int i = 0;
-            foreach (Vector2 myTurret in TurretList)
+            foreach (Node myTurret in TurretList)
             {
                 if (i == 0)
-                _origin.spriteBatch.Draw(turretTextureShooter, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.X), (int)pos_map.Y + (size_case * (int)myTurret.Y), size_case, size_case), Color.White);
+                    _origin.spriteBatch.Draw(turretTextureShooter, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), Color.White);
                 if (i == 1)
-                    _origin.spriteBatch.Draw(turretTextureSpeed, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.X), (int)pos_map.Y + (size_case * (int)myTurret.Y), size_case, size_case), Color.White);
+                    _origin.spriteBatch.Draw(turretTextureSpeed, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), Color.White);
                 if (i == 2)
-                    _origin.spriteBatch.Draw(turretTextureHeavy, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.X), (int)pos_map.Y + (size_case * (int)myTurret.Y), size_case, size_case), Color.White);
+                    _origin.spriteBatch.Draw(turretTextureHeavy, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), Color.White);
                 if (i == 3)
-                    _origin.spriteBatch.Draw(nodeTexture, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.X), (int)pos_map.Y + (size_case * (int)myTurret.Y), size_case, size_case), Color.White);
+                    _origin.spriteBatch.Draw(nodeTexture, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.getPosition().X), (int)pos_map.Y + (size_case * (int)myTurret.getPosition().Y), size_case, size_case), Color.White);
                 i++;
             }
         }
@@ -331,11 +335,11 @@ namespace Electric_Potatoe_TD
 
         public void turretFiller()
         {
-            TurretList = new List<Vector2>();
-            TurretList.Add(new Vector2(0, 1));
-            TurretList.Add(new Vector2(2, 4));
-            TurretList.Add(new Vector2(4, 2));
-            TurretList.Add(new Vector2(0, 0));
+            TurretList = new List<Node>();
+            TurretList.Add(new Node(0, 1, 10, 10));
+            TurretList.Add(new Strenght(2, 4, 10, 10));
+            TurretList.Add(new Speed(4, 2, 10, 10));
+            TurretList.Add(new Tower(0, 0, 10, 10));
         }
     }
 }
