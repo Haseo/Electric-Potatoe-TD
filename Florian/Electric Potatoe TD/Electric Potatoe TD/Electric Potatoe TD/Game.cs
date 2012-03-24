@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Devices.Sensors;
 using Electric_Potatoe_TD.Mob;
 
 namespace Electric_Potatoe_TD
@@ -23,6 +24,10 @@ namespace Electric_Potatoe_TD
 
     public class Game
     {
+        Accelerometer accSensor;
+        Vector3 accelReading = new Vector3();
+        Vector3 accelBuff = new Vector3();
+        Boolean AccAllow;
         Game1 _origin;
         Texture2D Menu;
         Texture2D RageMetter_top;
@@ -76,16 +81,41 @@ namespace Electric_Potatoe_TD
             Zoom = new Vector2(0, 0);
             _central = new Potatoe();
             TypeTexture = new Dictionary<EType,Texture2D>();
+            accSensor = new Accelerometer();
+            accSensor.ReadingChanged += new EventHandler<AccelerometerReadingEventArgs>(AccelerometerReadingChanged);
+            startAccSensor();
         }
 
 
+        private void startAccSensor()
+        {
+            try
+            {
+                accSensor.Start();
+                AccAllow = true;
+            }
+            catch (AccelerometerFailedException e)
+            {
+                AccAllow = false;
+                Console.WriteLine(e.ToString());
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                AccAllow = false;
+                Console.WriteLine(e.ToString());
+            }
+            accelBuff.X = 0;
+            accelBuff.Y = 0;
+            accelBuff.Z= 0;
+        }
+
         public void Oriented_changed()
         {
-            if (RageMetter < 100)
-                RageMetter = (RageMetter + 3);
-            if (RageMetter > 100)
-                RageMetter = 100;
-            RageMetter_flag = 0;
+            //if (RageMetter < 100)
+             //   RageMetter = (RageMetter + 3);
+            //if (RageMetter > 100)
+            //    RageMetter = 100;
+            //RageMetter_flag = 0;
         }
 
 
@@ -191,14 +221,8 @@ namespace Electric_Potatoe_TD
 
         public void update()
         {
-            if (RageMetter_flag >= 20 && RageMetter > 0)
-            {
-                RageMetter--;
-                RageMetter_flag -= 5;
-            }
-            if (RageMetter_flag < 20)
-                RageMetter_flag++;
-
+            if (AccAllow)
+                mvtBonus();
             TouchPanelCapabilities touchCap = TouchPanel.GetCapabilities();
             if (touchCap.IsConnected)
             {
@@ -434,6 +458,51 @@ namespace Electric_Potatoe_TD
                 {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CENTRAL, EMap.CENTRAL, EMap.CENTRAL, EMap.BACKGROUND, EMap.BACKGROUND},
                 {EMap.BACKGROUND, EMap.BACKGROUND, EMap.CENTRAL, EMap.CENTRAL, EMap.CENTRAL, EMap.BACKGROUND, EMap.BACKGROUND},
             };
+        }
+
+        public void AccelerometerReadingChanged(object sender, AccelerometerReadingEventArgs e)
+        {
+            accelReading.X = (float)e.X;
+            accelReading.Y = (float)e.Y;
+            accelReading.Z = (float)e.Z;
+        }
+
+        private void mvtBonus()
+        {
+            if (!AccAllow)
+                return;
+
+            if ((accelReading.X > accelBuff.X && accelReading.X - accelBuff.X > 0.02)
+                    || accelReading.X > accelBuff.X && accelBuff.X - accelReading.X > 0.02)
+            {
+                RageMetter_flag++;
+                RageMetter++;
+            }
+            else if ((accelReading.Y > accelBuff.Y && accelReading.Y - accelBuff.Y > 0.02)
+            || accelReading.Y > accelBuff.Y && accelBuff.Y - accelReading.Y > 0.02)
+            {
+                RageMetter_flag++;
+                RageMetter++;
+            }
+            else if ((accelReading.Z > accelBuff.Z && accelReading.Z - accelBuff.Y > 0.02)
+            || accelReading.Y > accelBuff.Y && accelBuff.Y - accelReading.Y > 0.02)
+            {
+                RageMetter_flag++;
+                RageMetter++;
+            }
+
+            accelBuff.X = accelReading.X;
+            accelBuff.Y = accelReading.Y;
+            accelBuff.Z = accelReading.Z;
+
+            if (RageMetter_flag >= 20 && RageMetter > 0)
+            {
+                RageMetter--;
+                RageMetter_flag -= 5;
+            }
+            if (RageMetter_flag < 20)
+                RageMetter_flag++;
+            Console.WriteLine("accelReading.X : " + accelReading.X.ToString());
         }
 
         public void turretFiller()
