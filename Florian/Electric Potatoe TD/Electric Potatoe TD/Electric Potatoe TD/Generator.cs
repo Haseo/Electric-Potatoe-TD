@@ -16,5 +16,10 @@ namespace Electric_Potatoe_TD
         public Generator(float xPos, float yPos, int resistor, Game data) : base(xPos, yPos, resistor, 200, data)
         {
         }
+
+        public EType getType()
+        {
+            return EType.GENERATOR;
+        }
     }
 }
