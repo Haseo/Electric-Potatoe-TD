@@ -64,13 +64,21 @@ namespace Electric_Potatoe_TD
             _nodeLvl = 0;
             _game = data;
             _activated = false;
+            _peerOut = new List<Node>();
         }
-        
+
         public Boolean addLink(Node contact)
         {
             if (_peerOut.Count > 3)
                 return false;
             _peerOut.Add(contact);
+            return true;
+        }
+
+        public Boolean CanaddLink()
+        {
+            if (_peerOut.Count > 3)
+                return false;
             return true;
         }
 
