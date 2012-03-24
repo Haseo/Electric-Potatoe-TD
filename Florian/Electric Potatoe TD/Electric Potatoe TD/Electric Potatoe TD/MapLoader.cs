@@ -9,7 +9,7 @@ namespace Electric_Potatoe_TD
     public partial class MapLoader
     {
         public int[]  size;
-        public Electric_Potatoe_TD.Game.EMap[,] filled;
+        public EMap[,] filled;
 
         public void Load()
         {
