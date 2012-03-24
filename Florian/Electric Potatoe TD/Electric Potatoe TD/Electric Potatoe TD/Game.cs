@@ -29,6 +29,7 @@ namespace Electric_Potatoe_TD
         Texture2D RageMetter_bot;
         SpriteFont RageMetter_font;
         Rectangle[] _position;
+        List<Vector2> TurretList;
 
         Potatoe _central;
 
@@ -195,6 +196,11 @@ namespace Electric_Potatoe_TD
                         case EMap.CENTRAL: _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.Blue); break;
                     }
                 }
+            } 
+            foreach (Vector2 myTurret in TurretList)
+            {
+                if ((int)myTurret.X >= (int)Zoom.X && (int)myTurret.X < (int)Zoom.X + 4 && (int)myTurret.Y >= (int)Zoom.Y && (int)myTurret.Y < (int)Zoom.Y + 3)
+                    _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)myTurret.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)myTurret.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.Yellow);
             }
         }
 
@@ -212,6 +218,10 @@ namespace Electric_Potatoe_TD
                         case EMap.CENTRAL: _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y), size_case, size_case), Color.Blue); break;
                     }
                 }
+            }
+            foreach (Vector2 myTurret in TurretList)
+            {
+                _origin.spriteBatch.Draw(myTexture, new Rectangle((int)pos_map.X + (size_case * (int)myTurret.X), (int)pos_map.Y + (size_case * (int)myTurret.Y), size_case, size_case), Color.Yellow);
             }
         }
 
@@ -239,6 +249,7 @@ namespace Electric_Potatoe_TD
             Zoom = new Vector2(0, 0);
             _zoom = false;
             mapFiller();
+            turretFiller();
         }
 
         public int getScore()
@@ -285,5 +296,11 @@ namespace Electric_Potatoe_TD
             };
         }
 
+        public void turretFiller()
+        {
+            TurretList = new List<Vector2>();
+            TurretList.Add(new Vector2(0, 1));
+            TurretList.Add(new Vector2(2, 4));
+        }
     }
 }
