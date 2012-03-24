@@ -2,14 +2,34 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Media;
 
-namespace ElectricPotato
+namespace Electric_Potatoe_TD
 {
-    abstract class Node : Building
+    public class Node : Actor
     {
-        Boolean _isIn = false;
-        List<Node> _peerOut { get; }
-        Node _peerIn;
+        protected int _resistor { get; set; }
+        protected int _cost { get; set; }
+
+        protected float _volt { get; set; }
+        protected float _int { get; set; }
+
+        protected Boolean _isIn = false;
+        protected List<Node> _peerOut { get; set; }
+        protected Node _peerIn;
+
+        public Node(float xPos, float yPos, int resistor, int cost) : base(xPos, yPos)
+        {
+            _resistor = resistor;
+            _cost = cost;
+        }
 
         Boolean addOutput(Node contact)
         {
@@ -25,12 +45,6 @@ namespace ElectricPotato
                 return false;
             _peerIn = contact;
             return true;
-        }
-
-        Node(float xPos, float yPos, int width, int height, int resistor, int coast)
-            : base(xPos, yPos, width, height, resistor, coast)
-        {
-
         }
     }
 }
