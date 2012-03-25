@@ -36,7 +36,10 @@ namespace Electric_Potatoe_TD.Mob
             this.newAttack = 10;
             this.newSpeed = 4;
         }
-
+        public override EMobType GetMobType()
+        {
+            return EMobType.BERSERK;
+        }
         protected virtual void BerserkModicator()
         {
             this.modificator = ((this.mobPV * 100) / this.mobMaxPV);

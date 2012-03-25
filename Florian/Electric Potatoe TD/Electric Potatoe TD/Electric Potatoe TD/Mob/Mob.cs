@@ -16,11 +16,11 @@ namespace Electric_Potatoe_TD.Mob
 {
     public enum EMobType
     {
-        PEON,
-        SPEED,
-        TANK,
-        BERSERK,
-        BOSS
+        PEON = 0,
+        SPEED = 1,
+        TANK = 2,
+        BERSERK = 3,
+        BOSS = 4
     };
 
     public abstract class Mob
@@ -33,9 +33,9 @@ namespace Electric_Potatoe_TD.Mob
         protected int              mobSpeed;
         protected int              mobAttack;
         protected Vector2          mobPos;
-        protected int               currentLoop;
+        protected int              currentLoop;
         protected List<Vector2>   Waypoint;
-        protected EMobType            mobType;
+        protected EMobType        mobType;
         #endregion
 
         #region asseceurs
@@ -47,7 +47,12 @@ namespace Electric_Potatoe_TD.Mob
         public int MobSpeed { get { return this.mobSpeed; } }
         public int MobAttack { get { return this.mobAttack; } }
         public Vector2 MobPos { get { return this.mobPos; } }
-        
+
+        public virtual EMobType GetMobType()
+        {
+            return 0;
+        }
+
         #endregion
 
         #region Methode

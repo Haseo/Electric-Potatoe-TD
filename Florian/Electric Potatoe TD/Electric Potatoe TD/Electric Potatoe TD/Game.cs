@@ -40,6 +40,8 @@ namespace Electric_Potatoe_TD
 
     public class Game
     {
+        int testMob;
+
         Game1 _origin;
         Texture2D Menu;
         Texture2D RageMetter_top;
@@ -48,6 +50,7 @@ namespace Electric_Potatoe_TD
         SpriteFont RageMetter_font;
         Rectangle[] _position;
         Dictionary<EType, Texture2D> TypeTexture;
+        Dictionary<EMobType, Texture2D> MobTexture;
         Dictionary<EMapTexture, Texture2D> MapTexture;
         Dictionary<int, Color> LevelColor;
         Dictionary<int, Texture2D> LevelTexture;
@@ -67,6 +70,7 @@ namespace Electric_Potatoe_TD
         EMap[,] map;
         int mapX, mapY;
         Vector2 pos_map;
+        List<Vector2> WayPoints;
         int size_case;
         int size_caseZoom;
 
@@ -88,6 +92,7 @@ namespace Electric_Potatoe_TD
 
         public Game(Game1 game)
         {
+            testMob = 0;
             _origin = game;
             RageMetter = 0;
             RageMetter_flag = 0;
@@ -97,7 +102,8 @@ namespace Electric_Potatoe_TD
             _zoom = false;
             Zoom = new Vector2(0, 0);
             _central = new Potatoe();
-            TypeTexture = new Dictionary<EType,Texture2D>();
+            TypeTexture = new Dictionary<EType, Texture2D>();
+            MobTexture = new Dictionary<EMobType, Texture2D>();
             MapTexture = new Dictionary<EMapTexture, Texture2D>();
             LevelColor = new Dictionary<int, Color>();
             LevelTexture = new Dictionary<int, Texture2D>();
@@ -137,6 +143,10 @@ namespace Electric_Potatoe_TD
             RageMetter_mid = _origin.Content.Load<Texture2D>("RageMeterMiddle");
             RageMetter_bot = _origin.Content.Load<Texture2D>("RageMeterLow");
             RageMetter_font = _origin.Content.Load<SpriteFont>("RageMetter");
+            MobTexture[EMobType.PEON] = _origin.Content.Load<Texture2D>("Mob1");
+            MobTexture[EMobType.SPEED] = _origin.Content.Load<Texture2D>("Mob2");
+            MobTexture[EMobType.TANK] = _origin.Content.Load<Texture2D>("Mob3");
+            MobTexture[EMobType.BERSERK] = _origin.Content.Load<Texture2D>("Mob4");
             MapTexture[EMapTexture.GROUND] = _origin.Content.Load<Texture2D>("Ground");
             MapTexture[EMapTexture.HORIZONTAL] = _origin.Content.Load<Texture2D>("CanyonHorizontal");
             MapTexture[EMapTexture.VERTICAL] = _origin.Content.Load<Texture2D>("CanyonVertical");
@@ -366,6 +376,7 @@ namespace Electric_Potatoe_TD
 
         public void update()
         {
+            game_loop();
             if (RageMetter_flag >= 20 && RageMetter > 0)
             {
                 RageMetter--;
@@ -485,6 +496,7 @@ namespace Electric_Potatoe_TD
             {
                 draw_map(FrameStart, FPS, CurrentFrame, SheetSize);
                 draw_content();
+                draw_mobs();
             }
             else
             {
@@ -590,6 +602,19 @@ namespace Electric_Potatoe_TD
             }
         }
 
+        public void draw_mobs()
+        {
+            _origin.spriteBatch.DrawString(RageMetter_font, "Test : " + WayPoints[0].X.ToString() + " " + WayPoints[0].Y.ToString(), new Vector2(_position[4].X + 200, _position[4].Y), Color.Black);
+            foreach (Mob.Mob myMob in MobList)
+            {
+                //foreach (Vector2 myPoint in WayPoints)
+                {
+                //    _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)myPoint.X * size_case, (int)myPoint.Y * size_case, size_case, size_case), Color.White);
+                }
+                _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)myMob.MobPos.X, (int)myMob.MobPos.Y, size_case, size_case), Color.Red);
+            }
+        }
+
         public void draw_content()
         {
             int i = 1;
@@ -623,6 +648,7 @@ namespace Electric_Potatoe_TD
             _zoom = false;
             mapFiller();
             turretFiller();
+            FakeModFiller();
         }
 
         public int getScore()
@@ -657,6 +683,8 @@ namespace Electric_Potatoe_TD
             {
                 size_caseZoom = (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / 5);
             }
+            NewMap.setSize(size_case);
+            this.WayPoints = NewMap.GetWayPoints();
             this.map = NewMap.getMap();
         }
 
@@ -674,6 +702,12 @@ namespace Electric_Potatoe_TD
             TurretList[3].levelUpTower(ref capital);
             TurretList[3].levelUpTower(ref capital);
             TurretList[3].levelUpTower(ref capital);
+        }
+
+        public void FakeModFiller()
+        {
+            MobList = new List<Mob.Mob>();
+            MobList.Add(new Peon(WayPoints));
         }
     }
 }

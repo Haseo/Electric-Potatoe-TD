@@ -2,8 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
-using Electric_Potatoe_TD;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Media;
+using Microsoft.Phone.Controls;
 
 namespace Electric_Potatoe_TD
 {
@@ -16,7 +23,6 @@ namespace Electric_Potatoe_TD
             size[1] = 12;
 
             Wave wav1 = new Wave();
-
             wav1.AddMonsters(typeof(Mob.Tank), 2);
             ListOfWaves.Add(wav1);
             filled = new EMap[12, 5]

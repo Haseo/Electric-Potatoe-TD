@@ -28,5 +28,9 @@ namespace Electric_Potatoe_TD.Mob
             if (NewWay != null && NewWay.Count > 0)
                 this.mobPos = NewWay[0];
         }
+        public override EMobType GetMobType()
+        {
+            return EMobType.SPEED;
+        }
     }
 }
