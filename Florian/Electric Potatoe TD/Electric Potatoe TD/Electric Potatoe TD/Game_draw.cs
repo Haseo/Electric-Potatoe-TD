@@ -45,40 +45,40 @@ namespace Electric_Potatoe_TD
 
             if ((_selectFlag == 1 || _selectFlag == 2) && _node != null)
             {
-                _origin.spriteBatch.DrawString(RageMetter_font, "Node", new Vector2(_position[5].X, _position[5].Y), Color.White);
-                _origin.spriteBatch.DrawString(RageMetter_font, "     Level : " + _node.getTowerLevel().ToString(), new Vector2(_position[6].X, _position[6].Y), Color.White);
+                _origin.spriteBatch.DrawString(RageMetter_font, "NODE", new Vector2(_position[5].X, _position[5].Y), Color.White);
+                _origin.spriteBatch.DrawString(RageMetter_font, "     Niveau " + _node.getTowerLevel().ToString(), new Vector2(_position[6].X, _position[6].Y), Color.White);
                 if (_node.getNodeLevel() < 3)
-                    _origin.spriteBatch.DrawString(RageMetter_font, "Upgrade Node :\n    Cost : " + _node.getCostNode(), new Vector2(_position[7].X, _position[7].Y),
+                    _origin.spriteBatch.DrawString(RageMetter_font, "|AMÉLIORER NODE|\n    Coût: " + _node.getCostNode(), new Vector2(_position[7].X, _position[7].Y),
                         (_node.getCostNode() >= _central.getCapital() ? Color.LightSlateGray : Color.White));
             }
             if (_selectFlag == 1)
             {
-                _origin.spriteBatch.DrawString(RageMetter_font, "Create Tower", new Vector2(_position[8].X, _position[8].Y), (Color.White));
+                _origin.spriteBatch.DrawString(RageMetter_font, "|CRÉER TOUR|", new Vector2(_position[8].X, _position[8].Y), (Color.White));
             }
             if (_selectFlag == 2 && _turret != null)
             {
-                _origin.spriteBatch.DrawString(RageMetter_font, "Turret", new Vector2(_position[8].X, _position[8].Y), Color.White);
-                _origin.spriteBatch.DrawString(RageMetter_font, "     Level : " + _turret.getTowerLevel().ToString(), new Vector2(_position[9].X, _position[9].Y), Color.White);
+                _origin.spriteBatch.DrawString(RageMetter_font, "TOUR", new Vector2(_position[8].X, _position[8].Y), Color.White);
+                _origin.spriteBatch.DrawString(RageMetter_font, "     Niveau : " + _turret.getTowerLevel().ToString(), new Vector2(_position[9].X, _position[9].Y), Color.White);
                 if (_turret.getTowerLevel() < 4)
-                    _origin.spriteBatch.DrawString(RageMetter_font, "Upgrade Turret :\n    Cost : " + _turret.getCostTower(), new Vector2(_position[10].X, _position[10].Y),
+                    _origin.spriteBatch.DrawString(RageMetter_font, "|AMÉLIORER TOUR|\n    Coût: " + _turret.getCostTower(), new Vector2(_position[10].X, _position[10].Y),
                         (_turret.getCostTower() >= _central.getCapital() ? Color.LightSlateGray : Color.White));
             }
             if (_selectFlag == 1 || _selectFlag == 2)
             {
-                _origin.spriteBatch.DrawString(RageMetter_font, "Activate", new Vector2(_position[11].X, _position[11].Y), Color.White);
-                _origin.spriteBatch.DrawString(RageMetter_font, "Desactivate", new Vector2(_position[12].X, _position[12].Y), Color.White);
+                _origin.spriteBatch.DrawString(RageMetter_font, "|ACTIVER|", new Vector2(_position[11].X, _position[11].Y), Color.White);
+                _origin.spriteBatch.DrawString(RageMetter_font, "|DÉSACTIVER|", new Vector2(_position[12].X, _position[12].Y), Color.White);
             }
-            _origin.spriteBatch.DrawString(RageMetter_font, "Nothing", new Vector2(_position[13].X, _position[13].Y), Color.White);
+            _origin.spriteBatch.DrawString(RageMetter_font, "|RETOUR|", new Vector2(_position[13].X, _position[13].Y), Color.White);
             if (_selectFlag == 3)
             {
-                _origin.spriteBatch.DrawString(RageMetter_font, "Create Turret", new Vector2(_position[14].X, _position[14].Y), Color.White);
-                _origin.spriteBatch.DrawString(RageMetter_font, "Shooter : " + Tower.get_cost_tower(EType.SHOOTER).ToString(), new Vector2(_position[15].X, _position[15].Y),
+                _origin.spriteBatch.DrawString(RageMetter_font, "CRÉER TOUR", new Vector2(_position[14].X, _position[14].Y), Color.White);
+                _origin.spriteBatch.DrawString(RageMetter_font, "|CLASSIQUE| " + Tower.get_cost_tower(EType.SHOOTER).ToString(), new Vector2(_position[15].X, _position[15].Y),
                     (Tower.get_cost_tower(EType.SHOOTER) >= _central.getCapital() ? Color.LightSlateGray : Color.White));
-                _origin.spriteBatch.DrawString(RageMetter_font, "Strengh : " + Tower.get_cost_tower(EType.STRENGHT).ToString(), new Vector2(_position[16].X, _position[16].Y),
+                _origin.spriteBatch.DrawString(RageMetter_font, "|PUISSANTE| " + Tower.get_cost_tower(EType.STRENGHT).ToString(), new Vector2(_position[16].X, _position[16].Y),
                     (Tower.get_cost_tower(EType.STRENGHT) >= _central.getCapital() ? Color.LightSlateGray : Color.White));
-                _origin.spriteBatch.DrawString(RageMetter_font, "Speed : " + Tower.get_cost_tower(EType.SPEED).ToString(), new Vector2(_position[17].X, _position[17].Y),
+                _origin.spriteBatch.DrawString(RageMetter_font, "|RAPIDE| " + Tower.get_cost_tower(EType.SPEED).ToString(), new Vector2(_position[17].X, _position[17].Y),
                     (Tower.get_cost_tower(EType.SPEED) >= _central.getCapital() ? Color.LightSlateGray : Color.White));
-                _origin.spriteBatch.DrawString(RageMetter_font, "Generator : " + Tower.get_cost_tower(EType.GENERATOR).ToString(), new Vector2(_position[18].X, _position[18].Y),
+                _origin.spriteBatch.DrawString(RageMetter_font, "|GENERATEUR| " + Tower.get_cost_tower(EType.GENERATOR).ToString(), new Vector2(_position[18].X, _position[18].Y),
                     (Tower.get_cost_tower(EType.GENERATOR) >= _central.getCapital() ? Color.LightSlateGray : Color.White));
             }
         }
