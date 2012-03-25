@@ -36,9 +36,8 @@ namespace Electric_Potatoe_TD
                             }
                         }
                     }
-                    //else if (ret > 0)
-                    //    ;
-                    // Change capital en fonction ret
+                    else if (ret > 0)
+                        _central.takeDamage(ret);
                 }
                 // Manager Electric : update
                 foreach (Node myTurret in TurretList)
@@ -46,7 +45,9 @@ namespace Electric_Potatoe_TD
                     myTurret.update();
                 }
             }
-            if (_central.getCapital() == 0)
+            if (BulletList.Count > 0)
+                checkBulletHit();
+            if (_central.getCapital() <= 0)
               _origin.End_Game(false, 0); // Fin du jeu avec defaite du joueur
         }
 
@@ -57,7 +58,7 @@ namespace Electric_Potatoe_TD
                 if (gameTime.TotalGameTime - previousSpawnTime > mobSpawnTime)
                 {
                     previousSpawnTime = gameTime.TotalGameTime;
-                    MobList.Add(NewMap.ListOfWaves[currentWave].SpawnMonster());
+                    MobList.Add(NewMap.ListOfWaves[currentWave].SpawnMonster(NewMap.WayPoints));
                 }
             }
             else
@@ -72,5 +73,32 @@ namespace Electric_Potatoe_TD
                   currentWave++;
             }
         }
+
+        public void checkBulletHit()
+        {
+            int i, j;
+
+            i = 0;
+            while (i < BulletList.Count)
+            {
+                if (BulletList[i].update() == true)
+                {
+                    j = 0;
+                    while (j < BulletList[i].Target.Count)
+                    {
+                        if (BulletList[i].Target[j].IsDead())
+                        {
+                            mobIsDead(BulletList[i].Target[j]);
+                            BulletList[i].Target.RemoveAt(j);
+                            j = 0;
+                        }
+                        else
+                            j++;
+                    }
+                }
+                i++;
+            }
+        }
     }
+
 }

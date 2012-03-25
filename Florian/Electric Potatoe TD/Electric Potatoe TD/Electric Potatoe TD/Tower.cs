@@ -140,6 +140,7 @@ namespace Electric_Potatoe_TD
                         }
                         j++;
                     }
+                    _game.BulletList.RemoveAt(i);
                 }
                 i++;
             }
@@ -151,11 +152,11 @@ namespace Electric_Potatoe_TD
             _game.BulletList.Add(bullet);
         }
 
-        public void removeMobCorpse(Mob.Mob mob)
+        public override void removeMobCorpse(Mob.Mob mob)
         {
             int i = 0;
 
-            while (i <= listTarget.Count)
+            while (i < listTarget.Count)
             {
                 if (mob == listTarget[i])
                     listTarget.RemoveAt(i);

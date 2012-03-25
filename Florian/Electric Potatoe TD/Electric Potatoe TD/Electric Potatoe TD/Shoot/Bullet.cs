@@ -19,12 +19,18 @@ namespace Electric_Potatoe_TD
         public  Bullet(Mob.Mob newTarget, Tower tower)
         {
             this._dmg = 20;
-            this._speed = 5;
+            this._speed = 2;
             this._game = tower.getGame();
-            this._coord = tower.getPosition();
+            this._coord.X = tower.getPosition().X * tower.getGame().size_case;
+            this._coord.Y = tower.getPosition().Y * tower.getGame().size_case;
             this._target = new List<Mob.Mob>();
             this._target.Add(newTarget);
             this._area = 0;
+        }
+
+        public override EBulletType GetType()
+        {
+            return (EBulletType.BULLET);
         }
     }
 }

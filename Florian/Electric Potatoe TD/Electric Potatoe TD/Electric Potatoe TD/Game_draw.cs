@@ -24,6 +24,7 @@ namespace Electric_Potatoe_TD
                 draw_map(FrameStart, FPS, CurrentFrame, SheetSize);
                 draw_content();
                 draw_mobs(CurrentMobFrame);
+                draw_bullet(CurrentFrame);
             }
             else
             {
@@ -178,10 +179,6 @@ namespace Electric_Potatoe_TD
             {
                 pos.X = (int)pos_map.X + (size_case * (int)myMob.MobPos.X);
                 pos.Y = (int)pos_map.Y + (size_case * (int)myMob.MobPos.Y);
-                //foreach (Vector2 myPoint in WayPoints)
-                {
-                    //    _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)myPoint.X * size_case, (int)myPoint.Y * size_case, size_case, size_case), Color.White);
-                }
                 _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)myMob.MobPos.X + 20, (int)myMob.MobPos.Y + 20, size_case - 20, size_case - 20), new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), Color.White);
                 //new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), 
 			}
@@ -201,6 +198,18 @@ namespace Electric_Potatoe_TD
             _origin.spriteBatch.Draw(RageMetter_bot, _position[3], (RageMetter > 0 ? Color.Red : Color.White));
             _origin.spriteBatch.DrawString(RageMetter_font, RageMetter.ToString(), new Vector2(_position[3].X + (_position[3].Width / 3), _position[3].Y + (_position[3].Height / 3)), Color.Black);
             _origin.spriteBatch.DrawString(RageMetter_font, "Capital : " + _central.getCapital().ToString(), new Vector2(_position[4].X, _position[4].Y), Color.Black);
+        }
+
+        public void draw_bullet(int CurrentFrame)
+        {
+            Vector2 pos = new Vector2();
+            foreach (Bullet myBullet in BulletList)
+            {
+                pos.X = (int)pos_map.X + (size_case * (int)myBullet.Coord.X);
+                pos.Y = (int)pos_map.Y + (size_case * (int)myBullet.Coord.Y);
+                _origin.spriteBatch.Draw(BulletTexture[(EBulletType)myBullet.GetType()], new Rectangle((int)myBullet.Coord.X, (int)myBullet.Coord.Y, size_case, size_case), new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), Color.White);
+                //new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), 
+            }
         }
 
         public void draw_contentZoom()
