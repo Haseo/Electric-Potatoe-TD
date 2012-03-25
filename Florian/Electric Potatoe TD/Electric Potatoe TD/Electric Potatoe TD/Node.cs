@@ -33,6 +33,11 @@ namespace Electric_Potatoe_TD
             return _cost;
         }
 
+        public Game getGame()
+        {
+            return _game;
+        }
+
         public int getNodeLevel()
         {
             return _nodeLvl;
@@ -69,8 +74,17 @@ namespace Electric_Potatoe_TD
 
         public Boolean addLink(Node contact)
         {
+            bool buf = true;
+
             if (_peerOut.Count > 3)
                 return false;
+            _peerOut.ForEach(delegate(Node cib)
+            {
+                if (cib == contact)
+                    buf =  false;
+            });
+            if (buf == false)
+                return buf;
             _peerOut.Add(contact);
             return true;
         }

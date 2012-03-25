@@ -24,7 +24,8 @@
     <SupportedCultures>
     </SupportedCultures>
     <ApplicationIcon>Game.ico</ApplicationIcon>
-    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <Thumbnail>
+    </Thumbnail>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Windows Phone' ">
     <DebugSymbols>true</DebugSymbols>
@@ -118,6 +119,7 @@
     <Compile Include="Mob\Tank.cs" />
     <Compile Include="Mob\Wave.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="Pair.cs" />
     <Compile Include="Potatoe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shooter.cs" />
@@ -140,7 +142,6 @@
   <ItemGroup>
     <Content Include="Background.png" />
     <Content Include="Game.ico" />
-    <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Electric Potatoe TDContent\Electric Potatoe TDContent.contentproj">

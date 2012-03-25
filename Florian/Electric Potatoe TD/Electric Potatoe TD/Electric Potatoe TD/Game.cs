@@ -47,6 +47,7 @@ namespace Electric_Potatoe_TD
     public partial class Game
     {
         double CoefBonus;
+        public List<Pair<Vector2, Vector2>> nodeLink = new List<Pair<Vector2,Vector2>>(); 
         Accelerometer accSensor;
         Vector3 accelReading = new Vector3();
         Vector3 accelBuff = new Vector3();
