@@ -55,6 +55,15 @@ namespace Electric_Potatoe_TD
 
         public double get { get; set; }
 
+        public override void putInRange(Mob.Mob mob)
+        {
+            if ((System.Math.Sqrt(System.Math.Pow((mob.MobPos.X - _position.X), 2)
+                + System.Math.Pow((mob.MobPos.Y - _position.Y), 2))) <= _range)
+            {
+                listTarget.Add(mob);
+            }
+        }
+
         public void checkOutOfRange()
         {
             int i = 0;
@@ -70,7 +79,7 @@ namespace Electric_Potatoe_TD
             }
         }
 
-        public void update()
+        public override void update()
         {
             int i = 0;
 
@@ -99,6 +108,18 @@ namespace Electric_Potatoe_TD
             {
                 if (mob.TakeDamage((int)(_volt * _multPowerAtt)))
                     _game.mobIsDead(mob);
+            }
+        }
+
+        public void removeMobCorpse(Mob.Mob mob)
+        {
+            int i = 0;
+
+            while (i <= listTarget.Count)
+            {
+                if (mob == listTarget[i])
+                    listTarget.RemoveAt(i);
+                i++;
             }
         }
     }

@@ -84,7 +84,6 @@ namespace Electric_Potatoe_TD
 
         public virtual void update()
         {
-
         }
 
         public virtual double energyDiv()
@@ -98,6 +97,10 @@ namespace Electric_Potatoe_TD
         public virtual EType getType()
         {
          return   EType.NODE;
+        }
+
+        public virtual void putInRange(Mob.Mob mob)
+        {
         }
     }
 }

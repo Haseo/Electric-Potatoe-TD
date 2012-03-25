@@ -61,6 +61,7 @@ namespace Electric_Potatoe_TD
         Texture2D NoConstruct;
         public List<Node> TurretList;
         public List<Mob.Mob> MobList;
+        MapLoader NewMap = new MapLoader();
 
         Potatoe _central;
 
@@ -88,6 +89,12 @@ namespace Electric_Potatoe_TD
         List<Vector2> _ListWay;
         List<bool> _ValidWay;
 
+        // Wave
+        int currentWave;
+
+        // Mob Spawn
+        TimeSpan mobSpawnTime;
+        TimeSpan previousSpawnTime;
         // Selection
         Node _node;
         String test = "";
@@ -116,7 +123,6 @@ namespace Electric_Potatoe_TD
             LevelTexture = new Dictionary<int, Texture2D>();
             FrameSize = new Point(40, 40);
         }
-
 
         private void startAccSensor()
         {
@@ -378,34 +384,63 @@ namespace Electric_Potatoe_TD
             }
         }
 
-        private void game_loop()
+        private void game_loop(GameTime gameTime)
         {
-            foreach (Mob.Mob mob in MobList)
+            spawningManager(gameTime);
+            if (MobList.Count > 0)
             {
-                int ret = mob.update();
-
-                if (ret == 0)
+                foreach (Mob.Mob mob in MobList)
                 {
-                    foreach (Node myTurret in TurretList)
+                    int ret = mob.update();
+
+                    if (ret == 0)
                     {
-                        if (myTurret.getType() == EType.STRENGHT || myTurret.getType() == EType.SPEED || myTurret.getType() == EType.SHOOTER)
-                           ;// Check si la creature arrive a la portee d'une new tourelle
+                        foreach (Node myTurret in TurretList)
+                        {
+                            if (myTurret.getType() == EType.STRENGHT || myTurret.getType() == EType.SPEED || myTurret.getType() == EType.SHOOTER)
+                            {
+                                myTurret.putInRange(mob);
+                            }
+                        }
                     }
+                    else if (ret > 0)
+                        ;
+                    // Change capital en fonction ret
                 }
-                else if (ret > 0)
-                    ;
-                // Change capital en fonction ret
-            }
-            // Manager Electric : update
-            foreach (Node myTurret in TurretList)
-            {
-                // myTurret.update();
+                // Manager Electric : update
+                foreach (Node myTurret in TurretList)
+                {
+                    myTurret.update();
+                }
             }
         }
 
-        public void update()
+        private void spawningManager(GameTime gameTime)
         {
-            game_loop();
+            if (NewMap.ListOfWaves[currentWave].ListOfMonster.Count > 0)
+            {
+                if (gameTime.TotalGameTime - previousSpawnTime > mobSpawnTime)
+                {
+                    previousSpawnTime = gameTime.TotalGameTime;
+                    MobList.Add(NewMap.ListOfWaves[currentWave].SpawnMonster());
+                }
+            }
+            else
+            {
+                if (currentWave == NewMap.ListOfWaves.Count - 1)
+                {
+                    ; // Fin du jeu avec victoire du joueur
+                    // Pour l'instant remplacer par un return
+                    return;
+                }
+                currentWave++;
+            }
+        }
+
+
+        public void update(GameTime gameTime)
+        {
+            game_loop(gameTime);
             if (RageMetter_flag >= 20 && RageMetter > 0)
             {
                 RageMetter--;
@@ -689,7 +724,7 @@ namespace Electric_Potatoe_TD
 
         public void mapFiller()
         {
-            MapLoader NewMap = new MapLoader();
+            //MapLoader NewMap = new MapLoader();
             NewMap.Load(1);
             int[] size = NewMap.getSize();
             this.mapX = size[1];
@@ -833,16 +868,28 @@ namespace Electric_Potatoe_TD
             MobList = new List<Mob.Mob>();
             MobList.Add(new Peon(WayPoints));
 		}
+
         public void mobIsDead(Mob.Mob mob)
         {
-            int     i = 0;
+            int i = 0;
 
-            while (i <= listTarget.Count)
+            while (i <= MobList.Count)
             {
-                if (mob == listTarget[i])
-                    listTarget.RemoveAt(i);
+                if (mob == MobList[i])
+                    MobList.RemoveAt(i);
                 i++;
             }
+            foreach (Tower myTurret in TurretList)
+            {
+                myTurret.removeMobCorpse(mob);
+            }
+        }
+
+        public bool checkEndGame()
+        {
+            if (_central.getCapital() <= 0)
+                return true;
+            return false;
         }
     }
 }
