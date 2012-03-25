@@ -236,8 +236,8 @@ namespace Electric_Potatoe_TD
                 i++;
             }
             _origin.spriteBatch.Draw(RageMetter_bot, _position[3], (RageMetter > 0 ? Color.Red : Color.White));
-            _origin.spriteBatch.DrawString(RageMetter_font, RageMetter.ToString(), new Vector2(_position[3].X + (_position[3].Width / 3), _position[3].Y + (_position[3].Height / 3)), Color.Black);
-            _origin.spriteBatch.DrawString(RageMetter_font, "Capital : " + _central.getCapital().ToString(), new Vector2(_position[4].X, _position[4].Y), Color.Black);
+            _origin.spriteBatch.DrawString(RageMetter_font, RageMetter.ToString(), new Vector2(_position[3].X + (_position[3].Width / 3), _position[3].Y + (_position[3].Height / 3)), Color.White);
+            _origin.spriteBatch.DrawString(RageMetter_font, "RESOURCES : " + _central.getCapital().ToString(), new Vector2(_position[4].X, _position[4].Y), Color.White);
         }
 
         public void draw_bullet(int CurrentFrame)
