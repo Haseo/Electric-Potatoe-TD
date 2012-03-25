@@ -16,7 +16,7 @@ namespace Electric_Potatoe_TD
 {
     class Shooter : Tower
     {
-        const float POWER = 10;
+        const float POWER = 40;
         const float SPEED = 10;
         const float RANGE = 175;
 

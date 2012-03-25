@@ -15,7 +15,7 @@ namespace Electric_Potatoe_TD
 {
     class Speed : Tower
     {
-        const float POWER = 10;
+        const float POWER = 30;
         const float SPEED = 14;
         const float RANGE = 400;
 
