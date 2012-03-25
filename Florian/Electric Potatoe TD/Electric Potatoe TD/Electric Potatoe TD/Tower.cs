@@ -117,7 +117,8 @@ namespace Electric_Potatoe_TD
             {
                 s.update();
             }*/
-            checkBulletHit();
+            if (_game.BulletList.Count > 0)
+                checkBulletHit();
         }
 
         public void checkBulletHit()

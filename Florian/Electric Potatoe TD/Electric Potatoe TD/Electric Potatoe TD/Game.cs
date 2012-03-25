@@ -61,6 +61,7 @@ namespace Electric_Potatoe_TD
         Texture2D NoConstruct;
         public List<Node> TurretList;
         public List<Mob.Mob> MobList;
+        public List<Shoot> BulletList = new List<Shoot>();
         MapLoader NewMap = new MapLoader();
 
         Potatoe _central;
@@ -77,8 +78,8 @@ namespace Electric_Potatoe_TD
         int mapX, mapY;
         Vector2 pos_map;
         List<Vector2> WayPoints;
-        int size_case;
-        int size_caseZoom;
+        public int size_case;
+        public int size_caseZoom;
 
         Vector2 Touch;
         bool _moveTouch;
