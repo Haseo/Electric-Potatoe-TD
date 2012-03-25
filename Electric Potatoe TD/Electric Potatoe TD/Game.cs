@@ -56,6 +56,7 @@ namespace Electric_Potatoe_TD
         Boolean AccAllow;
         Game1 _origin;
         Texture2D Menu;
+		Texture2D Button;
         Texture2D Blanco;
         Texture2D RageMetter_top;
         Texture2D RageMetter_mid;
@@ -174,28 +175,28 @@ namespace Electric_Potatoe_TD
                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 3, _origin.graphics.PreferredBackBufferHeight * 10 / 11, 0, 0),
                
                // Selected Node
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 2, 120, stand * 2),
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 5, 120, stand * 2),
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 8, 120, stand * 2),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 2, 250, stand * 10),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 5, 250, stand * 10),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 8, 250, stand * 10),
                
                // Selected Turret
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 19, 120, stand * 2),
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 22, 120, stand * 2),
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 25, 120, stand * 2),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 21, 250, stand * 10),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 24, 250, stand * 10),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 27, 250, stand * 10),
                
                // Activate Desactivate
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 35, 120, stand * 5),
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 45, 120, stand * 5),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 37, 250, stand * 10),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 47, 250, stand * 10),
 
                // Continue
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 55, 120, stand * 5),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 57, 250, stand * 10),
 
                // Specialize Node
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 2, 120, 60),
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 12, 120, 60),
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 22, 120, 60),
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 32, 120, 60),
-               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 42, 120, 60),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 2, 250, stand * 10),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 12, 250, stand * 10),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 22, 250, stand * 10),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 32, 250, stand * 10),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 7 / 10, stand * 42, 250, stand * 10),
              };
         }
 
@@ -238,6 +239,7 @@ namespace Electric_Potatoe_TD
             BulletTexture[EBulletType.BULLET] = _origin.Content.Load<Texture2D>("BulletNormal");
             BulletTexture[EBulletType.FAST] = _origin.Content.Load<Texture2D>("BulletFast");
             BulletTexture[EBulletType.SPREAD] = _origin.Content.Load<Texture2D>("BulletHeavy");
+			Button = _origin.Content.Load<Texture2D>("Button");
         }
 
         public void UnloadContent()
