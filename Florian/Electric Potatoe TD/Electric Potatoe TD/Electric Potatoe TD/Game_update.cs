@@ -17,17 +17,6 @@ namespace Electric_Potatoe_TD
 {
     public partial class Game
     {
-        public void update_RageMetter()
-        {
-            if (RageMetter_flag >= 20 && RageMetter > 0)
-            {
-                RageMetter--;
-                RageMetter_flag -= 5;
-            }
-            if (RageMetter_flag < 20)
-                RageMetter_flag++;
-        }
-
         public void updateSelected_item(Vector2 PositionTouch)
         {
             if ((_selectFlag == 1 || _selectFlag == 2) && _node != null)
@@ -138,7 +127,6 @@ namespace Electric_Potatoe_TD
         public void update(GameTime gameTime)
         {
             game_loop(gameTime);
-            update_RageMetter();
             if (AccAllow)
                 mvtBonus();
             TouchPanelCapabilities touchCap = TouchPanel.GetCapabilities();
