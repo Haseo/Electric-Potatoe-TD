@@ -36,8 +36,8 @@ namespace Electric_Potatoe_TD
                             }
                         }
                     }
-                    else if (ret > 0)
-                        ;
+                    //else if (ret > 0)
+                    //    ;
                     // Change capital en fonction ret
                 }
                 // Manager Electric : update
