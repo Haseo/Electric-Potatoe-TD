@@ -80,7 +80,11 @@ namespace Electric_Potatoe_TD
 
         public void draw_link()
         {
-            
+            nodeLink.ForEach(delegate(Pair<Vector2, Vector2> buf)
+            {
+               _origin.spriteBatch.DrawString(RageMetter_font, "Tower !", buf.First, Color.Black);
+            });
+   
 
         }
 

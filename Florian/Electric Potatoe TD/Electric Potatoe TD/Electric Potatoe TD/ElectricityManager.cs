@@ -33,11 +33,16 @@ namespace Electric_Potatoe_TD
         {
             src._peerOut.Remove(dest);
             dest._peerOut.Remove(src);
-            src.getGame().nodeLink.ForEach(delegate (Pair<Vector2, Vector2> buf){
-                if ((src._position == buf.First && dest._position == buf.Second )
+            int i = 0;
+            while (i < src.getGame().nodeLink.Count)
+            {
+                Pair<Vector2, Vector2> buf = src.getGame().nodeLink.ElementAt(i);
+                if ((src._position == buf.First && dest._position == buf.Second)
                         || (src._position == buf.First && dest._position == buf.Second))
                     src.getGame().nodeLink.Remove(buf);
-                });
+                else
+                    i++;
+             }
             return true;
         }
 
