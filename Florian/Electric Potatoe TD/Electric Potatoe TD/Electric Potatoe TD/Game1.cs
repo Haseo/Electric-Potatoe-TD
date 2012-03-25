@@ -187,7 +187,7 @@ namespace Electric_Potatoe_TD
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.White);
+            GraphicsDevice.Clear(Color.Black);
 
             spriteBatch.Begin();
             switch (_statut)
