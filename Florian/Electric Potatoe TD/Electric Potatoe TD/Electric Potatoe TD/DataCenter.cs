@@ -50,7 +50,7 @@ namespace Electric_Potatoe_TD
              {  new Rectangle(_origin.graphics.PreferredBackBufferWidth / 3, _origin.graphics.PreferredBackBufferHeight / 12, 248, 248),
                 new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 30, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 180, 90),
                 new Rectangle(_origin.graphics.PreferredBackBufferWidth * 8 / 30, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 180, 90),
-                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 15 / 30, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 180, 90),
+                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 22 / 30, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 180, 90),
              };
             _bestiaire.Initialize();
             _towerdata.Initialize();
@@ -138,11 +138,11 @@ namespace Electric_Potatoe_TD
         {
             _origin.spriteBatch.Draw(Logo, _position[0], Color.White);
             _origin.spriteBatch.Draw(Button, _position[1], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Bestiaire", new Vector2(_position[1].X + (_position[1].Width / 3), (_position[1].Y + (_position[1].Height / 3))), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "BESTIAIRE", new Vector2(_position[1].X + (_position[1].Width / 5), (_position[1].Y + (_position[1].Height / 3))), Color.White);
             _origin.spriteBatch.Draw(Button, _position[2], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Turret", new Vector2(_position[2].X + (_position[2].Width / 3), (_position[2].Y + (_position[2].Height / 3))), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "TOURELLES", new Vector2(_position[2].X + (_position[2].Width / 5), (_position[2].Y + (_position[2].Height / 3))), Color.White);
             _origin.spriteBatch.Draw(Button, _position[3], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Back", new Vector2(_position[3].X + (_position[3].Width / 4), (_position[3].Y + (_position[3].Height / 3))), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "RETOUR", new Vector2(_position[3].X + (_position[3].Width / 4), (_position[3].Y + (_position[3].Height / 3))), Color.White);
        }
     }
 }

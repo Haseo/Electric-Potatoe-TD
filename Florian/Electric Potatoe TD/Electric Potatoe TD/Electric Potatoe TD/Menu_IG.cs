@@ -34,9 +34,9 @@ namespace Electric_Potatoe_TD
         {
             _position = new Rectangle[]
              {  new Rectangle(_origin.graphics.PreferredBackBufferWidth / 3, _origin.graphics.PreferredBackBufferHeight / 12, 248, 248),
-                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 4, _origin.graphics.PreferredBackBufferHeight * 2 / 3, 180, 90),
-                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 2 / 4, _origin.graphics.PreferredBackBufferHeight * 2 / 3, 180, 90),
-                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 3, _origin.graphics.PreferredBackBufferHeight * 7 / 8, 100, 60),
+                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 4, _origin.graphics.PreferredBackBufferHeight * 7 / 9, 180, 90),
+                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 2, _origin.graphics.PreferredBackBufferHeight * 7 / 9, 180, 90),
+                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 2 / 5, _origin.graphics.PreferredBackBufferHeight * 2 / 3, 100, 60),
              };
         }
 
@@ -85,11 +85,11 @@ namespace Electric_Potatoe_TD
         {
             _origin.spriteBatch.Draw(Logo, _position[0], Color.White);
             _origin.spriteBatch.Draw(Button, _position[1], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Resume", new Vector2(_position[1].X + (_position[1].Width / 3), (_position[1].Y + (_position[1].Height / 3))), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "REPRENDRE", new Vector2(_position[1].X + (_position[1].Width / 6), (_position[1].Y + (_position[1].Height / 3))), Color.White);
             _origin.spriteBatch.Draw(Button, _position[2], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Surrend", new Vector2(_position[2].X + (_position[2].Width / 3), (_position[2].Y + (_position[2].Height / 3))), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "ABANDONNER", new Vector2(_position[2].X + (_position[2].Width / 7), (_position[2].Y + (_position[2].Height / 3))), Color.White);
 
-            _origin.spriteBatch.DrawString(MenuIGFont, "Score : " + _origin.getScore().ToString(), new Vector2(_position[3].X, _position[3].Y), Color.Black);
+            _origin.spriteBatch.DrawString(MenuIGFont, "SCORE : " + _origin.getScore().ToString(), new Vector2(_position[3].X, _position[3].Y), Color.White);
         }
     }
 }

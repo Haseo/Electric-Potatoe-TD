@@ -92,13 +92,13 @@ namespace Electric_Potatoe_TD
         {
             _origin.spriteBatch.Draw(Logo, _position[0], Color.White);
             _origin.spriteBatch.Draw(Button, _position[1], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Play", new Vector2(_position[1].X + (_position[1].Width / 3), (_position[1].Y + (_position[1].Height / 3))), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "PLAY", new Vector2(_position[1].X + (_position[1].Width / 3), (_position[1].Y + (_position[1].Height / 3))), Color.White);
             _origin.spriteBatch.Draw(Button, _position[2], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Tutorial", new Vector2(_position[2].X + (_position[2].Width / 3), (_position[2].Y + (_position[2].Height / 3))), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "TUTORIAL", new Vector2(_position[2].X + (_position[2].Width / 4), (_position[2].Y + (_position[2].Height / 3))), Color.White);
             _origin.spriteBatch.Draw(Button, _position[3], Color.White);
-            _origin.spriteBatch.DrawString(Font, "DataCenter", new Vector2(_position[3].X + (_position[3].Width / 4), (_position[3].Y + (_position[3].Height / 3))), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "INFOS", new Vector2(_position[3].X + (_position[3].Width / 3), (_position[3].Y + (_position[3].Height / 3))), Color.White);
             _origin.spriteBatch.Draw(Button, _position[4], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Quit", new Vector2(_position[4].X + (_position[4].Width / 3), (_position[4].Y + (_position[4].Height / 3))), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "QUITTER", new Vector2(_position[4].X + (_position[4].Width / 4), (_position[4].Y + (_position[4].Height / 3))), Color.White);
         }
     }
 }
