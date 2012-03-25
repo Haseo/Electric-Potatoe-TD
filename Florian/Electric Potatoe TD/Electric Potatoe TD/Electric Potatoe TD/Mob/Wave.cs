@@ -28,6 +28,24 @@ namespace Electric_Potatoe_TD
             ListOfMonster.Add(ty);
         }
 
+
+        public Mob.Mob SpawnMonster(List<Vector2> waypoint)
+        {
+            if (ListOfMonster.Count <= 0)
+                return (null);
+            Mob.Mob mob;
+            Type[] myType = new Type[1];
+            Object[] myParam = new Object[1];
+            myParam[0] = waypoint;
+
+            myType[0] = typeof(List<Vector2>);
+            ConstructorInfo method = ListOfMonster[0].GetConstructor(myType);
+
+            mob = method.Invoke(myParam) as Mob.Mob;
+            ListOfMonster.RemoveAt(0);
+            return (mob);
+        }
+
         public Mob.Mob SpawnMonster()
         {
             if (ListOfMonster.Count <= 0)

@@ -27,11 +27,6 @@ namespace Electric_Potatoe_TD
         CANYON_BOTRIGHT = 7,
     };
 
-    public enum EBulletType
-    { 
-        BULLET = 0,
-    };
-
     public enum EMapTexture
     {
         GROUND = 0,
@@ -46,21 +41,18 @@ namespace Electric_Potatoe_TD
 
     public partial class Game
     {
-        public double CoefBonus;
-        public List<Pair <Vector2, Vector2>> nodeLink = new List<Pair<Vector2,Vector2>>(); 
+        double CoefBonus;
         Accelerometer accSensor;
         Vector3 accelReading = new Vector3();
         Vector3 accelBuff = new Vector3();
         Boolean AccAllow;
         Game1 _origin;
         Texture2D Menu;
-        Texture2D Blanco;
         Texture2D RageMetter_top;
         Texture2D RageMetter_mid;
         Texture2D RageMetter_bot;
         SpriteFont RageMetter_font;
         Rectangle[] _position;
-        Dictionary<EBulletType, Texture2D> BulletTexture;
         Dictionary<EType, Texture2D> TypeTexture;
         Dictionary<EMobType, Texture2D> MobTexture;
         Dictionary<EMapTexture, Texture2D> MapTexture;
@@ -76,7 +68,6 @@ namespace Electric_Potatoe_TD
 
         //Animations
         Point   FrameSize;
-        Point   BulletFrameSize;
 
         int RageMetter;
         int RageMetter_flag;
@@ -87,7 +78,7 @@ namespace Electric_Potatoe_TD
         Vector2 pos_map;
         List<Vector2> WayPoints;
         public int size_case;
-        public int size_caseZoom;
+        int size_caseZoom;
 
         Vector2 Touch;
         bool _moveTouch;
@@ -112,11 +103,8 @@ namespace Electric_Potatoe_TD
         int _selectFlag;
         String test = "";
 
-        public List<Electric_Potatoe_TD.Mob.Mob> listTarget = new List<Electric_Potatoe_TD.Mob.Mob>();
-
         public Game(Game1 game)
         {
-            CoefBonus = 1;
             RageMetter_tmp = 0;
             _origin = game;
             RageMetter = 0;
@@ -128,8 +116,6 @@ namespace Electric_Potatoe_TD
             _zoom = false;
             Zoom = new Vector2(0, 0);
             _central = new Potatoe(0, 0, this);
-            BulletList = new List<Shoot>();
-            BulletTexture = new Dictionary<EBulletType, Texture2D>();
             TypeTexture = new Dictionary<EType, Texture2D>();
             MobTexture = new Dictionary<EMobType, Texture2D>();
             accSensor = new Accelerometer();
@@ -139,7 +125,6 @@ namespace Electric_Potatoe_TD
             LevelColor = new Dictionary<int, Color>();
             LevelTexture = new Dictionary<int, Texture2D>();
             FrameSize = new Point(40, 40);
-            BulletFrameSize = new Point(20, 20);
 
             mobSpawnTime = TimeSpan.FromSeconds(1.0f);
             previousSpawnTime = TimeSpan.Zero;
@@ -158,6 +143,7 @@ namespace Electric_Potatoe_TD
         {
             int stand = (_origin.graphics.PreferredBackBufferHeight - (_origin.graphics.PreferredBackBufferHeight / 6)) / 55;
 
+            BulletList = new List<Shoot>();
             _ListWay = new List<Vector2>();
             _ValidWay = new List<bool>();
             _position = new Rectangle[]
@@ -196,23 +182,21 @@ namespace Electric_Potatoe_TD
         public void LoadContent()
         {
             Menu = _origin.Content.Load<Texture2D>("Menu");
-            Blanco = _origin.Content.Load<Texture2D>("blanco");
             RageMetter_top = _origin.Content.Load<Texture2D>("RageMeterHigh");
             RageMetter_mid = _origin.Content.Load<Texture2D>("RageMeterMiddle");
             RageMetter_bot = _origin.Content.Load<Texture2D>("RageMeterLow");
             RageMetter_font = _origin.Content.Load<SpriteFont>("RageMetter");
-            MobTexture[EMobType.PEON] = _origin.Content.Load<Texture2D>("Mob3");
-            MobTexture[EMobType.SPEED] = _origin.Content.Load<Texture2D>("Mob4");
-            MobTexture[EMobType.TANK] = _origin.Content.Load<Texture2D>("Mob2");
-            MobTexture[EMobType.BERSERK] = _origin.Content.Load<Texture2D>("Mob1");
-            MobTexture[EMobType.BOSS] = _origin.Content.Load<Texture2D>("MobBoss");
-            MapTexture[EMapTexture.GROUND] = _origin.Content.Load<Texture2D>("GeometryGround");
-            MapTexture[EMapTexture.HORIZONTAL] = _origin.Content.Load<Texture2D>("GeometryCanyonHorizontal");
-            MapTexture[EMapTexture.VERTICAL] = _origin.Content.Load<Texture2D>("GeometryCanyonVertical");
-            MapTexture[EMapTexture.TOPLEFT] = _origin.Content.Load<Texture2D>("GeometryCanyonTopLeft");
-            MapTexture[EMapTexture.TOPRIGHT] = _origin.Content.Load<Texture2D>("GeometryCanyonTopRight");
-            MapTexture[EMapTexture.BOTLEFT] = _origin.Content.Load<Texture2D>("GeometryCanyonBotLeft");
-            MapTexture[EMapTexture.BOTRIGHT] = _origin.Content.Load<Texture2D>("GeometryCanyonBotRight");
+            MobTexture[EMobType.PEON] = _origin.Content.Load<Texture2D>("Mob1");
+            MobTexture[EMobType.SPEED] = _origin.Content.Load<Texture2D>("Mob2");
+            MobTexture[EMobType.TANK] = _origin.Content.Load<Texture2D>("Mob3");
+            MobTexture[EMobType.BERSERK] = _origin.Content.Load<Texture2D>("Mob4");
+            MapTexture[EMapTexture.GROUND] = _origin.Content.Load<Texture2D>("Ground");
+            MapTexture[EMapTexture.HORIZONTAL] = _origin.Content.Load<Texture2D>("CanyonHorizontal");
+            MapTexture[EMapTexture.VERTICAL] = _origin.Content.Load<Texture2D>("CanyonVertical");
+            MapTexture[EMapTexture.TOPLEFT] = _origin.Content.Load<Texture2D>("CanyonTopLeft");
+            MapTexture[EMapTexture.TOPRIGHT] = _origin.Content.Load<Texture2D>("CanyonTopRight");
+            MapTexture[EMapTexture.BOTLEFT] = _origin.Content.Load<Texture2D>("CanyonBotLeft");
+            MapTexture[EMapTexture.BOTRIGHT] = _origin.Content.Load<Texture2D>("CanyonBotRight");
             MapTexture[EMapTexture.CENTRALTEX] = _origin.Content.Load<Texture2D>("ReactorN");
             TypeTexture[EType.SPEED] = _origin.Content.Load<Texture2D>("TowerFast");
             TypeTexture[EType.SHOOTER] = _origin.Content.Load<Texture2D>("TowerNormal");
@@ -229,7 +213,6 @@ namespace Electric_Potatoe_TD
             LevelTexture[2] = _origin.Content.Load<Texture2D>("Level2");
             LevelTexture[3] = _origin.Content.Load<Texture2D>("Level3");
             LevelTexture[4] = _origin.Content.Load<Texture2D>("Level4");
-            BulletTexture[0] = _origin.Content.Load<Texture2D>("BulletNormal");
         }
 
         public void UnloadContent()
@@ -240,13 +223,8 @@ namespace Electric_Potatoe_TD
         {
             int x, y;
 
-            if (_zoom == false &&
-                (pos.X >= ((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) ||
-                pos.Y >= ((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10)))
-                return (new Vector2(-1, -1));
-            if (_zoom == true && 
-                (pos.X >= ((_origin.graphics.PreferredBackBufferWidth * 8 / 12) - 10) ||
-                pos.Y >= ((_origin.graphics.PreferredBackBufferHeight * 8 / 10) - 10)))
+            if (pos.X >= ((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) ||
+                pos.Y >= ((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10))
                 return (new Vector2(-1, -1));
             if (_zoom == true)
             {
@@ -282,55 +260,21 @@ namespace Electric_Potatoe_TD
 
         private void make_connect(Vector2 new_node, Vector2 old_node)
         {
-            Node newn = null, oldn = null, oldt = null;
+            Node newn = null, oldn = null;
 
             foreach (Node turret in TurretList)
             {
                 if (turret._position.X == new_node.X && turret._position.Y == new_node.Y)
                     newn = turret;
                 if (turret._position.X == old_node.X && turret._position.Y == old_node.Y)
-                {
-                    if (turret.getType() != EType.NODE)
-                        oldt = turret;
-                    else
-                        oldn = turret;
-                }
-            }
-            if (newn != null && (oldn != null || oldt != null))
-            {
-                if (oldt != null)
-                    ElectricityManager.linkNode(oldt, newn);
-                else
-                    ElectricityManager.linkNode(oldn, newn);
-            }
-        }
-
-        private void transfert_connect(Vector2 position)
-        {
-            Node oldn = null, newn = null;
-
-            foreach (Node turret in TurretList)
-            {
-                if (turret._position.X == position.X && turret._position.Y == position.Y)
-                {
-                    if (turret.getType() != EType.NODE)
-                        newn = turret;
-                    else
-                        oldn = turret;
-                }
+                    oldn = turret;
             }
             if (newn != null && oldn != null)
             {
-                List<Node> listLink = oldn._peerOut;
-
-                while (listLink.Count > 0)
-                {
-                    ElectricityManager.linkNode(newn, listLink.First<Node>());
-                    ElectricityManager.unlinkNode(oldn, listLink.First<Node>());
-                }
+                newn.addLink(oldn);
+                oldn.addLink(newn);
             }
         }
-
 
         public void Restart()
         {
@@ -345,7 +289,6 @@ namespace Electric_Potatoe_TD
             mapFiller();
             turretFiller();
             FakeModFiller();
-            FakeBulletFiller();
         }
 
         public int getScore()
@@ -357,15 +300,15 @@ namespace Electric_Potatoe_TD
         {
             int i = 0;
 
-            while (i < MobList.Count)
+            while (i <= MobList.Count)
             {
                 if (mob == MobList[i])
                     MobList.RemoveAt(i);
                 i++;
             }
-            foreach (Node myTurret in TurretList)
+            foreach (Tower myTurret in TurretList)
             {
-               myTurret.removeMobCorpse(mob);
+                myTurret.removeMobCorpse(mob);
             }
         }
 

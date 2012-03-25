@@ -25,21 +25,23 @@ namespace Electric_Potatoe_TD
             TurretList.Add(new Strenght(8, 4, 10, 10, this));
             TurretList.Add(new Speed(4, 2, 10, 10, this));
             TurretList.Add(new Shooter(0, 0, 10, 10, this));
-            TurretList[2].levelUpNode();
-            TurretList[2].levelUpNode();
-            TurretList[3].levelUpNode();
-            TurretList[3].levelUpTower();
-            TurretList[3].levelUpTower();
-            TurretList[3].levelUpTower();
+
+            /* TurretList[2].levelUpNode(ref capital);
+            TurretList[2].levelUpNode(ref capital);
+            TurretList[3].levelUpNode(ref capital);
+            TurretList[3].levelUpTower(ref capital);
+            TurretList[3].levelUpTower(ref capital);
+            TurretList[3].levelUpTower(ref capital);*/
         }
 
         public void FakeModFiller()
         {
             MobList = new List<Mob.Mob>();
-            MobList.Add(new Mob.Speed(WayPoints));
-            MobList.Add(new Mob.Peon(WayPoints));
-            MobList.Add(new Mob.Tank(WayPoints));
-            MobList.Add(new Mob.Boss(WayPoints));
+        //    MobList.Add(new Mob.Speed(WayPoints));
+         //   MobList.Add(new Mob.Peon(WayPoints));
+          //  MobList.Add(new Mob.Tank(WayPoints));
+            MobList.Add(new Mob.Berserk(WayPoints));
+          //  MobList.Add(new Mob.Boss(WayPoints));
         }
 
         public void FakeBulletFiller()

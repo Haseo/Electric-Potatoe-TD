@@ -15,6 +15,18 @@ namespace Electric_Potatoe_TD
             size[0] = 5;
             size[1] = 12;
 
+            Wave wav = new Wave();
+            wav.AddMonsters(typeof(Mob.Peon), 1);
+            wav.AddMonsters(typeof(Mob.Peon), 1);
+            wav.AddMonsters(typeof(Mob.Peon), 1);
+            wav.AddMonsters(typeof(Mob.Peon), 1);
+            wav.AddMonsters(typeof(Mob.Berserk), 1);
+            wav.AddMonsters(typeof(Mob.Tank), 1);
+           // wav.AddMonsters(typeof(Mob.Boss), 1);
+            wav.AddMonsters(typeof(Mob.Speed), 1);
+
+            ListOfWaves.Add(wav);
+            ListOfWaves.Add(wav);
             filled = new EMap[12, 5]
             {
                 {0,0,(EMap)1,0,0},

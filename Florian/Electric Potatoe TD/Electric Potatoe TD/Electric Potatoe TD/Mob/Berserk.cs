@@ -23,8 +23,8 @@ namespace Electric_Potatoe_TD.Mob
 
         public Berserk(List<Vector2> NewWay)
         {
-            this.mobMaxPV = 500;
-            this.mobPV = 500;
+            this.mobMaxPV = 75;
+            this.mobPV = 75;
             this.mobSpeed = 4;
             this.mobName = "Berserk";
             this.Waypoint = NewWay;

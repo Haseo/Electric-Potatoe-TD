@@ -53,6 +53,11 @@ namespace Electric_Potatoe_TD
             return 0;
         }
 
+        public Game getGame()
+        {
+            return _game;
+        }
+
         public virtual void levelUpTower()
         {
 
@@ -104,11 +109,6 @@ namespace Electric_Potatoe_TD
         public virtual EType getType()
         {
             return EType.NODE;
-        }
-
-        public Game getGame()
-        {
-            return (_game);
         }
 
         public virtual void putInRange(Mob.Mob mob)

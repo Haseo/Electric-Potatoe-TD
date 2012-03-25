@@ -247,7 +247,7 @@ namespace Electric_Potatoe_TD
             {
                 pos.X = (int)pos_map.X + (size_case * (int)myBullet.Coord.X);
                 pos.Y = (int)pos_map.Y + (size_case * (int)myBullet.Coord.Y);
-                _origin.spriteBatch.Draw(BulletTexture[(EBulletType)myBullet.GetType()], new Rectangle((int)myBullet.Coord.X * size_case, (int)myBullet.Coord.Y * size_case, size_case, size_case), new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), Color.White);
+                _origin.spriteBatch.Draw(BulletTexture[(EBulletType)myBullet.GetType()], new Rectangle((int)myBullet.Coord.X, (int)myBullet.Coord.Y, size_case, size_case), new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), Color.White);
                 //new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), 
             }
         }

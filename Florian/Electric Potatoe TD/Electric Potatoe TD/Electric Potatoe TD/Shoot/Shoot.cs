@@ -35,6 +35,8 @@ namespace Electric_Potatoe_TD
             double  angle;
             int move_x;
             int move_y;
+            double test1;
+            double test2;
             Vector2 triangle = new Vector2();
 
             getTargetCoord();
@@ -45,8 +47,11 @@ namespace Electric_Potatoe_TD
             {
             d = Math.Sqrt(Math.Pow(triangle.X, 2) + Math.Pow(triangle.Y, 2));
             angle = Math.Acos(triangle.X / d);
-            move_x = (int)(Math.Cos(angle) * _speed);
-            move_y = (int)(Math.Sin(angle) * _speed);
+            angle = angle *( 180 / Math.PI);
+            test1 = (Math.Cos(angle) * _speed);
+            test2 = (Math.Sin(angle) * _speed);
+            move_x = (int)test1;
+            move_y = (int)test2;
             CalcNewPostion(move_x, move_y);
             }
         }
@@ -118,6 +123,11 @@ namespace Electric_Potatoe_TD
                 _target[idx].TakeDamage(_dmg);
                 idx++;
             }
+        }
+
+        public virtual EBulletType GetType()
+        {
+            return (EBulletType.BULLET);
         }
     }
 }

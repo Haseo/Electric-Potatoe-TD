@@ -21,13 +21,14 @@ namespace Electric_Potatoe_TD
             this._dmg = 20;
             this._speed = 2;
             this._game = tower.getGame();
-            this._coord = tower.getPosition();
+            this._coord.X = tower.getPosition().X * tower.getGame().size_case;
+            this._coord.Y = tower.getPosition().Y * tower.getGame().size_case;
             this._target = new List<Mob.Mob>();
             this._target.Add(newTarget);
             this._area = 0;
         }
 
-        public EBulletType GetType()
+        public override EBulletType GetType()
         {
             return (EBulletType.BULLET);
         }

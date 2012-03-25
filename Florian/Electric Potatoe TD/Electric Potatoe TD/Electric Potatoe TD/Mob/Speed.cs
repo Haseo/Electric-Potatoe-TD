@@ -20,11 +20,11 @@ namespace Electric_Potatoe_TD.Mob
         {
             this.mobMaxPV = 100;
             this.mobPV = 100;
-            this.mobSpeed = 2;
+            this.mobSpeed = 3;
             this.mobName = "Speed";
             this.Waypoint = NewWay;
             this.mobType = EMobType.SPEED;
-            this.mobAttack = 10;
+            this.mobAttack = 5;
             if (NewWay != null && NewWay.Count > 0)
                 this.mobPos = NewWay[0];
         }
