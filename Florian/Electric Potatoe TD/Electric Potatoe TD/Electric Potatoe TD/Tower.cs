@@ -30,7 +30,7 @@ namespace Electric_Potatoe_TD
         protected Boolean _bactivated { set; get; }
 
         public List<Electric_Potatoe_TD.Mob.Mob> listTarget = new List<Electric_Potatoe_TD.Mob.Mob>();
-        public List<Shoot> listBullet = new List<Shoot>();
+        //public List<Shoot> listBullet = new List<Shoot>();
 
         public Tower(float xPos, float yPos, int resistor, int cost, Game game)
             : base(xPos, yPos, resistor, cost, game)
@@ -58,8 +58,13 @@ namespace Electric_Potatoe_TD
 
         public override void putInRange(Mob.Mob mob)
         {
-            if ((System.Math.Sqrt(System.Math.Pow((mob.MobPos.X - _position.X), 2)
-                + System.Math.Pow((mob.MobPos.Y - _position.Y), 2))) <= _range)
+            foreach (Mob.Mob m in listTarget)
+            {
+                if (mob == m)
+                    return;
+            }
+            if ((System.Math.Sqrt(System.Math.Pow((mob.MobPos.X - (_position.X * _game.size_case)), 2)
+                + System.Math.Pow((mob.MobPos.Y - (_position.Y * _game.size_case)), 2))) <= _range)
             {
                 listTarget.Add(mob);
             }
@@ -82,8 +87,12 @@ namespace Electric_Potatoe_TD
 
         public override void update()
         {
+            // Test
+            _bactivated = true;
+            //
+
             List<Mob.Mob> mobs = new List<Mob.Mob>();
-            int i,j;
+            int i;
 
             i = 0;
             if (!_bactivated)
@@ -99,10 +108,15 @@ namespace Electric_Potatoe_TD
                 if (_counter >= _multSpeedAtt)
                 {
                     _counter = 0;
-                    shoot(listTarget[listTarget.Count]);
+                    shoot(listTarget[listTarget.Count - 1]);
                 }
                 _counter++;
             }
+            /*
+            foreach (Shoot s in _game.BulletList)
+            {
+                s.update();
+            }*/
             checkBulletHit();
         }
 
@@ -111,17 +125,17 @@ namespace Electric_Potatoe_TD
             int i, j;
 
             i = 0;
-            while (i < listBullet.Count)
+            while (i < _game.BulletList.Count - 1)
             {
-                if (listBullet[i].update() == true)
+                if (_game.BulletList[i].update() == true)
                 {
                     j = 0;
-                    while (j < listBullet[i].Target.Count)
+                    while (j < _game.BulletList[i].Target.Count - 1)
                     {
-                        if (listBullet[i].Target[j].IsDead())
+                        if (_game.BulletList[i].Target[j].IsDead())
                         {
-                            listBullet[j].Target.RemoveAt(j);
-                            _game.mobIsDead(listBullet[i].Target[j]);
+                            _game.BulletList[j].Target.RemoveAt(j);
+                            _game.mobIsDead(_game.BulletList[i].Target[j]);
                         }
                         j++;
                     }
@@ -133,7 +147,7 @@ namespace Electric_Potatoe_TD
         public void shoot(Mob.Mob mob)
         {
             Bullet bullet = new Bullet(mob, this);
-            listBullet.Add(bullet);
+            _game.BulletList.Add(bullet);
         }
 
         public void removeMobCorpse(Mob.Mob mob)

@@ -43,6 +43,11 @@ namespace Electric_Potatoe_TD
             return 0;
         }
 
+        public Game getGame()
+        {
+            return _game;
+        }
+
         public virtual Boolean levelUpTower()
         {
             return false;
