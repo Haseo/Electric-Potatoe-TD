@@ -104,8 +104,9 @@ namespace Electric_Potatoe_TD
 
         protected virtual bool hit()
         {
-            getTargetCoord();
-            if (lastTargetPos == _coord)
+           // getTargetCoord();
+            if (lastTargetPos.X <= _coord.X + (_game.size_case / 3) && lastTargetPos.X >= _coord.X - (_game.size_case / 3) &&
+                lastTargetPos.Y <= _coord.Y + (_game.size_case / 3) && lastTargetPos.Y >= _coord.Y - (_game.size_case / 3))
             {
                 this.touch();
                 return true;
