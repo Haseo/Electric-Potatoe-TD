@@ -64,7 +64,7 @@ namespace Electric_Potatoe_TD
             Font = _origin._origin.Content.Load<SpriteFont>("MenuFont");
             MenuIGFont = _origin._origin.Content.Load<SpriteFont>("MenuIG");
             Tower = new Texture2D[5];
-            Tower[0] = _origin._origin.Content.Load<Texture2D>("ReactorA");
+            Tower[0] = _origin._origin.Content.Load<Texture2D>("ReactorN");
             Tower[1] = _origin._origin.Content.Load<Texture2D>("TowerFast");
             Tower[2] = _origin._origin.Content.Load<Texture2D>("TowerNormal");
             Tower[3] = _origin._origin.Content.Load<Texture2D>("TowerHeavy");

@@ -20,7 +20,7 @@ namespace Electric_Potatoe_TD
     {
         this._dmg = 20;
         this._speed = 5;
-        this._game = tower.Game;
+        this._game = tower.getGame();
         this._coord = tower.getPosition();
         this._target = newTarget;
         this._area = 0;
