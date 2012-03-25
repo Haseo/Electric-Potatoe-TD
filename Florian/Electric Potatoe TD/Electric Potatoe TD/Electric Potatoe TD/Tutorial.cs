@@ -53,17 +53,17 @@ namespace Electric_Potatoe_TD
             _scenes = new List<scene>();
             _current = 0;
             _sizeCase = 100;
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Les Bases:\n\nDans un \"Tower Defence\" vous devrez survivre\nà des vagues successives d'enemis en plaçant\nstrategiquement des tourelles sur leur chemin.", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Le principe d'ElectricPotatoe est un peu\nplus compliqué car tout est basé sur\nl'énergie élecrique.", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "1) La centrale génère de l'électricité\n cela permet d'alimenter les tourelles.", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "2) Les tourelles doivent être posées\n sur des nodes.\nPour poser une node:\n double clickez sur la map pour passer\nen mode construction\n\n Glissez ensuite votre doigt depuis la centrale\nou la node d'origine jusqu'au point où vous\nvoulez placer votre node.\n\nLes nodes permettent aussi de générer un peu d'énergie.", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "3) Pour construire une tourelle\nplacez votre doigt deux secondes sur la node\npuis clickez sur create tower\n\nChoisissez ensuite quelle tourelle vous voulez\nplacer par une simple pression du doigt sur\nle nom de la tourelle.", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "4) Quand vous tuez des enemis votre\ncentrale gagne en énergie.\n\nCela vous permet de placer de nouvelles\nnodes, de nouvelles tourelles et de les alimenter.\nSi vous produisez trop de nodes/tourelles\nassurez vous d'avoir assez d'énergie pour les\nalimenter si ce n'est pas le cas elles ne tirerons\npas.\n\nDe plus vous pouvez utiliser votre énergie\npour améliorer vos nodes et vos tourelles.", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "5) Améliorez vos défences:\nAméliorer une node lui permet de générer un\npeu plus de d'énergie.\nPour améliorer vos nodes cliquez sur une node\ndeux secondes pour passer en mode\nconstruction puis clickez sur \"upgrade\"\n\nUne node peux monter jusqu'au niveau 4,\nelle change de couleur à chaques fois.\n", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "6) Vous pouvez aussi améliorer vos tourelles!\n Cela augmente leur puissance ou bien\nleur cadence de tir.\nUne petite boule lumineuse se place sur\nle coté d'une tourelle quand elle\nest améliorée.\nVous pouvez en cumuler jusqu'à quatre.", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "7) Vous pouvez améliorer à la fois vos nodes\net vos tourelles.", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "8) Plus les tourelles sont proche de la centrale,\nplus elle est efficace.\n\nAussi une tourelle trop éloignée ne tirera pas.\n", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Pour obtenir un bonus de production\nd'énergie,vous pouvez booster votre\ncentrale en agitant votre telephone.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Les Bases:\n\nDans un \"Tower Defense\" vous devez survivre\nà des vagues successives d'ennemis\nen plaçant strategiquement des tours\nsur leur chemin.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Le principe d'ElectricPotatoe est un peu\nplus compliqué car tout est basé sur\nl'énergie électrique.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "1) La centrale génère de l'électricité\n cela permet d'alimenter les tours.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "2) Les tours doivent être posées\n sur des nodes.\nPour poser une node:\n Double-cliquez sur la map pour passer\nen mode construction.\n\n Glissez ensuite votre doigt depuis la centrale\nou la node d'origine jusqu'au point où vous\nvoulez placer votre node.\n\nLes nodes permettent aussi\nde générer un peu d'énergie.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "3) Pour construire une tour\nplacez votre doigt deux secondes sur la node\npuis cliquez sur CRÉER TOUR.\n\nChoisissez ensuite quelle tour vous voulez\nplacer par une simple pression du doigt sur\nle nom de la tour.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "4) Quand vous tuez des ennemis votre\ncentrale gagne en énergie.\n\nCela vous permet de placer de nouvelles\nnodes, de nouvelles tourelles\net de les alimenter.\nSi vous produisez plusieurs nodes/tourelles\nassurez-vous d'avoir assez d'énergie pour les\nalimenter. Si ce n'est pas le cas elles ne tirerons\npas.\n\nDe plus vous pouvez utiliser votre énergie\npour améliorer vos nodes et vos tours.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "5) Améliorez vos défenses:\nAméliorer une node lui permet de générer un\npeu plus de d'énergie.\nPour améliorer vos nodes cliquez sur une node\ndeux secondes pour passer en mode\nconstruction puis cliquez sur \"AMÉLIORER\"\n\nUne node peux monter jusqu'au niveau 4,\nelle change de couleur à chaque fois.\n", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "6) Vous pouvez aussi améliorer vos tours !\n Cela augmente leur puissance ou bien\nleur cadence de tir.\nUne petite boule lumineuse se place sur\nle coté d'une tour quand elle\nest améliorée.\nVous pouvez en cumuler jusqu'à quatre.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "7) Vous pouvez améliorer à la fois vos nodes\net vos tours.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "8) Plus les tours sont proches de la centrale,\nplus elle est sont efficaces.\n\nAussi une tour trop éloignée ne tirera pas.\n", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Pour obtenir un bonus de production\nd'énergie, vous pouvez booster votre\ncentrale en agitant votre téléphone.", new Vector2(-1, -1)));
             _scenes[3]._nod.Add(new Node(1, 2, 10, 42, null));
 
             _scenes[4]._nod.Add(new Shooter(1, 2, 10, 42, null));
@@ -99,7 +99,7 @@ namespace Electric_Potatoe_TD
              {  new Rectangle(_origin.graphics.PreferredBackBufferWidth / 4, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 180, 90),
                 new Rectangle(_origin.graphics.PreferredBackBufferWidth * 2 / 4, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 180, 90),
                 new Rectangle(_origin.graphics.PreferredBackBufferWidth * 3 / 4, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 180, 90),
-                new Rectangle(_origin.graphics.PreferredBackBufferWidth / 2, _origin.graphics.PreferredBackBufferHeight * 1 / 10, 180, 90),
+                new Rectangle(_origin.graphics.PreferredBackBufferWidth / 2, _origin.graphics.PreferredBackBufferHeight * 1 / 20, 180, 90),
              };
         }
 
@@ -202,18 +202,18 @@ namespace Electric_Potatoe_TD
             }
 
             _origin.spriteBatch.Draw(Button, _position[0], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Menu", new Vector2(_position[0].X + (_position[0].Width / 4), (_position[0].Y + (_position[0].Height / 3))), Color.White);
+            _origin.spriteBatch.DrawString(Font, "MENU", new Vector2(_position[0].X + (_position[0].Width / 4), (_position[0].Y + (_position[0].Height / 3))), Color.White);
 
             if (_current > 0)
             {
                 _origin.spriteBatch.Draw(Button, _position[1], Color.White);
-                _origin.spriteBatch.DrawString(Font, "Prev", new Vector2(_position[1].X + (_position[1].Width / 4), (_position[1].Y + (_position[1].Height / 3))), Color.White);
+                _origin.spriteBatch.DrawString(Font, "PREC.", new Vector2(_position[1].X + (_position[1].Width / 4), (_position[1].Y + (_position[1].Height / 3))), Color.White);
             }
 
             if ((_current + 1) < _scenes.Count)
             {
                 _origin.spriteBatch.Draw(Button, _position[2], Color.White);
-                _origin.spriteBatch.DrawString(Font, "Next", new Vector2(_position[2].X + (_position[2].Width / 4), (_position[2].Y + (_position[2].Height / 3))), Color.White);
+                _origin.spriteBatch.DrawString(Font, "SUIV.", new Vector2(_position[2].X + (_position[2].Width / 4), (_position[2].Y + (_position[2].Height / 3))), Color.White);
             }
         }
     }
