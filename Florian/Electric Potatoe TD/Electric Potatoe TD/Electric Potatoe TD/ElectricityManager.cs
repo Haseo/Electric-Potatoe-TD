@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
+
 
 namespace Electric_Potatoe_TD
 {
@@ -13,7 +15,11 @@ namespace Electric_Potatoe_TD
             {
                 if (dest.addLink(src) == true)
                 {
-                    return true;
+                   Pair<Vector2, Vector2> tmp = new Pair<Vector2,Vector2>();
+                   tmp.First = src._position;
+                   tmp.Second = dest._position;
+                   src.getGame().nodeLink.Add(tmp);
+                   return true;
                 }
                 else
                 {
@@ -27,6 +33,11 @@ namespace Electric_Potatoe_TD
         {
             src._peerOut.Remove(dest);
             dest._peerOut.Remove(src);
+            src.getGame().nodeLink.ForEach(delegate (Pair<Vector2, Vector2> buf){
+                if ((src._position == buf.First && dest._position == buf.Second )
+                        || (src._position == buf.First && dest._position == buf.Second))
+                    src.getGame().nodeLink.Remove(buf);
+                });
             return true;
         }
 

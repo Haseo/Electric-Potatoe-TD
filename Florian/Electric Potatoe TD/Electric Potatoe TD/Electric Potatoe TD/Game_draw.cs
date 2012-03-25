@@ -24,6 +24,7 @@ namespace Electric_Potatoe_TD
                 draw_map(FrameStart, FPS, CurrentFrame, SheetSize);
                 draw_content();
                 draw_mobs();
+                draw_link();
             }
             else
             {
@@ -73,6 +74,17 @@ namespace Electric_Potatoe_TD
                 _origin.spriteBatch.DrawString(RageMetter_font, "Speed", new Vector2(_position[17].X, _position[17].Y), Color.Black);
                 _origin.spriteBatch.DrawString(RageMetter_font, "Generator", new Vector2(_position[18].X, _position[18].Y), Color.Black);
             }
+        }
+
+        public void draw_link()
+        {
+            
+
+        }
+
+        public void drawLine(Vector2 origine, Vector2 dest)
+        {
+
         }
 
         public void draw_newNode()
