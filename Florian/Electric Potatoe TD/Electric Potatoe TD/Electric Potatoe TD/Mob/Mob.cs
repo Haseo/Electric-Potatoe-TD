@@ -14,7 +14,7 @@ using Microsoft.Phone.Controls;
 
 namespace Electric_Potatoe_TD.Mob
 {
-    public enum ETypes
+    public enum EMobType
     {
         PEON,
         SPEED,
@@ -35,12 +35,12 @@ namespace Electric_Potatoe_TD.Mob
         protected Vector2          mobPos;
         protected int               currentLoop;
         protected List<Vector2>   Waypoint;
-        protected ETypes            mobType;
+        protected EMobType            mobType;
         #endregion
 
-        #region asseceurs
+        #region accesseurs
 
-        public ETypes MobType { get { return this.mobType; } }
+        public EMobType MobType { get { return this.mobType; } }
         public String ModName {get{return this.mobName;}}
         public int MobPV { get { return this.mobPV; } }
         public int MobMaxPV{ get {return this.mobMaxPV; }}
@@ -68,7 +68,7 @@ namespace Electric_Potatoe_TD.Mob
 
         protected virtual int Attack()
         {
-            if (this.Waypoint != null && this.Waypoint.Count < 0)
+            if (this.Waypoint != null && this.Waypoint.Count > 0)
                 if (this.Waypoint.Count == 1 && this.Waypoint[0] == this.mobPos)
                 {
                     Console.WriteLine("le mob attaque la central : ");

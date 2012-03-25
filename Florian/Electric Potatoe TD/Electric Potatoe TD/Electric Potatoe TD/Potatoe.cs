@@ -5,23 +5,31 @@ using System.Text;
 
 namespace Electric_Potatoe_TD
 {
-    class Potatoe
+    class Potatoe : Node
     {
-        int score;
+        private int _capital;
+        public int _HP;
         
-        public Potatoe()
+        public Potatoe(float xPos, float yPos, Game data)
+            : base(xPos, yPos, 0, 0, data)
         {
-            score = 1000;
+            _capital = 1000;
+            _HP = 100;
+        }
+
+        public void takeDamage(int value)
+        {
+            _HP -= value;
         }
 
         public int getScore()
         {
-            return (score);
+            return (_capital);
         }
 
         public int getCapital()
         {
-            return (score);
+            return (_capital);
         }
     }
 }

@@ -38,7 +38,17 @@ namespace Electric_Potatoe_TD
             return _nodeLvl;
         }
 
-        public Boolean levelUpNode(int capital)
+        public virtual int getTowerLevel()
+        {
+            return 0;
+        }
+
+        public virtual Boolean levelUpTower(ref int capital)
+        {
+            return false;
+        }
+
+        public Boolean levelUpNode(ref int capital)
         {
             if (_cost * _nodeLvl > capital)
                 return false;
@@ -54,14 +64,27 @@ namespace Electric_Potatoe_TD
             _nodeLvl = 0;
             _game = data;
             _activated = false;
+            _peerOut = new List<Node>();
         }
-        
+
         public Boolean addLink(Node contact)
         {
             if (_peerOut.Count > 3)
                 return false;
             _peerOut.Add(contact);
             return true;
+        }
+
+        public Boolean CanaddLink()
+        {
+            if (_peerOut.Count > 3)
+                return false;
+            return true;
+        }
+
+        public virtual void update()
+        {
+
         }
 
         public virtual double energyDiv()
