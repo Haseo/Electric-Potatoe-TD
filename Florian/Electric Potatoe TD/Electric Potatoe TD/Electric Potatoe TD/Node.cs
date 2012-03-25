@@ -27,6 +27,7 @@ namespace Electric_Potatoe_TD
 
         public List<Node> _peerOut { get; set; }
         public Boolean _activated { set; get; }
+        public Boolean _activatedByPlayer { set; get; }
 
         public int getCost()
         {
@@ -76,6 +77,7 @@ namespace Electric_Potatoe_TD
             _nodeLvl = 0;
             _game = data;
             _activated = false;
+            _activatedByPlayer = true;
             _peerOut = new List<Node>();
         }
 
