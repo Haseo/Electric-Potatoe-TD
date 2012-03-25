@@ -17,13 +17,13 @@ namespace Electric_Potatoe_TD
 {
     public partial class Game
     {
-        public void draw(int FrameStart, int FPS, int CurrentFrame, int SheetSize)
+        public void draw(int FrameStart, int FPS, int CurrentFrame, int CurrentMobFrame, int SheetSize)
         {
             if (_zoom == false)
             {
                 draw_map(FrameStart, FPS, CurrentFrame, SheetSize);
                 draw_content();
-                draw_mobs();
+                draw_mobs(CurrentMobFrame);
             }
             else
             {
@@ -39,11 +39,12 @@ namespace Electric_Potatoe_TD
 
         public void draw_Selected()
         {
+
             if ((_selectFlag == 1 || _selectFlag == 2) && _node != null)
             {
                 _origin.spriteBatch.DrawString(RageMetter_font, "Node", new Vector2(_position[5].X, _position[5].Y), Color.Black);
                 _origin.spriteBatch.DrawString(RageMetter_font, "     Level : " + _node.getTowerLevel().ToString(), new Vector2(_position[6].X, _position[6].Y), Color.Black);
-                if (_node.getTowerLevel() < 4)
+                if (_node.getNodeLevel() < 3)
                     _origin.spriteBatch.DrawString(RageMetter_font, "Upgrade Node :\n    Cost : " + _node.getCost(), new Vector2(_position[7].X, _position[7].Y),
                         (_node.getCost() >= _central.getCapital() ? Color.LightSlateGray : Color.Black));
             }
@@ -169,18 +170,22 @@ namespace Electric_Potatoe_TD
             }
         }
 
-        public void draw_mobs()
+        public void draw_mobs(int CurrentFrame)
         {
+            Vector2 pos = new Vector2();
             _origin.spriteBatch.DrawString(RageMetter_font, "Test : " + WayPoints[0].X.ToString() + " " + WayPoints[0].Y.ToString(), new Vector2(_position[4].X + 200, _position[4].Y), Color.Black);
             foreach (Mob.Mob myMob in MobList)
             {
+                pos.X = (int)pos_map.X + (size_case * (int)myMob.MobPos.X);
+                pos.Y = (int)pos_map.Y + (size_case * (int)myMob.MobPos.Y);
                 //foreach (Vector2 myPoint in WayPoints)
                 {
                     //    _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)myPoint.X * size_case, (int)myPoint.Y * size_case, size_case, size_case), Color.White);
                 }
-                _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)myMob.MobPos.X, (int)myMob.MobPos.Y, size_case, size_case), Color.Red);
-            }
-        }
+                _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)myMob.MobPos.X + 20, (int)myMob.MobPos.Y + 20, size_case - 20, size_case - 20), new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), Color.White);
+                //new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), 
+			}
+		}
 
         public void draw_content()
         {

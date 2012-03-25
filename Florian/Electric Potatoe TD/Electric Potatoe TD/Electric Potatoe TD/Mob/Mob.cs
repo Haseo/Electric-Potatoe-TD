@@ -97,25 +97,25 @@ namespace Electric_Potatoe_TD.Mob
                 {
                     if (this.Waypoint[idx].X < this.mobPos.X)
                     {
-                        this.mobPos.X -= 2;
+                        this.mobPos.X -= 3;
                         if (this.Waypoint[idx].X > this.mobPos.X)
                             this.mobPos.X = this.Waypoint[idx].X;
                     }
                     else if (this.Waypoint[idx].X > this.mobPos.X)
                     {
-                        this.mobPos.X += 2;
+                        this.mobPos.X += 3;
                         if (this.Waypoint[idx].X < this.mobPos.X)
                             this.mobPos.X = this.Waypoint[idx].X;
                     }
                     else if (this.Waypoint[idx].Y < this.mobPos.Y)
                     {
-                        this.mobPos.Y -= 2;
+                        this.mobPos.Y -= 3;
                         if (this.Waypoint[idx].Y > this.mobPos.Y)
                             this.mobPos.Y = this.Waypoint[idx].Y;
                     }
                     else if (this.Waypoint[idx].Y > this.mobPos.Y)
                     {
-                        this.mobPos.Y += 2;
+                        this.mobPos.Y += 3;
                         if (this.Waypoint[idx].Y < this.mobPos.Y)
                             this.mobPos.Y = this.Waypoint[idx].Y;
                     }
