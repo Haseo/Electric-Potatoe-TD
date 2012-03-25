@@ -232,12 +232,9 @@ namespace Electric_Potatoe_TD
 
         public void draw_bullet(int CurrentFrame)
         {
-            Vector2 pos = new Vector2();
             foreach (Bullet myBullet in BulletList)
             {
-                pos.X = (int)pos_map.X + (size_case * (int)myBullet.Coord.X);
-                pos.Y = (int)pos_map.Y + (size_case * (int)myBullet.Coord.Y);
-                _origin.spriteBatch.Draw(BulletTexture[(EBulletType)myBullet.GetType()], new Rectangle((int)myBullet.Coord.X, (int)myBullet.Coord.Y, size_case, size_case), new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), Color.White);
+                _origin.spriteBatch.Draw(BulletTexture[(EBulletType)myBullet.GetType()], new Rectangle((int)myBullet.Coord.X + size_case / 2, (int)myBullet.Coord.Y + size_case / 2, size_case / 2, size_case / 2), new Rectangle(CurrentFrame * BulletFrameSize.X, 0, BulletFrameSize.X, BulletFrameSize.Y), Color.White);
                 //new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), 
             }
         }
