@@ -147,5 +147,10 @@ namespace Electric_Potatoe_TD
                 i++;
             }
         }
+
+        public Game getGame()
+        {
+            return (_game);
+        }
     }
 }

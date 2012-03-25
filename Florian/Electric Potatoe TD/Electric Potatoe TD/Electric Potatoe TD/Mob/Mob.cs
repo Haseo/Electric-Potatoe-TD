@@ -36,6 +36,8 @@ namespace Electric_Potatoe_TD.Mob
         protected int              currentLoop;
         protected List<Vector2>   Waypoint;
         protected EMobType        mobType;
+        protected int idx; 
+
         #endregion
 
         #region accesseurs
@@ -50,7 +52,7 @@ namespace Electric_Potatoe_TD.Mob
 
         public virtual EMobType GetMobType()
         {
-            return 0;
+            return (EMobType.TANK);
         }
 
         #endregion
@@ -74,7 +76,7 @@ namespace Electric_Potatoe_TD.Mob
         protected virtual int Attack()
         {
             if (this.Waypoint != null && this.Waypoint.Count > 0)
-                if (this.Waypoint.Count == 1 && this.Waypoint[0] == this.mobPos)
+                if (this.Waypoint.Count == (idx + 1) && this.Waypoint[idx] == this.mobPos)
                 {
                     Console.WriteLine("le mob attaque la central : ");
                     return this.mobAttack;
@@ -87,35 +89,35 @@ namespace Electric_Potatoe_TD.Mob
         {
             if(this.Waypoint != null && this.Waypoint.Count > 0)
             {
-                if (this.Waypoint.Count == 1 && this.Waypoint[0] == this.mobPos)
+                if (this.Waypoint.Count == (idx + 1) && this.Waypoint[idx] == this.mobPos)
                     return;
-                if (this.Waypoint[0] == this.mobPos)
-                this.Waypoint.RemoveAt(0);
+                if (this.Waypoint[idx] == this.mobPos)
+                    idx++;
                 else
                 {
-                    if (this.Waypoint[0].X < this.mobPos.X)
+                    if (this.Waypoint[idx].X < this.mobPos.X)
                     {
-                        this.mobPos.X--;
-                        if (this.Waypoint[0].X > this.mobPos.X)
-                            this.mobPos.X = this.Waypoint[0].X;
+                        this.mobPos.X -= 2;
+                        if (this.Waypoint[idx].X > this.mobPos.X)
+                            this.mobPos.X = this.Waypoint[idx].X;
                     }
-                    else if (this.Waypoint[0].X > this.mobPos.X)
+                    else if (this.Waypoint[idx].X > this.mobPos.X)
                     {
-                        this.mobPos.X++;
-                        if (this.Waypoint[0].X < this.mobPos.X)
-                            this.mobPos.X = this.Waypoint[0].X;
+                        this.mobPos.X += 2;
+                        if (this.Waypoint[idx].X < this.mobPos.X)
+                            this.mobPos.X = this.Waypoint[idx].X;
                     }
-                    else if (this.Waypoint[0].Y < this.mobPos.Y)
+                    else if (this.Waypoint[idx].Y < this.mobPos.Y)
                     {
-                        this.mobPos.Y--;
-                        if (this.Waypoint[0].Y > this.mobPos.Y)
-                            this.mobPos.Y = this.Waypoint[0].Y;
+                        this.mobPos.Y -= 2;
+                        if (this.Waypoint[idx].Y > this.mobPos.Y)
+                            this.mobPos.Y = this.Waypoint[idx].Y;
                     }
-                    else if (this.Waypoint[0].Y > this.mobPos.Y)
+                    else if (this.Waypoint[idx].Y > this.mobPos.Y)
                     {
-                        this.mobPos.Y++;
-                        if (this.Waypoint[0].Y < this.mobPos.Y)
-                            this.mobPos.Y = this.Waypoint[0].Y;
+                        this.mobPos.Y += 2;
+                        if (this.Waypoint[idx].Y < this.mobPos.Y)
+                            this.mobPos.Y = this.Waypoint[idx].Y;
                     }
                 }
            }

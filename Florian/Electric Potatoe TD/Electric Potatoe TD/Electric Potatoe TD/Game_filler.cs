@@ -43,8 +43,10 @@ namespace Electric_Potatoe_TD
         public void FakeModFiller()
         {
             MobList = new List<Mob.Mob>();
-            MobList.Add(new Peon(WayPoints));
-		}
+            MobList.Add(new Mob.Speed(WayPoints));
+            MobList.Add(new Mob.Peon(WayPoints));
+            MobList.Add(new Mob.Tank(WayPoints));
+        }
 
         public void mapFiller()
         {

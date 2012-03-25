@@ -50,11 +50,11 @@ namespace Electric_Potatoe_TD
              };
             _description = new string[6];
             _description[5] = "BESTIAIRE";
-            _description[0] = "Le Peon est correspont a un monstre de base  \n il a peu de PV et ce delace lentement et ne frappe pas fort";
-            _description[1] = "Le Tank est correspont a un monstre capable de resiter a de nombreuse attaques \n il a de nombeux PV et ce deplace tres lentement et ne frappe pas fort";
-            _description[2] = "Le Speed est correspont a un monstre rapide, \n il a peu de PV et ce deplace rapidemend et ne frappe pas fort";
-            _description[3] = "Le Berserk est correspont a un monstre special, \n car plus il perd de point de vie plus il se deplace vite et frappe fort";
-            _description[4] = "Le Boss est correspont a un monstre de fin de niveau,\n capable de resiter a de nombreuse attaques \n il a nombreux PV et ce deplace tres lentement tout en frappant fort";
+            _description[0] = "Le Péon est un monstre de base.  \n Il a peu de PV, se déplace lentement et ne frappe pas fort";
+            _description[1] = "Le Tank est un monstre capable de résister à de nombreuse attaques. \n Il a de nombreux PV, se déplace tràs lentement et ne frappe pas fort";
+            _description[2] = "Le Speed est un monstre rapide. \n Il a peu de PV, se déplace rapidement et ne frappe pas fort";
+            _description[3] = "Le Berserk est un monstre special. \n Plus il perd de points de vie plus il se déplace vite et frappe fort";
+            _description[4] = "Le Boss est un monstre de fin de niveau.\n Il est capable de résister à de nombreuses attaques \n Il a de nombreux PV et se déplace tràs lentement tout en frappant fort";
         }
 
         public void LoadContent()
@@ -63,12 +63,11 @@ namespace Electric_Potatoe_TD
             Button = _origin._origin.Content.Load<Texture2D>("Button");
             Font = _origin._origin.Content.Load<SpriteFont>("MenuFont");
             MenuIGFont = _origin._origin.Content.Load<SpriteFont>("MenuIG");
-            Mob = new Texture2D[5];
-            Mob[0] = _origin._origin.Content.Load<Texture2D>("Mob");
-            Mob[1] = _origin._origin.Content.Load<Texture2D>("Mob1");
-            Mob[2] = _origin._origin.Content.Load<Texture2D>("Mob2");
-            Mob[3] = _origin._origin.Content.Load<Texture2D>("Mob3");
-            Mob[4] = _origin._origin.Content.Load<Texture2D>("Mob4");
+            Mob = new Texture2D[4];
+            Mob[0] = _origin._origin.Content.Load<Texture2D>("Mob1");
+            Mob[1] = _origin._origin.Content.Load<Texture2D>("Mob2");
+            Mob[2] = _origin._origin.Content.Load<Texture2D>("Mob3");
+            Mob[3] = _origin._origin.Content.Load<Texture2D>("Mob4");
         }
 
         public void UnloadContent()
@@ -104,8 +103,6 @@ namespace Electric_Potatoe_TD
             _origin._origin.spriteBatch.Draw(Mob[1], _position[7], Color.White);
             _origin._origin.spriteBatch.Draw(Mob[2], _position[8], Color.White);
             _origin._origin.spriteBatch.Draw(Mob[3], _position[9], Color.White);
-            _origin._origin.spriteBatch.Draw(Mob[4], _position[10], Color.White);
-
 
             _origin._origin.spriteBatch.DrawString(MenuIGFont, _description[0], new Vector2(_position[0].X, _position[0].Y), Color.Black);
             _origin._origin.spriteBatch.DrawString(MenuIGFont, _description[1], new Vector2(_position[1].X, _position[1].Y), Color.Black);
