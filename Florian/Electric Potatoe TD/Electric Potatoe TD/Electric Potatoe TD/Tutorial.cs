@@ -53,17 +53,44 @@ namespace Electric_Potatoe_TD
             _scenes = new List<scene>();
             _current = 0;
             _sizeCase = 100;
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Exemple", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Ceci est une description\n2nd ligne ....\n3rd Ligne...", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Ceci est une description\n2nd ligne ....\n3rd Ligne...", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "The Game", new Vector2(2, 1)));
-            _scenes[1]._nod.Add(new Node(1, 1, 10, 42, null));
-            _scenes[2]._nod.Add(new Shooter(1, 1, 10, 42, null));
-            _scenes[2]._nod.Last<Node>().levelUpTower();
-            _scenes[2]._nod.Last<Node>().levelUpNode();
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Les Bases:\n\nDans un \"Tower Defence\" vous devrez survivre\nà des vagues successives d'enemis en plaçant\nstrategiquement des tourelles sur leur chemin.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Le principe d'ElectricPotatoe est un peu\nplus compliqué car tout est basé sur\nl'énergie élecrique.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "1) La centrale génère de l'électricité\n cela permet d'alimenter les tourelles.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "2) Les tourelles doivent être posées\n sur des nodes.\nPour poser une node:\n double clickez sur la map pour passer\nen mode construction\n\n Glissez ensuite votre doigt depuis la centrale\nou la node d'origine jusqu'au point où vous\nvoulez placer votre node.\n\nLes nodes permettent aussi de générer un peu d'énergie.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "3) Pour construire une tourelle\nplacez votre doigt deux secondes sur la node\npuis clickez sur create tower\n\nChoisissez ensuite quelle tourelle vous voulez\nplacer par une simple pression du doigt sur\nle nom de la tourelle.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "4) Quand vous tuez des enemis votre\ncentrale gagne en énergie.\n\nCela vous permet de placer de nouvelles\nnodes, de nouvelles tourelles et de les alimenter.\nSi vous produisez trop de nodes/tourelles\nassurez vous d'avoir assez d'énergie pour les\nalimenter si ce n'est pas le cas elles ne tirerons\npas.\n\nDe plus vous pouvez utiliser votre énergie\npour améliorer vos nodes et vos tourelles.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "5) Améliorez vos défences:\nAméliorer une node lui permet de générer un\npeu plus de d'énergie.\nPour améliorer vos nodes cliquez sur une node\ndeux secondes pour passer en mode\nconstruction puis clickez sur \"upgrade\"\n\nUne node peux monter jusqu'au niveau 4,\nelle change de couleur à chaques fois.\n", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "6) Vous pouvez aussi améliorer vos tourelles!\n Cela augmente leur puissance ou bien\nleur cadence de tir.\nUne petite boule lumineuse se place sur\nle coté d'une tourelle quand elle\nest améliorée.\nVous pouvez en cumuler jusqu'à quatre.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "7) Vous pouvez améliorer à la fois vos nodes\net vos tourelles.", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "8) Plus les tourelles sont proche de la centrale,\nplus elle est efficace.\n\nAussi une tourelle trop éloignée ne tirera pas.\n", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Pour obtenir un bonus de production\nd'énergie,vous pouvez booster votre\ncentrale en agitant votre telephone.", new Vector2(-1, -1)));
+            _scenes[3]._nod.Add(new Node(1, 2, 10, 42, null));
 
-            _scenes[1]._mobs.Add(new Mob.Speed(null));
-            _scenes[2]._mobs.Add(new Mob.Berserk(null));
+            _scenes[4]._nod.Add(new Shooter(1, 2, 10, 42, null));
+
+            _scenes[5]._nod.Add(new Shooter(2, 2, 10, 42, null));
+            _scenes[5]._nod.Add(new Shooter(0, 2, 10, 42, null));
+            _scenes[5]._nod.Add(new Shooter(0, 2, 10, 42, null));
+
+
+            _scenes[6]._nod.Add(new Node(0, 0, 10, 42, null));
+            _scenes[6]._nod.Add(new Node(1, 0, 10, 42, null));
+            _scenes[6]._nod[1].levelUpNode();
+            _scenes[6]._nod.Add(new Node(2, 0, 10, 42, null));
+            _scenes[6]._nod[2].levelUpNode();
+            _scenes[6]._nod[2].levelUpNode();
+
+            _scenes[7]._nod.Add(new Shooter(0, 0, 10, 42, null));
+            _scenes[7]._nod.Add(new Shooter(1, 0, 10, 42, null));
+            _scenes[7]._nod[1].levelUpTower();
+            _scenes[7]._nod.Add(new Shooter(2, 0, 10, 42, null));
+            _scenes[7]._nod[2].levelUpTower();
+            _scenes[7]._nod[2].levelUpTower();
+
+            _scenes[8]._nod.Add(new Shooter(2, 0, 10, 42, null));
+            _scenes[8]._nod[0].levelUpTower();
+            _scenes[8]._nod[0].levelUpTower();
+            _scenes[8]._nod[0].levelUpNode();
         }
 
         public void Initialize()

@@ -221,7 +221,7 @@ namespace Electric_Potatoe_TD
             TypeTexture[EType.GENERATOR] = _origin.Content.Load<Texture2D>("TowerGenerator");
             NoConstruct = _origin.Content.Load<Texture2D>("NoConstruct");
             LevelColor[0] = Color.White;
-            LevelColor[1] = Color.Green;
+            LevelColor[1] = Color.GreenYellow;
             LevelColor[2] = Color.Orange;
             LevelColor[3] = Color.Red;
             LevelTexture[0] = _origin.Content.Load<Texture2D>("Level0");
@@ -262,7 +262,6 @@ namespace Electric_Potatoe_TD
                 return (new Vector2(x + Zoom.X, y + Zoom.Y));
             return (new Vector2(x, y));
         }
-
 
         private  bool can_access()
         {
