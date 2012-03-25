@@ -57,7 +57,7 @@ namespace Electric_Potatoe_TD
 
         static void ElectricityCalcul(Node actual, ref int VoltageColector, int Intensity, bool previous, ref List<Node>Visited)
         {
-            if (VoltageColector <= 0 || previous ==  false)
+            if (VoltageColector <= 0 || previous ==  false ||  actual._activatedByPlayer == false || Intensity == 0)
             {
                 actual._activated = false;
             }
