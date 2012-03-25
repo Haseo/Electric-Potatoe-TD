@@ -21,8 +21,9 @@ namespace Electric_Potatoe_TD
             public List<Mob.Mob> _mobs;
             public EMap[,] map;
             public string Description;
+            public Vector2 posNoConstruct;
 
-            public scene(List<Node> nod, List<Mob.Mob> mobs, EMap[,] m, string Des)
+            public scene(List<Node> nod, List<Mob.Mob> mobs, EMap[,] m, string Des, Vector2 posNC)
             {
                 _nod = nod;
                 _mobs = mobs;
@@ -33,6 +34,7 @@ namespace Electric_Potatoe_TD
                     {EMap.BACKGROUND, EMap.CANYON_HORIZONTAL, EMap.BACKGROUND},
                 };
                 Description = Des;
+                posNoConstruct = posNC;
             }
         };
 
@@ -51,9 +53,9 @@ namespace Electric_Potatoe_TD
             _scenes = new List<scene>();
             _current = 0;
             _sizeCase = 100;
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Exemple"));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Ceci est une description\n2nd ligne ....\n3rd Ligne..."));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "The Game"));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Exemple", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Ceci est une description\n2nd ligne ....\n3rd Ligne...", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "The Game", new Vector2(-1, -1)));
         }
 
         public void Initialize()
