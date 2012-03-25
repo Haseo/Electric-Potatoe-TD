@@ -307,6 +307,13 @@ namespace Electric_Potatoe_TD
                 else
                     ElectricityManager.linkNode(oldn, newn);
             }
+            else if (newn != null && ((_central._position.X == old_node.X && _central._position.Y == old_node.Y) ||
+                (_central._position.X == (old_node.X - 1) && _central._position.Y == old_node.Y) ||
+                (_central._position.X == old_node.X && _central._position.Y == (old_node.Y + 1)) ||
+                (_central._position.X == (old_node.X - 1) && _central._position.Y == (old_node.Y + 1))))
+            {
+                ElectricityManager.linkNode(_central, newn);
+            }
         }
 
         private void transfert_connect(Vector2 position)

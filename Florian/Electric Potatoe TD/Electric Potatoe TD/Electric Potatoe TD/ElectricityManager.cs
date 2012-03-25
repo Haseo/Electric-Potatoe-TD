@@ -46,10 +46,10 @@ namespace Electric_Potatoe_TD
             return true;
         }
 
-        static public void ElecticityUpdate(Game game)
+        static public void ElecticityUpdate(Game game, Node center)
         {
             List<Node> emp = new List<Node>();
-            Node tmp = game.TurretList.First<Node>();
+            Node tmp = center;
             int Volt = game.getScore();
             int In = game.getScore();
             ElectricityCalcul(tmp, ref Volt, In, true, ref emp);
@@ -71,7 +71,7 @@ namespace Electric_Potatoe_TD
                 {
                    actual._activated = true;
                    actual._intensity = Intensity;
-                   VoltageColector = -actual.getCost();
+                   VoltageColector = VoltageColector - actual.getCost();
                 }
             }
             Visited.Add(actual);
