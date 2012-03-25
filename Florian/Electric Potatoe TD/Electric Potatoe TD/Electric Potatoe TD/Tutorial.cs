@@ -11,21 +11,17 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 
-using System.Runtime.Serialization;
-
 namespace Electric_Potatoe_TD
 {
-    class Menu_IG
+    class Tutorial
     {
-
         Game1 _origin;
         Texture2D Logo;
         Texture2D Button;
         SpriteFont Font;
-        SpriteFont MenuIGFont;
         Rectangle[] _position;
 
-        public Menu_IG(Game1 game)
+        public Tutorial(Game1 game)
         {
             _origin = game;
         }
@@ -34,9 +30,7 @@ namespace Electric_Potatoe_TD
         {
             _position = new Rectangle[]
              {  new Rectangle(_origin.graphics.PreferredBackBufferWidth / 3, _origin.graphics.PreferredBackBufferHeight / 12, 248, 248),
-                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 4, _origin.graphics.PreferredBackBufferHeight * 2 / 3, 180, 90),
-                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 2 / 4, _origin.graphics.PreferredBackBufferHeight * 2 / 3, 180, 90),
-                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 3, _origin.graphics.PreferredBackBufferHeight * 7 / 8, 100, 60),
+                new Rectangle(_origin.graphics.PreferredBackBufferWidth / 2, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 180, 90),
              };
         }
 
@@ -45,12 +39,10 @@ namespace Electric_Potatoe_TD
             Logo = _origin.Content.Load<Texture2D>("Logo");
             Button = _origin.Content.Load<Texture2D>("Button");
             Font = _origin.Content.Load<SpriteFont>("MenuFont");
-            MenuIGFont = _origin.Content.Load<SpriteFont>("MenuIG");
         }
 
         public void UnloadContent()
         {
-
         }
 
 
@@ -69,11 +61,7 @@ namespace Electric_Potatoe_TD
                         if ((PositionTouch.X >= _position[1].X && PositionTouch.X <= (_position[1].X + _position[1].Width)) &&
                             (PositionTouch.Y >= _position[1].Y && PositionTouch.Y <= (_position[1].Y + _position[1].Height)))
                         {
-                            _origin.change_statut(Game1.Game_Statut.Game);
-                        }
-                        if ((PositionTouch.X >= _position[2].X && PositionTouch.X <= (_position[2].X + _position[2].Width)) &&
-                            (PositionTouch.Y >= _position[2].Y && PositionTouch.Y <= (_position[2].Y + _position[2].Height)))
-                        {
+                            _origin.Restart_game();
                             _origin.change_statut(Game1.Game_Statut.Menu);
                         }
                     }
@@ -85,11 +73,7 @@ namespace Electric_Potatoe_TD
         {
             _origin.spriteBatch.Draw(Logo, _position[0], Color.White);
             _origin.spriteBatch.Draw(Button, _position[1], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Resume", new Vector2(_position[1].X + (_position[1].Width / 3), (_position[1].Y + (_position[1].Height / 3))), Color.Black);
-            _origin.spriteBatch.Draw(Button, _position[2], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Surrend", new Vector2(_position[2].X + (_position[2].Width / 3), (_position[2].Y + (_position[2].Height / 3))), Color.Black);
-
-            _origin.spriteBatch.DrawString(MenuIGFont, "Score : " + _origin.getScore().ToString(), new Vector2(_position[3].X, _position[3].Y), Color.Black);
-        }
+            _origin.spriteBatch.DrawString(Font, "Back", new Vector2(_position[1].X + (_position[1].Width / 3), (_position[1].Y + (_position[1].Height / 3))), Color.Black);
+      }
     }
 }

@@ -20,13 +20,18 @@ namespace Electric_Potatoe_TD
             Menu,
             Game,
             Menu_Ig,
+            Tutorial,
+            DataCenter,
         };
+
 
         public GraphicsDeviceManager graphics;
         public SpriteBatch spriteBatch;
         public Game_Statut _statut;
         private Menu _menu;
         private Game _game;
+        private Tutorial _tuto;
+        private DataCenter _datacenter;
         private Menu_IG _menuIg;
         private int CurrentFrame;
         private int FrameStart;
@@ -43,6 +48,8 @@ namespace Electric_Potatoe_TD
             _menu = new Menu(this);
             _game = new Game(this);
             _menuIg = new Menu_IG(this);
+            _tuto = new Tutorial(this);
+            _datacenter = new DataCenter(this);
             TargetElapsedTime = TimeSpan.FromTicks(333333);
             FrameStart = 0;
             FPS = 30;
@@ -60,6 +67,10 @@ namespace Electric_Potatoe_TD
                 case Game_Statut.Game:
                     _game.Oriented_changed(); break;
                 case Game_Statut.Menu_Ig:
+                    break;
+                case Game_Statut.DataCenter:
+                    break;
+                case Game_Statut.Tutorial:
                     break;
             }
         }
@@ -85,23 +96,27 @@ namespace Electric_Potatoe_TD
             _menu.Initialize();
             _game.Initialize();
             _menuIg.Initialize();
+            _tuto.Initialize();
+            _datacenter.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             _menu.LoadContent();
-            _menu.LoadContent();
             _game.LoadContent();
             _menuIg.LoadContent();
+            _tuto.LoadContent();
+            _datacenter.LoadContent();
         }
 
         protected override void UnloadContent()
         {
             _menu.UnloadContent();
-            _menu.UnloadContent();
             _game.UnloadContent();
             _menuIg.UnloadContent();
+            _tuto.UnloadContent();
+            _datacenter.UnloadContent();
         }
 
         protected override void Update(GameTime gameTime)
@@ -130,6 +145,10 @@ namespace Electric_Potatoe_TD
                     _game.update(gameTime); break;
                 case Game_Statut.Menu_Ig:
                     _menuIg.update(); break;
+                case Game_Statut.Tutorial:
+                    _tuto.update(); break;
+                case Game_Statut.DataCenter:
+                    _datacenter.update(); break;
             }
             base.Update(gameTime);
         }
@@ -147,6 +166,10 @@ namespace Electric_Potatoe_TD
                     _game.draw(FrameStart, FPS, CurrentFrame, SheetSize); break;
                 case Game_Statut.Menu_Ig:
                     _menuIg.draw(); break;
+                case Game_Statut.Tutorial:
+                    _tuto.draw(); break;
+                case Game_Statut.DataCenter:
+                    _datacenter.draw(); break;
             }
             spriteBatch.End();
 
