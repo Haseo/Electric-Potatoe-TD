@@ -39,6 +39,7 @@ namespace Electric_Potatoe_TD
 
         public void draw_Selected()
         {
+
             if ((_selectFlag == 1 || _selectFlag == 2) && _node != null)
             {
                 _origin.spriteBatch.DrawString(RageMetter_font, "Node", new Vector2(_position[5].X, _position[5].Y), Color.Black);
@@ -181,10 +182,10 @@ namespace Electric_Potatoe_TD
                 {
                     //    _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)myPoint.X * size_case, (int)myPoint.Y * size_case, size_case, size_case), Color.White);
                 }
-                _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)myMob.MobPos.X, (int)myMob.MobPos.Y, size_case, size_case), new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), Color.White);
+                _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)myMob.MobPos.X + 20, (int)myMob.MobPos.Y + 20, size_case - 20, size_case - 20), new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), Color.White);
                 //new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), 
-            }
-        }
+			}
+		}
 
         public void draw_content()
         {

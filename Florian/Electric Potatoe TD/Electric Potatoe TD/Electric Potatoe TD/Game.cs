@@ -128,6 +128,9 @@ namespace Electric_Potatoe_TD
             LevelTexture = new Dictionary<int, Texture2D>();
             FrameSize = new Point(40, 40);
             BulletFrameSize = new Point(20, 20);
+
+            mobSpawnTime = TimeSpan.FromSeconds(1.0f);
+            previousSpawnTime = TimeSpan.Zero;
         }
 
         public void Oriented_changed()
