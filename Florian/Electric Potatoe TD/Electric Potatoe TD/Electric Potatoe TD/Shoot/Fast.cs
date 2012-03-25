@@ -29,7 +29,7 @@ namespace Electric_Potatoe_TD
             this.loopLifeMax = 250;
         }
 
-        public override EBulletType GetType()
+        public override EBulletType GetBulletType()
         {
             return (EBulletType.FAST);
         }

@@ -50,11 +50,11 @@ namespace Electric_Potatoe_TD
              };
             _description = new string[6];
             _description[5] = "STRUCTURE";
-            _description[0] = "La node.\n  Module accueillant une tourelle. Elle peut être upgradée pour générer de l'énergie.";
-            _description[1] = "La tourelle classique.\n  Portée, cadence de tir et dégâts normaux. Peut être upgradée.";
-            _description[2] = "La tourelle rapide.\n  Portée et dégâts faibles mais cadence de tir élevée. Peut être upgradée.";
-            _description[3] = "La tourelle puissante.\n  Portée et cadence de tir faibles mais dégâts élevés. Peut être upgradée.";
-            _description[4] = "La tourelle-générateur.\n  Génère de l'énergie. Peut être upgradée pour améliorer sa production.";
+            _description[0] = "La node.\n  Module accueillant une tour. Elle peut être upgradée pour générer de l'énergie.";
+            _description[1] = "La tour classique.\n  Portée, cadence de tir et dégâts normaux. Peut être upgradée.";
+            _description[2] = "La tour rapide.\n  Portée et dégâts faibles mais cadence de tir élevée. Peut être upgradée.";
+            _description[3] = "La tour puissante.\n  Portée et cadence de tir faibles mais dégâts élevés. Peut être upgradée.";
+            _description[4] = "La tour-générateur.\n  Génère de l'énergie. Peut être upgradée pour améliorer sa production.";
         }
 
         public void LoadContent()

@@ -56,18 +56,18 @@ namespace Electric_Potatoe_TD
                 {
                     //  _selectFlag = 0;
                     if (_selectFlag == 1 && _node != null)
-                        _node._activated = true;
+                        _node._activatedByPlayer = true;
                     if (_selectFlag == 2)
-                        _turret._activated = true;
+                        _turret._activatedByPlayer = true;
                 }
                 if ((PositionTouch.X >= _position[12].X && PositionTouch.X <= (_position[12].X + _position[12].Width)) &&
                 (PositionTouch.Y >= _position[12].Y && PositionTouch.Y <= (_position[12].Y + _position[12].Height)))
                 {
                     // _selectFlag = 0;
                     if (_selectFlag == 1 && _node != null)
-                        _node._activated = false;
+                        _node._activatedByPlayer = false;
                     if (_selectFlag == 2)
-                        _turret._activated = false;
+                        _turret._activatedByPlayer = false;
                 }
             }
             if ((PositionTouch.X >= _position[13].X && PositionTouch.X <= (_position[13].X + _position[13].Width)) &&

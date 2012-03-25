@@ -33,6 +33,8 @@ namespace Electric_Potatoe_TD
                 draw_contentZoom();
                 if (_moveTouch == true && _ListWay.Count > 0)
                     draw_newNode();
+                draw_mobsZoom(CurrentMobFrame);
+                draw_shootZoom(CurrentFrame);
                 blanco();
                 if (_selectFlag > 0)
                     draw_Selected();
@@ -48,7 +50,7 @@ namespace Electric_Potatoe_TD
                 _origin.spriteBatch.DrawString(RageMetter_font, "NODE", new Vector2(_position[5].X, _position[5].Y), Color.White);
                 _origin.spriteBatch.DrawString(RageMetter_font, "     Niveau " + _node.getTowerLevel().ToString(), new Vector2(_position[6].X, _position[6].Y), Color.White);
                 if (_node.getNodeLevel() < 3)
-                    _origin.spriteBatch.DrawString(RageMetter_font, "|AMÉLIORER NODE|\n    Coût: " + _node.getCostNode(), new Vector2(_position[7].X, _position[7].Y),
+                    _origin.spriteBatch.DrawString(RageMetter_font, "|AMÉLIORER|\n    Coût: " + _node.getCostNode(), new Vector2(_position[7].X, _position[7].Y),
                         (_node.getCostNode() >= _central.getCapital() ? Color.LightSlateGray : Color.White));
             }
             if (_selectFlag == 1)
@@ -60,7 +62,7 @@ namespace Electric_Potatoe_TD
                 _origin.spriteBatch.DrawString(RageMetter_font, "TOUR", new Vector2(_position[8].X, _position[8].Y), Color.White);
                 _origin.spriteBatch.DrawString(RageMetter_font, "     Niveau : " + _turret.getTowerLevel().ToString(), new Vector2(_position[9].X, _position[9].Y), Color.White);
                 if (_turret.getTowerLevel() < 4)
-                    _origin.spriteBatch.DrawString(RageMetter_font, "|AMÉLIORER TOUR|\n    Coût: " + _turret.getCostTower(), new Vector2(_position[10].X, _position[10].Y),
+                    _origin.spriteBatch.DrawString(RageMetter_font, "|AMÉLIORER|\n    Coût: " + _turret.getCostTower(), new Vector2(_position[10].X, _position[10].Y),
                         (_turret.getCostTower() >= _central.getCapital() ? Color.LightSlateGray : Color.White));
             }
             if (_selectFlag == 1 || _selectFlag == 2)
@@ -224,6 +226,54 @@ namespace Electric_Potatoe_TD
 			}
 		}
 
+        public void draw_mobsZoom(int CurrentFrame)
+        {
+            Vector2 pos = new Vector2();
+            int i = 20;
+            foreach (Mob.Mob myMob in MobList)
+            {
+                pos.X = ((int)(myMob.MobPos.X / size_case) - Zoom.X);
+                pos.Y = ((int)(myMob.MobPos.X / size_case) - Zoom.X);
+                if (pos.X >= 0 && pos.X <= 7 && pos.Y >= 0 && pos.Y <= 5)
+                {
+                    Vector2 diff = new Vector2();
+
+                    diff.X = (myMob.MobPos.X - (myMob.MobPos.X / size_case) - (10 * size_case)) * size_caseZoom;
+                    diff.Y = (myMob.MobPos.Y - (myMob.MobPos.Y / size_case) - (10 * size_case)) * size_caseZoom;
+
+                    pos.X = (((int)(myMob.MobPos.X / size_case) - Zoom.X) * size_caseZoom) + (size_caseZoom - (diff.X % size_caseZoom) >= 0 ? size_caseZoom - (diff.X % size_caseZoom) : -1 * (size_caseZoom - (diff.X % size_caseZoom)));
+                    pos.Y = (((int)(myMob.MobPos.Y / size_case) - Zoom.Y) * size_caseZoom) + (size_caseZoom - (diff.Y % size_caseZoom) >= 0 ? size_caseZoom - (diff.Y % size_caseZoom) : -1 * (size_caseZoom - (diff.Y % size_caseZoom)));
+
+                    _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)pos.X - size_caseZoom + 20, (int)pos.Y - size_caseZoom + 20, size_caseZoom - 20, size_caseZoom - 20), new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), Color.White);
+                }
+                i += 20;
+            }
+        }
+
+        public void draw_shootZoom(int CurrentFrame)
+        {
+            Vector2 pos = new Vector2();
+            int i = 20;
+            foreach (Shoot myBullet in BulletList)
+            {
+                pos.X = ((int)(myBullet.Coord.X / size_case) - Zoom.X);
+                pos.Y = ((int)(myBullet.Coord.X / size_case) - Zoom.X);
+                if (pos.X >= 0 && pos.X <= 7 && pos.Y >= 0 && pos.Y <= 5)
+                {
+                    Vector2 diff = new Vector2();
+
+                    diff.X = (myBullet.Coord.X - (myBullet.Coord.X / size_case) - (10 * size_case)) * size_caseZoom;
+                    diff.Y = (myBullet.Coord.Y - (myBullet.Coord.Y / size_case) - (10 * size_case)) * size_caseZoom;
+
+                    pos.X = (((int)(myBullet.Coord.X / size_case) - Zoom.X) * size_caseZoom) + (size_caseZoom - (diff.X % size_caseZoom) >= 0 ? size_caseZoom - (diff.X % size_caseZoom) : -1 * (size_caseZoom - (diff.X % size_caseZoom)));
+                    pos.Y = (((int)(myBullet.Coord.Y / size_case) - Zoom.Y) * size_caseZoom) + (size_caseZoom - (diff.Y % size_caseZoom) >= 0 ? size_caseZoom - (diff.Y % size_caseZoom) : -1 * (size_caseZoom - (diff.Y % size_caseZoom)));
+
+                    _origin.spriteBatch.Draw(BulletTexture[(EBulletType)myBullet.GetBulletType()], new Rectangle((int)pos.X - size_caseZoom + 20, (int)pos.Y - size_caseZoom + 20, size_caseZoom / 2, size_caseZoom / 2), new Rectangle(CurrentFrame * BulletFrameSize.X, 0, BulletFrameSize.X, BulletFrameSize.Y), Color.White);
+                }
+                i += 20;
+            }
+        }
+
         public void draw_content()
         {
             int i = 1;
@@ -244,17 +294,16 @@ namespace Electric_Potatoe_TD
         {
             foreach (Shoot myBullet in BulletList)
             {
-                EBulletType bulletText = (EBulletType)myBullet.GetType();
+                EBulletType bulletText = (EBulletType)myBullet.GetBulletType();
 
-                _origin.spriteBatch.Draw(BulletTexture[(EBulletType)myBullet.GetType()], new Rectangle((int)myBullet.Coord.X + size_case / 2, (int)myBullet.Coord.Y + size_case / 2, size_case / 2, size_case / 2), new Rectangle(CurrentFrame * BulletFrameSize.X, 0, BulletFrameSize.X, BulletFrameSize.Y), Color.White);
+                _origin.spriteBatch.Draw(BulletTexture[(EBulletType)myBullet.GetBulletType()], new Rectangle((int)myBullet.Coord.X + size_case / 2, (int)myBullet.Coord.Y + size_case / 2, size_case / 2, size_case / 2), new Rectangle(CurrentFrame * BulletFrameSize.X, 0, BulletFrameSize.X, BulletFrameSize.Y), Color.White);
                 //new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), 
             }
         }
 
         public void draw_contentZoom()
         {
-            //     _origin.spriteBatch.DrawString(RageMetter_font, "Capital : " + _central.getCapital().ToString(), new Vector2(_position[4].X, _position[4].Y), Color.Black);
-            _origin.spriteBatch.DrawString(RageMetter_font, "test : " + test, new Vector2(_position[4].X, _position[4].Y), Color.Black);
+            _origin.spriteBatch.DrawString(RageMetter_font, "Capital : " + _central.getCapital().ToString(), new Vector2(_position[4].X, _position[4].Y), Color.Black);
         }
 
         public void blanco()

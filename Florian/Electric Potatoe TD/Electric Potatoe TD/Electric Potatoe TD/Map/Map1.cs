@@ -20,10 +20,11 @@ namespace Electric_Potatoe_TD
             wav.AddMonsters(typeof(Mob.Peon), 1);
             wav.AddMonsters(typeof(Mob.Peon), 1);
             wav.AddMonsters(typeof(Mob.Peon), 1);
-            wav.AddMonsters(typeof(Mob.Berserk), 1);
+            //wav.AddMonsters(typeof(Mob.Berserk), 1);
             wav.AddMonsters(typeof(Mob.Tank), 1);
            // wav.AddMonsters(typeof(Mob.Boss), 1);
             wav.AddMonsters(typeof(Mob.Speed), 1);
+            wav.AddMonsters(typeof(Mob.Tank), 1);
 
             ListOfWaves.Add(wav);
             ListOfWaves.Add(wav);

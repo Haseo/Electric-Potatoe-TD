@@ -135,7 +135,7 @@ namespace Electric_Potatoe_TD
             }
         }
 
-        public virtual EBulletType GetType()
+        public virtual EBulletType GetBulletType()
         {
             return (EBulletType.BULLET);
         }

@@ -227,7 +227,7 @@ namespace Electric_Potatoe_TD
             TypeTexture[EType.GENERATOR] = _origin.Content.Load<Texture2D>("TowerGenerator");
             NoConstruct = _origin.Content.Load<Texture2D>("NoConstruct");
             LevelColor[0] = Color.White;
-            LevelColor[1] = Color.Green;
+            LevelColor[1] = Color.GreenYellow;
             LevelColor[2] = Color.Orange;
             LevelColor[3] = Color.Red;
             LevelTexture[0] = _origin.Content.Load<Texture2D>("Level0");
@@ -271,7 +271,6 @@ namespace Electric_Potatoe_TD
             return (new Vector2(x, y));
         }
 
-
         private  bool can_access()
         {
             bool can_create = true;
@@ -310,6 +309,13 @@ namespace Electric_Potatoe_TD
                     ElectricityManager.linkNode(oldt, newn);
                 else
                     ElectricityManager.linkNode(oldn, newn);
+            }
+            else if (newn != null && ((_central._position.X == old_node.X && _central._position.Y == old_node.Y) ||
+                (_central._position.X == (old_node.X - 1) && _central._position.Y == old_node.Y) ||
+                (_central._position.X == old_node.X && _central._position.Y == (old_node.Y + 1)) ||
+                (_central._position.X == (old_node.X - 1) && _central._position.Y == (old_node.Y + 1))))
+            {
+                ElectricityManager.linkNode(_central, newn);
             }
         }
 
@@ -351,9 +357,6 @@ namespace Electric_Potatoe_TD
             _moveTouch = false;
             _zoom = false;
             mapFiller();
-            //turretFiller();
-            //FakeModFiller();
-            //FakeBulletFiller();
             
             TurretList.Clear();
             MobList.Clear();
@@ -370,6 +373,7 @@ namespace Electric_Potatoe_TD
         {
             int i = 0;
 
+            _central.AddCapital((int) (mob.MobMaxPV * CoefBonus));
             while (i < MobList.Count)
             {
                 if (mob == MobList[i])
