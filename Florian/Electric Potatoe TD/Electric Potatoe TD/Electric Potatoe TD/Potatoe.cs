@@ -30,6 +30,11 @@ namespace Electric_Potatoe_TD
             return (_capital);
         }
 
+        public void setCapital(int value)
+        {
+            _capital = value;
+        }
+
         public void subCapital(int value)
         {
             _capital -= value;

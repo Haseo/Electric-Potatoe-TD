@@ -156,6 +156,10 @@ namespace Electric_Potatoe_TD
 
         public void Initialize()
         {
+            MobList = new List<Mob.Mob>();
+            TurretList = new List<Node>();
+            BulletList = new List<Shoot>();
+
             int stand = (_origin.graphics.PreferredBackBufferHeight - (_origin.graphics.PreferredBackBufferHeight / 6)) / 55;
 
             _ListWay = new List<Vector2>();
@@ -343,9 +347,14 @@ namespace Electric_Potatoe_TD
             _moveTouch = false;
             _zoom = false;
             mapFiller();
-            turretFiller();
-            FakeModFiller();
-            FakeBulletFiller();
+            //turretFiller();
+            //FakeModFiller();
+            //FakeBulletFiller();
+            
+            TurretList.Clear();
+            MobList.Clear();
+            BulletList.Clear();
+            _central.setCapital(1000);
         }
 
         public int getScore()
