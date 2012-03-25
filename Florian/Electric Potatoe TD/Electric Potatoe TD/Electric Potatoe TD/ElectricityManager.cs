@@ -48,14 +48,13 @@ namespace Electric_Potatoe_TD
 
         static public void ElecticityUpdate(Game game, Node center)
         {
-            List<Node> emp = new List<Node>();
             Node tmp = center;
             int Volt = game.getScore();
             int In = game.getScore();
-            ElectricityCalcul(tmp, ref Volt, In, true, ref emp);
+            ElectricityCalcul(tmp, ref Volt, In, true, tmp);
         }
 
-        static void ElectricityCalcul(Node actual, ref int VoltageColector, int Intensity, bool previous, ref List<Node>Visited)
+        static void ElectricityCalcul(Node actual, ref int VoltageColector, int Intensity, bool previous, Node From)
         {
             if (VoltageColector <= 0 || previous ==  false ||  actual._activatedByPlayer == false || Intensity == 0)
             {
@@ -74,22 +73,13 @@ namespace Electric_Potatoe_TD
                    VoltageColector = VoltageColector - actual.getCost();
                 }
             }
-            Visited.Add(actual);
-            List<Node> tmp = Visited;
             int localVoltage  = VoltageColector;
             actual._peerOut.ForEach(delegate(Node other)
             {
-                bool visit = false;
-                foreach (Node buf in tmp)
-                {
-                    if (buf == other)
-                        visit = true;
-                }
-                 if (visit == false)
-                     ElectricityCalcul(other, ref localVoltage, (int)actual.energyDiv(), actual._activated, ref tmp); 
+              if (other != From)
+                ElectricityCalcul(other, ref localVoltage, (int)actual.energyDiv(), actual._activated, actual);
                 });
             VoltageColector = localVoltage;
-            Visited.AddRange(tmp);
         }
     }
 }
