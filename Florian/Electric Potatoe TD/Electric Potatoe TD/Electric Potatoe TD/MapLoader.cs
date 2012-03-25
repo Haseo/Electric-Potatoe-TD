@@ -49,7 +49,7 @@ namespace Electric_Potatoe_TD
             WayPoints.Add(new Vector2(4 * size_case, 1 * size_case));
             WayPoints.Add(new Vector2(7 * size_case, 1 * size_case));
             WayPoints.Add(new Vector2(7 * size_case, 2 * size_case));
-            WayPoints.Add(new Vector2(10 * size_case, 2 * size_case));
+            WayPoints.Add(new Vector2(9 * size_case, 2 * size_case));
         }
 
         public int[] getSize()

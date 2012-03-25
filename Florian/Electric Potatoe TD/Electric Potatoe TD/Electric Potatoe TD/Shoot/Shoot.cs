@@ -20,11 +20,14 @@ namespace Electric_Potatoe_TD
         protected int _speed;
         protected Game _game;
         protected Vector2 _coord;
-        protected Mob.Mob _target;
+        protected List<Mob.Mob> _target;
         protected int _area;
         protected Vector2 lastTargetPos;
 
-
+        public int Dmg { get { return _dmg; } }
+        public int Speed { get { return _speed; } }
+        public Vector2 Coord { get { return _coord; } }
+        public List<Mob.Mob> Target { get { return _target; } }
 
         protected virtual void move()
         {
@@ -33,7 +36,6 @@ namespace Electric_Potatoe_TD
             int move_x;
             int move_y;
             Vector2 triangle = new Vector2();
-
 
             getTargetCoord();
             getdistance(triangle);
@@ -85,8 +87,8 @@ namespace Electric_Potatoe_TD
 
         protected virtual void getTargetCoord()
         {
-            if (this._target != null)
-                this.lastTargetPos = this._target.MobPos;
+            if (this._target != null && _target.Count > 0)
+                this.lastTargetPos = this._target[0].MobPos;
         }
 
         public virtual bool update()
@@ -108,8 +110,14 @@ namespace Electric_Potatoe_TD
 
         protected virtual void touch()
         {
-            _target.TakeDamage(_dmg);
-        }
+            int idx;
 
+            idx = 0;
+            while (idx < _target.Count)
+            {
+                _target[idx].TakeDamage(_dmg);
+                idx++;
+            }
+        }
     }
 }

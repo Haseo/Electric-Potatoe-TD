@@ -30,6 +30,7 @@ namespace Electric_Potatoe_TD
         protected Boolean _bactivated { set; get; }
 
         public List<Electric_Potatoe_TD.Mob.Mob> listTarget = new List<Electric_Potatoe_TD.Mob.Mob>();
+        public List<Shoot> listBullet = new List<Shoot>();
 
         public Tower(float xPos, float yPos, int resistor, int cost, Game game)
             : base(xPos, yPos, resistor, cost, game)
@@ -81,8 +82,10 @@ namespace Electric_Potatoe_TD
 
         public override void update()
         {
-            int i = 0;
+            List<Mob.Mob> mobs = new List<Mob.Mob>();
+            int i,j;
 
+            i = 0;
             if (!_bactivated)
                 return;
             while (i < listTarget.Count)
@@ -100,15 +103,37 @@ namespace Electric_Potatoe_TD
                 }
                 _counter++;
             }
+            checkBulletHit();
+        }
+
+        public void checkBulletHit()
+        {
+            int i, j;
+
+            i = 0;
+            while (i < listBullet.Count)
+            {
+                if (listBullet[i].update() == true)
+                {
+                    j = 0;
+                    while (j < listBullet[i].Target.Count)
+                    {
+                        if (listBullet[i].Target[j].IsDead())
+                        {
+                            listBullet[j].Target.RemoveAt(j);
+                            _game.mobIsDead(listBullet[i].Target[j]);
+                        }
+                        j++;
+                    }
+                }
+                i++;
+            }
         }
 
         public void shoot(Mob.Mob mob)
         {
-            if (!mob.IsDead())
-            {
-                if (mob.TakeDamage((int)(_volt * _multPowerAtt)))
-                    _game.mobIsDead(mob);
-            }
+            Bullet bullet = new Bullet(mob, this);
+            listBullet.Add(bullet);
         }
 
         public void removeMobCorpse(Mob.Mob mob)

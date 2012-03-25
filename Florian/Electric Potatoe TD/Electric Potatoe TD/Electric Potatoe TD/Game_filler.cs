@@ -23,7 +23,7 @@ namespace Electric_Potatoe_TD
             int capital = 6000;
             TurretList = new List<Node>();
             TurretList.Add(new Node(0, 1, 10, 10, this));
-            TurretList.Add(new Strenght(2, 4, 10, 10, this));
+            TurretList.Add(new Strenght(8, 4, 10, 10, this));
             TurretList.Add(new Speed(4, 2, 10, 10, this));
             TurretList.Add(new Shooter(0, 0, 10, 10, this));
            /* TurretList[2].levelUpNode(ref capital);
@@ -46,6 +46,12 @@ namespace Electric_Potatoe_TD
             MobList.Add(new Mob.Speed(WayPoints));
             MobList.Add(new Mob.Peon(WayPoints));
             MobList.Add(new Mob.Tank(WayPoints));
+            MobList.Add(new Mob.Boss(WayPoints));
+        }
+
+        public void FakeBulletFiller()
+        {
+            BulletList.Add(new Bullet(MobList[0], (Tower)TurretList[1]));
         }
 
         public void mapFiller()
@@ -66,14 +72,14 @@ namespace Electric_Potatoe_TD
             {
                 size_case = (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / mapY);
             }
-            if ((((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) / 7) <=
-                (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / 5))
+            if ((((_origin.graphics.PreferredBackBufferWidth * 8 / 12) - 10) / 7) <=
+                (((_origin.graphics.PreferredBackBufferHeight * 8 / 10) - 10) / 5))
             {
-                size_caseZoom = (((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) / 7);
+                size_caseZoom = (((_origin.graphics.PreferredBackBufferWidth * 8 / 12) - 10) / 7);
             }
             else
             {
-                size_caseZoom = (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / 5);
+                size_caseZoom = (((_origin.graphics.PreferredBackBufferHeight * 8 / 10) - 10) / 5);
             }
             NewMap.setSize(size_case);
             this.WayPoints = NewMap.GetWayPoints();

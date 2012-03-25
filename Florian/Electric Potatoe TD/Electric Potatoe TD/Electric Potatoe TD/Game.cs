@@ -27,6 +27,11 @@ namespace Electric_Potatoe_TD
         CANYON_BOTRIGHT = 7,
     };
 
+    public enum EBulletType
+    { 
+        BULLET = 0,
+    };
+
     public enum EMapTexture
     {
         GROUND = 0,
@@ -54,6 +59,7 @@ namespace Electric_Potatoe_TD
         Texture2D RageMetter_bot;
         SpriteFont RageMetter_font;
         Rectangle[] _position;
+        Dictionary<EBulletType, Texture2D> BulletTexture;
         Dictionary<EType, Texture2D> TypeTexture;
         Dictionary<EMobType, Texture2D> MobTexture;
         Dictionary<EMapTexture, Texture2D> MapTexture;
@@ -61,6 +67,7 @@ namespace Electric_Potatoe_TD
         Dictionary<int, Texture2D> LevelTexture;
         Texture2D NoConstruct;
         public List<Node> TurretList;
+        public List<Bullet> BulletList;
         public List<Mob.Mob> MobList;
         MapLoader NewMap = new MapLoader();
 
@@ -68,6 +75,7 @@ namespace Electric_Potatoe_TD
 
         //Animations
         Point   FrameSize;
+        Point   BulletFrameSize;
 
         int RageMetter;
         int RageMetter_flag;
@@ -77,8 +85,8 @@ namespace Electric_Potatoe_TD
         int mapX, mapY;
         Vector2 pos_map;
         List<Vector2> WayPoints;
-        int size_case;
-        int size_caseZoom;
+        public int size_case;
+        public int size_caseZoom;
 
         Vector2 Touch;
         bool _moveTouch;
@@ -118,6 +126,8 @@ namespace Electric_Potatoe_TD
             _zoom = false;
             Zoom = new Vector2(0, 0);
             _central = new Potatoe(0, 0, this);
+            BulletList = new List<Bullet>();
+            BulletTexture = new Dictionary<EBulletType, Texture2D>();
             TypeTexture = new Dictionary<EType, Texture2D>();
             MobTexture = new Dictionary<EMobType, Texture2D>();
             accSensor = new Accelerometer();
@@ -127,6 +137,10 @@ namespace Electric_Potatoe_TD
             LevelColor = new Dictionary<int, Color>();
             LevelTexture = new Dictionary<int, Texture2D>();
             FrameSize = new Point(40, 40);
+            BulletFrameSize = new Point(20, 20);
+
+            mobSpawnTime = TimeSpan.FromSeconds(1.0f);
+            previousSpawnTime = TimeSpan.Zero;
         }
 
         public void Oriented_changed()
@@ -184,17 +198,18 @@ namespace Electric_Potatoe_TD
             RageMetter_mid = _origin.Content.Load<Texture2D>("RageMeterMiddle");
             RageMetter_bot = _origin.Content.Load<Texture2D>("RageMeterLow");
             RageMetter_font = _origin.Content.Load<SpriteFont>("RageMetter");
-            MobTexture[EMobType.PEON] = _origin.Content.Load<Texture2D>("Mob1");
-            MobTexture[EMobType.SPEED] = _origin.Content.Load<Texture2D>("Mob2");
-            MobTexture[EMobType.TANK] = _origin.Content.Load<Texture2D>("Mob3");
-            MobTexture[EMobType.BERSERK] = _origin.Content.Load<Texture2D>("Mob4");
-            MapTexture[EMapTexture.GROUND] = _origin.Content.Load<Texture2D>("Ground");
-            MapTexture[EMapTexture.HORIZONTAL] = _origin.Content.Load<Texture2D>("CanyonHorizontal");
-            MapTexture[EMapTexture.VERTICAL] = _origin.Content.Load<Texture2D>("CanyonVertical");
-            MapTexture[EMapTexture.TOPLEFT] = _origin.Content.Load<Texture2D>("CanyonTopLeft");
-            MapTexture[EMapTexture.TOPRIGHT] = _origin.Content.Load<Texture2D>("CanyonTopRight");
-            MapTexture[EMapTexture.BOTLEFT] = _origin.Content.Load<Texture2D>("CanyonBotLeft");
-            MapTexture[EMapTexture.BOTRIGHT] = _origin.Content.Load<Texture2D>("CanyonBotRight");
+            MobTexture[EMobType.PEON] = _origin.Content.Load<Texture2D>("Mob3");
+            MobTexture[EMobType.SPEED] = _origin.Content.Load<Texture2D>("Mob4");
+            MobTexture[EMobType.TANK] = _origin.Content.Load<Texture2D>("Mob2");
+            MobTexture[EMobType.BERSERK] = _origin.Content.Load<Texture2D>("Mob1");
+            MobTexture[EMobType.BOSS] = _origin.Content.Load<Texture2D>("MobBoss");
+            MapTexture[EMapTexture.GROUND] = _origin.Content.Load<Texture2D>("GeometryGround");
+            MapTexture[EMapTexture.HORIZONTAL] = _origin.Content.Load<Texture2D>("GeometryCanyonHorizontal");
+            MapTexture[EMapTexture.VERTICAL] = _origin.Content.Load<Texture2D>("GeometryCanyonVertical");
+            MapTexture[EMapTexture.TOPLEFT] = _origin.Content.Load<Texture2D>("GeometryCanyonTopLeft");
+            MapTexture[EMapTexture.TOPRIGHT] = _origin.Content.Load<Texture2D>("GeometryCanyonTopRight");
+            MapTexture[EMapTexture.BOTLEFT] = _origin.Content.Load<Texture2D>("GeometryCanyonBotLeft");
+            MapTexture[EMapTexture.BOTRIGHT] = _origin.Content.Load<Texture2D>("GeometryCanyonBotRight");
             MapTexture[EMapTexture.CENTRALTEX] = _origin.Content.Load<Texture2D>("ReactorN");
             TypeTexture[EType.SPEED] = _origin.Content.Load<Texture2D>("TowerFast");
             TypeTexture[EType.SHOOTER] = _origin.Content.Load<Texture2D>("TowerNormal");
@@ -211,6 +226,7 @@ namespace Electric_Potatoe_TD
             LevelTexture[2] = _origin.Content.Load<Texture2D>("Level2");
             LevelTexture[3] = _origin.Content.Load<Texture2D>("Level3");
             LevelTexture[4] = _origin.Content.Load<Texture2D>("Level4");
+            BulletTexture[0] = _origin.Content.Load<Texture2D>("BulletNormal");
         }
 
         public void UnloadContent()
@@ -221,8 +237,13 @@ namespace Electric_Potatoe_TD
         {
             int x, y;
 
-            if (pos.X >= ((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) ||
-                pos.Y >= ((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10))
+            if (_zoom == false &&
+                (pos.X >= ((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) ||
+                pos.Y >= ((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10)))
+                return (new Vector2(-1, -1));
+            if (_zoom == true && 
+                (pos.X >= ((_origin.graphics.PreferredBackBufferWidth * 8 / 12) - 10) ||
+                pos.Y >= ((_origin.graphics.PreferredBackBufferHeight * 8 / 10) - 10)))
                 return (new Vector2(-1, -1));
             if (_zoom == true)
             {
@@ -287,6 +308,7 @@ namespace Electric_Potatoe_TD
             mapFiller();
             turretFiller();
             FakeModFiller();
+            FakeBulletFiller();
         }
 
         public int getScore()
@@ -298,15 +320,15 @@ namespace Electric_Potatoe_TD
         {
             int i = 0;
 
-            while (i <= MobList.Count)
+            while (i < MobList.Count)
             {
                 if (mob == MobList[i])
                     MobList.RemoveAt(i);
                 i++;
             }
-            foreach (Tower myTurret in TurretList)
+            foreach (Node myTurret in TurretList)
             {
-                myTurret.removeMobCorpse(mob);
+               myTurret.removeMobCorpse(mob);
             }
         }
 

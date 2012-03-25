@@ -116,5 +116,9 @@ namespace Electric_Potatoe_TD
         public virtual void putInRange(Mob.Mob mob)
         {
         }
+
+        public virtual void removeMobCorpse(Mob.Mob mob)
+        {
+        }
     }
 }
