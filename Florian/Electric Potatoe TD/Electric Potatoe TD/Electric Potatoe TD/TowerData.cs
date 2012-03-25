@@ -46,7 +46,7 @@ namespace Electric_Potatoe_TD
                  new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 70, _origin._origin.graphics.PreferredBackBufferHeight * 71 / 128, 40, 40),
                  new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 70, _origin._origin.graphics.PreferredBackBufferHeight * 87 / 128, 40, 40),
    
-                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 3 / 8, _origin._origin.graphics.PreferredBackBufferHeight * 110 / 128, 120, 60),
+                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 3 / 4, _origin._origin.graphics.PreferredBackBufferHeight * 110 / 128, 120, 60),
              };
             _description = new string[6];
             _description[5] = "STRUCTURE";
