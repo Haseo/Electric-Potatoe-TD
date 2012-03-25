@@ -45,7 +45,7 @@ namespace Electric_Potatoe_TD
                     myTurret.update();
                 }
             }
-            checkBulletHit();
+            checkBulletHit(gameTime);
             if (_central.getCapital() <= 0)
               _origin.End_Game(false, 0); // Fin du jeu avec defaite du joueur
         }
@@ -73,7 +73,7 @@ namespace Electric_Potatoe_TD
             }
         }
 
-        public void checkBulletHit()
+        public void checkBulletHit(GameTime gameTime)
         {
             int i, j;
 
@@ -82,7 +82,8 @@ namespace Electric_Potatoe_TD
             {
                 if (BulletList[i].update() == true)
                 {
-                    mobIsDead(BulletList[i].Target[0]);
+                    if (BulletList[i].Target[0].IsDead())
+                        mobIsDead(BulletList[i].Target[0]);
                     BulletList.RemoveAt(i);
                     i = 0;
                 }

@@ -18,7 +18,7 @@ namespace Electric_Potatoe_TD
     {
         const float POWER = 10;
         const float SPEED = 10;
-        const float RANGE = 1000;
+        const float RANGE = 200;
 
         const double COEF_POWER = 1.2;
         const double COEF_SPEED = 1.2;

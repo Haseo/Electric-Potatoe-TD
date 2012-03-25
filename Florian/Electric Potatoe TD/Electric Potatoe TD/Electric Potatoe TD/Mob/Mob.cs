@@ -36,7 +36,7 @@ namespace Electric_Potatoe_TD.Mob
         protected int              currentLoop;
         protected List<Vector2>   Waypoint;
         protected EMobType        mobType;
-        protected int idx; 
+        protected int idx = 0; 
 
         #endregion
 
@@ -91,8 +91,12 @@ namespace Electric_Potatoe_TD.Mob
             {
                 if (this.Waypoint.Count == (idx + 1) && this.Waypoint[idx] == this.mobPos)
                     return;
-                if (this.Waypoint[idx] == this.mobPos)
+                else if (this.Waypoint[idx] == this.mobPos && (idx + 1) < this.Waypoint.Count)
+                {
                     idx++;
+                    if (idx == this.Waypoint.Count)
+                        idx--;
+                }
                 else
                 {
                     if (this.Waypoint[idx].X < this.mobPos.X)
@@ -139,6 +143,8 @@ namespace Electric_Potatoe_TD.Mob
 
         public virtual int update()
         {
+            if (idx == this.Waypoint.Count)
+                idx--;
             if (this.isMoving())
             {
                 this.CalcNewCoord();
