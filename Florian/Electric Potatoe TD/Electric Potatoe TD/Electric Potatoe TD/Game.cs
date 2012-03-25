@@ -53,6 +53,7 @@ namespace Electric_Potatoe_TD
         Boolean AccAllow;
         Game1 _origin;
         Texture2D Menu;
+        Texture2D Blanco;
         Texture2D RageMetter_top;
         Texture2D RageMetter_mid;
         Texture2D RageMetter_bot;
@@ -193,6 +194,7 @@ namespace Electric_Potatoe_TD
         public void LoadContent()
         {
             Menu = _origin.Content.Load<Texture2D>("Menu");
+            Blanco = _origin.Content.Load<Texture2D>("blanco");
             RageMetter_top = _origin.Content.Load<Texture2D>("RageMeterHigh");
             RageMetter_mid = _origin.Content.Load<Texture2D>("RageMeterMiddle");
             RageMetter_bot = _origin.Content.Load<Texture2D>("RageMeterLow");
