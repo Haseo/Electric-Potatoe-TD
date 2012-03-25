@@ -26,12 +26,18 @@ namespace Electric_Potatoe_TD
             TurretList.Add(new Strenght(2, 4, 10, 10, this));
             TurretList.Add(new Speed(4, 2, 10, 10, this));
             TurretList.Add(new Shooter(0, 0, 10, 10, this));
-            TurretList[2].levelUpNode(ref capital);
+           /* TurretList[2].levelUpNode(ref capital);
             TurretList[2].levelUpNode(ref capital);
             TurretList[3].levelUpNode(ref capital);
             TurretList[3].levelUpTower(ref capital);
             TurretList[3].levelUpTower(ref capital);
-            TurretList[3].levelUpTower(ref capital);
+            TurretList[3].levelUpTower(ref capital);*/
+            TurretList[2].levelUpNode();
+            TurretList[2].levelUpNode();
+            TurretList[3].levelUpNode();
+            TurretList[3].levelUpTower();
+            TurretList[3].levelUpTower();
+            TurretList[3].levelUpTower();
         }
 
         public void FakeModFiller()

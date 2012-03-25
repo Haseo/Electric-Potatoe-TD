@@ -31,8 +31,48 @@ namespace Electric_Potatoe_TD
                 draw_contentZoom();
                 if (_moveTouch == true && _ListWay.Count > 0)
                     draw_newNode();
+                if (_selectFlag > 0)
+                    draw_Selected();
             }
 
+        }
+
+        public void draw_Selected()
+        {
+            if ((_selectFlag == 1 || _selectFlag == 2) && _node != null)
+            {
+                _origin.spriteBatch.DrawString(RageMetter_font, "Node", new Vector2(_position[5].X, _position[5].Y), Color.Black);
+                _origin.spriteBatch.DrawString(RageMetter_font, "     Level : " + _node.getTowerLevel().ToString(), new Vector2(_position[6].X, _position[6].Y), Color.Black);
+                if (_node.getTowerLevel() < 4)
+                    _origin.spriteBatch.DrawString(RageMetter_font, "Upgrade Node :\n    Cost : " + _node.getCost(), new Vector2(_position[7].X, _position[7].Y),
+                        (_node.getCost() >= _central.getCapital() ? Color.LightSlateGray : Color.Black));
+            }
+            if (_selectFlag == 1)
+            {
+                _origin.spriteBatch.DrawString(RageMetter_font, "Create Tower", new Vector2(_position[8].X, _position[8].Y), (Color.Black));
+            }
+            if (_selectFlag == 2  && _turret != null)
+            {
+                _origin.spriteBatch.DrawString(RageMetter_font, "Turret", new Vector2(_position[8].X, _position[8].Y), Color.Black);
+                _origin.spriteBatch.DrawString(RageMetter_font, "     Level : " + _turret.getTowerLevel().ToString(), new Vector2(_position[9].X, _position[9].Y), Color.Black);
+                if (_turret.getTowerLevel() < 4)
+                    _origin.spriteBatch.DrawString(RageMetter_font, "Upgrade Turret :\n    Cost : " + _turret.getCost(), new Vector2(_position[10].X, _position[10].Y),
+                        (_turret.getCost() >= _central.getCapital() ? Color.LightSlateGray : Color.Black));
+            }
+            if (_selectFlag == 1 || _selectFlag == 2)
+            {
+                _origin.spriteBatch.DrawString(RageMetter_font, "Activate", new Vector2(_position[11].X, _position[11].Y), Color.Black);
+                _origin.spriteBatch.DrawString(RageMetter_font, "Desactivate", new Vector2(_position[12].X, _position[12].Y), Color.Black);
+            }
+            _origin.spriteBatch.DrawString(RageMetter_font, "Nothing", new Vector2(_position[13].X, _position[13].Y), Color.Black);
+            if (_selectFlag == 3)
+            {
+                _origin.spriteBatch.DrawString(RageMetter_font, "Create Turret", new Vector2(_position[14].X, _position[14].Y), Color.Black);
+                _origin.spriteBatch.DrawString(RageMetter_font, "Shooter", new Vector2(_position[15].X, _position[15].Y), Color.Black);
+                _origin.spriteBatch.DrawString(RageMetter_font, "Strengh", new Vector2(_position[16].X, _position[16].Y), Color.Black);
+                _origin.spriteBatch.DrawString(RageMetter_font, "Speed", new Vector2(_position[17].X, _position[17].Y), Color.Black);
+                _origin.spriteBatch.DrawString(RageMetter_font, "Generator", new Vector2(_position[18].X, _position[18].Y), Color.Black);
+            }
         }
 
         public void draw_newNode()

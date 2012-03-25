@@ -28,6 +28,113 @@ namespace Electric_Potatoe_TD
                 RageMetter_flag++;
         }
 
+        public void updateSelected_item(Vector2 PositionTouch)
+        {
+            if ((_selectFlag == 1 || _selectFlag == 2) && _node != null)
+            {
+                if ((PositionTouch.X >= _position[7].X && PositionTouch.X <= (_position[7].X + _position[7].Width)) &&
+                (PositionTouch.Y >= _position[7].Y && PositionTouch.Y <= (_position[7].Y + _position[7].Height)))
+                {
+                    _selectFlag = 0;
+                    if (_node.getTowerLevel() < 4 && _node.getCost() < _central.getCapital())
+                    {
+                        _node.levelUpNode();
+                        //  _central.
+                    }
+                }
+            }
+            if (_selectFlag == 2 && _turret != null)
+            {
+                if ((PositionTouch.X >= _position[7].X && PositionTouch.X <= (_position[7].X + _position[7].Width)) &&
+                (PositionTouch.Y >= _position[7].Y && PositionTouch.Y <= (_position[7].Y + _position[7].Height)))
+                {
+                    _selectFlag = 0;
+                    if (_turret.getTowerLevel() < 4 && _turret.getCost() < _central.getCapital())
+                    {
+                        _turret.levelUpTower();
+                        //  _central.
+                    }
+                }
+            }
+            if (_selectFlag == 1 || _selectFlag == 2)
+            {
+                if ((PositionTouch.X >= _position[11].X && PositionTouch.X <= (_position[11].X + _position[11].Width)) &&
+                (PositionTouch.Y >= _position[11].Y && PositionTouch.Y <= (_position[11].Y + _position[11].Height)))
+                {
+                    _selectFlag = 0;
+                    _node._activated = true;
+                    _turret._activated = true;
+                }
+                if ((PositionTouch.X >= _position[12].X && PositionTouch.X <= (_position[12].X + _position[12].Width)) &&
+                (PositionTouch.Y >= _position[12].Y && PositionTouch.Y <= (_position[12].Y + _position[12].Height)))
+                {
+                    _selectFlag = 0;
+                    _node._activated = true;
+                    _turret._activated = true;
+                }
+            }
+            if ((PositionTouch.X >= _position[13].X && PositionTouch.X <= (_position[13].X + _position[13].Width)) &&
+            (PositionTouch.Y >= _position[13].Y && PositionTouch.Y <= (_position[13].Y + _position[13].Height)))
+            {
+                _selectFlag = 0;
+            }
+            if (_selectFlag == 3)
+            {
+                if ((PositionTouch.X >= _position[15].X && PositionTouch.X <= (_position[15].X + _position[15].Width)) &&
+                (PositionTouch.Y >= _position[15].Y && PositionTouch.Y <= (_position[15].Y + _position[15].Height)))
+                {
+                    _selectFlag = 0;
+                    create_tower(EType.SHOOTER);
+                }
+                if ((PositionTouch.X >= _position[16].X && PositionTouch.X <= (_position[16].X + _position[16].Width)) &&
+                (PositionTouch.Y >= _position[16].Y && PositionTouch.Y <= (_position[16].Y + _position[16].Height)))
+                {
+                    _selectFlag = 0;
+                    create_tower(EType.STRENGHT);
+                }
+                if ((PositionTouch.X >= _position[17].X && PositionTouch.X <= (_position[17].X + _position[17].Width)) &&
+                (PositionTouch.Y >= _position[17].Y && PositionTouch.Y <= (_position[17].Y + _position[17].Height)))
+                {
+                    _selectFlag = 0;
+                    create_tower(EType.SPEED);
+                }
+                if ((PositionTouch.X >= _position[18].X && PositionTouch.X <= (_position[18].X + _position[18].Width)) &&
+                (PositionTouch.Y >= _position[18].Y && PositionTouch.Y <= (_position[18].Y + _position[18].Height)))
+                {
+                    _selectFlag = 0;
+                    create_tower(EType.GENERATOR);
+                }
+            }
+            if (_selectFlag == 1)
+            {
+
+                if ((PositionTouch.X >= _position[8].X && PositionTouch.X <= (_position[8].X + _position[8].Width)) &&
+                (PositionTouch.Y >= _position[8].Y && PositionTouch.Y <= (_position[8].Y + _position[8].Height)))
+                {
+                    _selectFlag = 3;
+                }
+            }
+        }
+
+        public void create_tower(EType type_tower)
+        {
+            switch (type_tower)
+            {
+                case EType.GENERATOR :
+                    this.TurretList.Add(new Generator(_node._position.X, _node._position.Y, this));
+                    break;
+                case EType.SHOOTER :
+                    this.TurretList.Add(new Shooter(_node._position.X, _node._position.Y, 10, 10, this));
+                    break;
+                case EType.SPEED :
+                    this.TurretList.Add(new Speed(_node._position.X, _node._position.Y, 10, 10, this));
+                    break;
+                case EType.STRENGHT :
+                    this.TurretList.Add(new Strenght(_node._position.X, _node._position.Y, 10, 10, this));
+                    break;
+            }
+        }
+
         public void update(GameTime gameTime)
         {
             game_loop(gameTime);
@@ -42,6 +149,8 @@ namespace Electric_Potatoe_TD
                 {
                     Vector2 PositionTouch = touches[0].Position;
 
+                    if (_selectFlag > 0 && _zoom == true && _moveTouch == false && touches[0].State == TouchLocationState.Pressed)
+                        updateSelected_item(PositionTouch);
                     if (_zoom == false && _moveTouch == false && touches[0].State == TouchLocationState.Pressed &&
                         (PositionTouch.X >= _position[0].X && PositionTouch.X <= (_position[0].X + _position[0].Width)) &&
                         (PositionTouch.Y >= _position[0].Y && PositionTouch.Y <= (_position[0].Y + _position[0].Height)))
@@ -61,6 +170,7 @@ namespace Electric_Potatoe_TD
                         _TouchFlag = -1;
                         _ValueTouch = 0;
                         _moveTouch = init_wayTouch();
+                        _selectFlag = 0;
                     }
                     else if (_moveTouch == false)
                     {
@@ -74,6 +184,7 @@ namespace Electric_Potatoe_TD
                                 _zoom = false;
                             _TouchFlag = -1;
                             _moveTouch = false;
+                            _selectFlag = 0;
                         }
                         else if (touches[0].State == TouchLocationState.Released)
                         {

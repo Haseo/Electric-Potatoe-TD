@@ -36,11 +36,11 @@ namespace Electric_Potatoe_TD
         {
         }
 
-        public override Boolean levelUpTower(ref int capital)
+        public override Boolean levelUpTower()
         {
-            if (_cost * _level > capital)
-                return false;
-            capital -= _cost * _level;
+          //  if (_cost * _level > capital)
+           //     return false;
+           // capital -= _cost * _level;
             _level += 1;
             _multPowerAtt *= _coef_power;
             _multSpeedAtt *= _coef_speed;

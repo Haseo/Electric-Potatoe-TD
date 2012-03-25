@@ -95,8 +95,11 @@ namespace Electric_Potatoe_TD
         // Mob Spawn
         TimeSpan mobSpawnTime;
         TimeSpan previousSpawnTime;
+
         // Selection
         Node _node;
+        Node _turret;
+        int _selectFlag;
         String test = "";
 
         public List<Electric_Potatoe_TD.Mob.Mob> listTarget = new List<Electric_Potatoe_TD.Mob.Mob>();
@@ -109,6 +112,7 @@ namespace Electric_Potatoe_TD
             RageMetter_flag = 0;
             _TouchFlag = 0;
             _ValueTouch = 0;
+            _selectFlag = 0;
             _moveTouch = false;
             _zoom = false;
             Zoom = new Vector2(0, 0);
@@ -145,6 +149,30 @@ namespace Electric_Potatoe_TD
                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 10, stand * 2, _origin.graphics.PreferredBackBufferWidth / 10, stand),
                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 10, stand * 49, _origin.graphics.PreferredBackBufferWidth / 10, stand * 10),
                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 3, _origin.graphics.PreferredBackBufferHeight * 10 / 11, 0, 0),
+               
+               // Selected Node
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 2, 120, stand * 2),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 5, 120, stand * 2),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 8, 120, stand * 2),
+               
+               // Selected Turret
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 19, 120, stand * 2),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 22, 120, stand * 2),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 25, 120, stand * 2),
+               
+               // Activate Desactivate
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 35, 120, stand * 5),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 45, 120, stand * 5),
+
+               // Continue
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 55, 120, stand * 5),
+
+               // Specialize Node
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 2, 120, 60),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 12, 120, 60),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 22, 120, 60),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 32, 120, 60),
+               new Rectangle(_origin.graphics.PreferredBackBufferWidth * 9 / 12, stand * 42, 120, 60),
              };
         }
 
@@ -251,6 +279,7 @@ namespace Electric_Potatoe_TD
             RageMetter_flag = 0;
             _TouchFlag = 0;
             _ValueTouch = 0;
+            _selectFlag = 0;
             Zoom = new Vector2(0, 0);
             _moveTouch = false;
             _zoom = false;

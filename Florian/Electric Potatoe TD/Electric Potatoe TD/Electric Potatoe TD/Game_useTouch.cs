@@ -38,7 +38,27 @@ namespace Electric_Potatoe_TD
 
         public bool Select_Node()
         {
-            test = "Select_Node" + Touch.X + "/" + Touch.Y;
+            _selectFlag = 0;
+            foreach (Node turret in TurretList)
+            {
+                EType stand = turret.getType();
+
+                if (turret._position.X == Touch.X && turret._position.Y == Touch.Y)
+                {
+                    if (stand == EType.NODE)
+                    {
+                        _node = turret;
+                        _selectFlag = (_selectFlag == 0 ? 1 : 2);
+                    }
+                    else
+                    {
+                        _turret = turret;
+                        _selectFlag = 2;
+                    }
+                }
+            }
+            if (_selectFlag > 0)
+              test = "Select_Node" + Touch.X + "/" + Touch.Y + "   flag = " + _selectFlag.ToString();
             return (true);
         }
 

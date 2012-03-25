@@ -43,16 +43,16 @@ namespace Electric_Potatoe_TD
             return 0;
         }
 
-        public virtual Boolean levelUpTower(ref int capital)
+        public virtual Boolean levelUpTower()
         {
             return false;
         }
 
-        public Boolean levelUpNode(ref int capital)
+        public Boolean levelUpNode()//ref int capital)
         {
-            if (_cost * _nodeLvl > capital)
-                return false;
-            capital -= _cost * _nodeLvl;
+           // if (_cost * _nodeLvl > capital)
+            //    return false;
+          //  capital -= _cost * _nodeLvl;
             _nodeLvl++;
             return true;
         }
