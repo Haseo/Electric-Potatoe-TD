@@ -16,7 +16,6 @@ namespace Electric_Potatoe_TD
 {
     public class Tower : Node
     {
-        // Les setters etaient en private
         protected int _level { get; set; }
         protected double _coef_power { get; set; }
         protected double _coef_speed { get; set; }
@@ -26,6 +25,7 @@ namespace Electric_Potatoe_TD
         protected double _multSpeedAtt { get; set; }
         protected double _range { get; set; }
 
+        protected int _counter;
         protected int _lastShoot;
         protected Boolean _bactivated { set; get; }
 
@@ -35,13 +35,6 @@ namespace Electric_Potatoe_TD
             : base(xPos, yPos, resistor, cost, game)
         {
         }
-
-        /*
-         * Le level up coute son prix initial multiplie par le level actuel
-         * Pour chaque level, la puissance d'attaque, la vitesse d'attaque et la portee augmente
-         * Le coeficient est determine par les classes filles
-         * 
-         * */
 
         public override Boolean levelUpTower(ref int capital)
         {
@@ -74,6 +67,38 @@ namespace Electric_Potatoe_TD
                     listTarget.RemoveAt(i);
                 }
                 i++;
+            }
+        }
+
+        public void update()
+        {
+            int i = 0;
+
+            if (!_bactivated)
+                return;
+            while (i < listTarget.Count)
+            {
+                if (listTarget[i].IsDead())
+                    listTarget.RemoveAt(i);
+                i++;
+            }
+            if (listTarget.Count > 0)
+            {
+                if (_counter >= _multSpeedAtt)
+                {
+                    _counter = 0;
+                    shoot(listTarget[listTarget.Count]);
+                }
+                _counter++;
+            }
+        }
+
+        public void shoot(Mob.Mob mob)
+        {
+            if (!mob.IsDead())
+            {
+                if (mob.TakeDamage((int)(_volt * _multPowerAtt)))
+                    _game.mobIsDead(mob);
             }
         }
     }

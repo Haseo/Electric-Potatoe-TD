@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Devices.Sensors;
 using Electric_Potatoe_TD.Mob;
 
 namespace Electric_Potatoe_TD
@@ -40,8 +41,11 @@ namespace Electric_Potatoe_TD
 
     public class Game
     {
-        int testMob;
-
+        double CoefBonus;
+        Accelerometer accSensor;
+        Vector3 accelReading = new Vector3();
+        Vector3 accelBuff = new Vector3();
+        Boolean AccAllow;
         Game1 _origin;
         Texture2D Menu;
         Texture2D RageMetter_top;
@@ -65,7 +69,7 @@ namespace Electric_Potatoe_TD
 
         int RageMetter;
         int RageMetter_flag;
-
+        int RageMetter_tmp;
         // Map
         EMap[,] map;
         int mapX, mapY;
@@ -92,7 +96,7 @@ namespace Electric_Potatoe_TD
 
         public Game(Game1 game)
         {
-            testMob = 0;
+            RageMetter_tmp = 0;
             _origin = game;
             RageMetter = 0;
             RageMetter_flag = 0;
@@ -104,6 +108,9 @@ namespace Electric_Potatoe_TD
             _central = new Potatoe();
             TypeTexture = new Dictionary<EType, Texture2D>();
             MobTexture = new Dictionary<EMobType, Texture2D>();
+            accSensor = new Accelerometer();
+            accSensor.ReadingChanged += new EventHandler<AccelerometerReadingEventArgs>(AccelerometerReadingChanged);
+            startAccSensor();
             MapTexture = new Dictionary<EMapTexture, Texture2D>();
             LevelColor = new Dictionary<int, Color>();
             LevelTexture = new Dictionary<int, Texture2D>();
@@ -111,13 +118,35 @@ namespace Electric_Potatoe_TD
         }
 
 
+        private void startAccSensor()
+        {
+            try
+            {
+                accSensor.Start();
+                AccAllow = true;
+            }
+            catch (AccelerometerFailedException e)
+            {
+                AccAllow = false;
+                Console.WriteLine(e.ToString());
+            }
+            catch (UnauthorizedAccessException e)
+            {
+                AccAllow = false;
+                Console.WriteLine(e.ToString());
+            }
+            accelBuff.X = 0;
+            accelBuff.Y = 0;
+            accelBuff.Z= 0;
+        }
+
         public void Oriented_changed()
         {
-            if (RageMetter < 100)
-                RageMetter = (RageMetter + 3);
-            if (RageMetter > 100)
-                RageMetter = 100;
-            RageMetter_flag = 0;
+            //if (RageMetter < 100)
+             //   RageMetter = (RageMetter + 3);
+            //if (RageMetter > 100)
+            //    RageMetter = 100;
+            //RageMetter_flag = 0;
         }
 
 
@@ -385,6 +414,8 @@ namespace Electric_Potatoe_TD
             if (RageMetter_flag < 20)
                 RageMetter_flag++;
 
+            if (AccAllow)
+                mvtBonus();
             TouchPanelCapabilities touchCap = TouchPanel.GetCapabilities();
             if (touchCap.IsConnected)
             {
@@ -688,6 +719,99 @@ namespace Electric_Potatoe_TD
             this.map = NewMap.getMap();
         }
 
+        public void AccelerometerReadingChanged(object sender, AccelerometerReadingEventArgs e)
+        {
+            accelReading.X = (float)e.X;
+            accelReading.Y = (float)e.Y;
+            accelReading.Z = (float)e.Z;
+        }
+
+        private void mvtBonus()
+        {
+            double moreThan = 0;
+
+            if (!AccAllow)
+                return;
+            if (RageMetter_flag > 0)
+            {
+                if (RageMetter_flag == 1)
+                {
+                    CoefBonus = 1;
+                    RageMetter = 1;
+                }
+                RageMetter_flag--;
+                return;
+            }
+            else
+            {
+                if (RageMetter < 20)
+                {
+                    moreThan = 0.3;
+                    CoefBonus = 1.5;
+                }
+                else if (RageMetter < 50)
+                {
+                    moreThan = 0.15;
+                    CoefBonus = 2;
+                }
+                else if (RageMetter < 70)
+                {
+                    moreThan = 0.1;
+                    CoefBonus = 3.5;
+                }
+                else if (RageMetter < 90)
+                {
+                    moreThan = 0.03;
+                    CoefBonus = 4;
+                }
+                else if (RageMetter < 100)
+                {
+                    moreThan = 0.03;
+                    CoefBonus = 4;
+                }
+                else if (RageMetter < 110)
+                {
+                    RageMetter_flag = 175;
+                    CoefBonus = 0;
+                }
+             }
+            
+            if (RageMetter_tmp > 2)
+            {
+                if (RageMetter_tmp > 200)
+                    RageMetter_tmp = 10;
+                if (RageMetter > 1)
+                    RageMetter--;
+            }
+
+            if ((accelReading.X > accelBuff.X && accelReading.X - accelBuff.X > moreThan)
+                    || accelReading.X > accelBuff.X && accelBuff.X - accelReading.X > moreThan)
+            {
+                RageMetter++;
+                RageMetter_tmp = 0;
+            }
+            else if ((accelReading.Y > accelBuff.Y && accelReading.Y - accelBuff.Y > moreThan)
+            || accelReading.Y > accelBuff.Y && accelBuff.Y - accelReading.Y > moreThan)
+            {
+                RageMetter_tmp = 0;
+                RageMetter++;
+            }
+            else if ((accelReading.Z > accelBuff.Z && accelReading.Z - accelBuff.Y > moreThan)
+            || accelReading.Y > accelBuff.Y && accelBuff.Y - accelReading.Y > moreThan)
+            {
+                RageMetter_tmp = 0;
+                RageMetter++;
+            }
+            else
+            {
+                RageMetter_tmp++;
+            }
+
+            accelBuff.X = accelReading.X;
+            accelBuff.Y = accelReading.Y;
+            accelBuff.Z = accelReading.Z;
+        }
+
         public void turretFiller()
         {
             int capital = 6000;
@@ -708,6 +832,17 @@ namespace Electric_Potatoe_TD
         {
             MobList = new List<Mob.Mob>();
             MobList.Add(new Peon(WayPoints));
+		}
+        public void mobIsDead(Mob.Mob mob)
+        {
+            int     i = 0;
+
+            while (i <= listTarget.Count)
+            {
+                if (mob == listTarget[i])
+                    listTarget.RemoveAt(i);
+                i++;
+            }
         }
     }
 }
