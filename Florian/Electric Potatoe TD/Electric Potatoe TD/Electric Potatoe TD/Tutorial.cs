@@ -55,7 +55,15 @@ namespace Electric_Potatoe_TD
             _sizeCase = 100;
             _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Exemple", new Vector2(-1, -1)));
             _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Ceci est une description\n2nd ligne ....\n3rd Ligne...", new Vector2(-1, -1)));
-            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "The Game", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "Ceci est une description\n2nd ligne ....\n3rd Ligne...", new Vector2(-1, -1)));
+            _scenes.Add(new scene(new List<Node>(), new List<Mob.Mob>(), new EMap[1, 1], "The Game", new Vector2(2, 1)));
+            _scenes[1]._nod.Add(new Node(1, 1, 10, 42, null));
+            _scenes[2]._nod.Add(new Shooter(1, 1, 10, 42, null));
+            _scenes[2]._nod.Last<Node>().levelUpTower();
+            _scenes[2]._nod.Last<Node>().levelUpNode();
+
+            _scenes[1]._mobs.Add(new Mob.Speed(null));
+            _scenes[2]._mobs.Add(new Mob.Berserk(null));
         }
 
         public void Initialize()
@@ -125,11 +133,12 @@ namespace Electric_Potatoe_TD
 
             if (_current >= 0 && _current < _scenes.Count)
             {
+                scene cur = _scenes.ElementAt<scene>(_current);
                 for (int i = 0; i < 3; i++)
                 {
                     for (int j = 0; j < 3; j++)
                     {
-                        switch (_scenes.ElementAt<scene>(_current).map[i, j])
+                        switch (cur.map[i, j])
                         {
                             case EMap.BACKGROUND: _origin.spriteBatch.Draw(_origin._game.MapTexture[EMapTexture.GROUND], new Rectangle(10 + (_sizeCase * i), 10 + (_sizeCase * j), _sizeCase, _sizeCase), Color.White); break;
                             case EMap.CANYON_HORIZONTAL: _origin.spriteBatch.Draw(_origin._game.MapTexture[EMapTexture.HORIZONTAL], new Rectangle(10 + (_sizeCase * i), 10 + (_sizeCase * j), _sizeCase, _sizeCase), Color.White); break;
@@ -143,9 +152,26 @@ namespace Electric_Potatoe_TD
                     }
                 }
 
-
+                if (cur.posNoConstruct.X != -1 && cur.posNoConstruct.Y != -1 && cur.posNoConstruct.X < 3 && cur.posNoConstruct.Y < 3)
+                    _origin.spriteBatch.Draw(_origin._game.NoConstruct, new Rectangle(10 + ((int)cur.posNoConstruct.X * _sizeCase), 10 + ((int)cur.posNoConstruct.Y * _sizeCase), _sizeCase, _sizeCase), Color.White);
+                foreach (Node myTurret in cur._nod)
+                {
+                    if (myTurret._position.X < 3 && myTurret._position.Y < 3)
+                    {
+                        _origin.spriteBatch.Draw(_origin._game.TypeTexture[myTurret.getType()], new Rectangle(10 + ((int)myTurret._position.X * _sizeCase), 10 + ((int)myTurret._position.Y * _sizeCase), _sizeCase, _sizeCase), Frame, _origin._game.LevelColor[myTurret.getNodeLevel()]);
+                        if (myTurret.getType() == EType.STRENGHT || myTurret.getType() == EType.SPEED || myTurret.getType() == EType.SHOOTER || myTurret.getType() == EType.GENERATOR)
+                            _origin.spriteBatch.Draw(_origin._game.LevelTexture[myTurret.getTowerLevel()], new Rectangle(10 + ((int)myTurret._position.X * _sizeCase), 10 + ((int)myTurret._position.Y * _sizeCase), _sizeCase, _sizeCase), _origin._game.LevelColor[myTurret.getNodeLevel()]);
+                    }
+                }
                 _origin.spriteBatch.DrawString(Font, _scenes.ElementAt<scene>(_current).Description, new Vector2(_position[3].X, _position[3].Y), Color.White);
 
+                Vector2 pos = new Vector2();
+                foreach (Mob.Mob myMob in cur._mobs)
+                {
+                    pos.X = 10 + (_sizeCase * (int)myMob.MobPos.X);
+                    pos.Y = 10 + (_sizeCase * (int)myMob.MobPos.Y);
+                    _origin.spriteBatch.Draw(_origin._game.MobTexture[(Mob.EMobType)myMob.GetMobType()], new Rectangle((int)myMob.MobPos.X + 20, (int)myMob.MobPos.Y + 20, _sizeCase - 20, _sizeCase - 20), Frame, Color.White);
+                }
             }
 
             _origin.spriteBatch.Draw(Button, _position[0], Color.White);
