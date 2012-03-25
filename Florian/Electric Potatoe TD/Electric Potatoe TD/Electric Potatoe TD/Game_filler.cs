@@ -46,6 +46,7 @@ namespace Electric_Potatoe_TD
             MobList.Add(new Mob.Speed(WayPoints));
             MobList.Add(new Mob.Peon(WayPoints));
             MobList.Add(new Mob.Tank(WayPoints));
+            MobList.Add(new Mob.Boss(WayPoints));
         }
 
         public void mapFiller()
