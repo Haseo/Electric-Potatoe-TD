@@ -127,7 +127,7 @@ namespace Electric_Potatoe_TD
                 case Game_Statut.Menu:
                     _menu.update(); break;
                 case Game_Statut.Game:
-                    _game.update(); break;
+                    _game.update(gameTime); break;
                 case Game_Statut.Menu_Ig:
                     _menuIg.update(); break;
             }
