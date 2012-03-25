@@ -35,20 +35,24 @@ namespace Electric_Potatoe_TD
                 if ((PositionTouch.X >= _position[7].X && PositionTouch.X <= (_position[7].X + _position[7].Width)) &&
                 (PositionTouch.Y >= _position[7].Y && PositionTouch.Y <= (_position[7].Y + _position[7].Height)))
                 {
-                    _selectFlag = 0;
-                    if (_node.getTowerLevel() < 4 && _node.getCost() < _central.getCapital())
+                   // _selectFlag = 0;
+                    if (_node.getNodeLevel() < 3 && _node.getCost() < _central.getCapital())
                     {
                         _node.levelUpNode();
+                        if (_selectFlag == 2 && _turret.getNodeLevel() < 3)
+                        {
+                            _turret.levelUpNode();
+                        }
+                      //  test = "Level UP !!!";
                         //  _central.
                     }
                 }
             }
             if (_selectFlag == 2 && _turret != null)
             {
-                if ((PositionTouch.X >= _position[7].X && PositionTouch.X <= (_position[7].X + _position[7].Width)) &&
-                (PositionTouch.Y >= _position[7].Y && PositionTouch.Y <= (_position[7].Y + _position[7].Height)))
+                if ((PositionTouch.X >= _position[10].X && PositionTouch.X <= (_position[10].X + _position[10].Width)) &&
+                (PositionTouch.Y >= _position[10].Y && PositionTouch.Y <= (_position[10].Y + _position[10].Height)))
                 {
-                    _selectFlag = 0;
                     if (_turret.getTowerLevel() < 4 && _turret.getCost() < _central.getCapital())
                     {
                         _turret.levelUpTower();
@@ -61,16 +65,20 @@ namespace Electric_Potatoe_TD
                 if ((PositionTouch.X >= _position[11].X && PositionTouch.X <= (_position[11].X + _position[11].Width)) &&
                 (PositionTouch.Y >= _position[11].Y && PositionTouch.Y <= (_position[11].Y + _position[11].Height)))
                 {
-                    _selectFlag = 0;
-                    _node._activated = true;
-                    _turret._activated = true;
+                  //  _selectFlag = 0;
+                    if (_selectFlag == 1 && _node != null)
+                        _node._activated = true;
+                    if (_selectFlag == 2)
+                        _turret._activated = true;
                 }
                 if ((PositionTouch.X >= _position[12].X && PositionTouch.X <= (_position[12].X + _position[12].Width)) &&
                 (PositionTouch.Y >= _position[12].Y && PositionTouch.Y <= (_position[12].Y + _position[12].Height)))
                 {
-                    _selectFlag = 0;
-                    _node._activated = true;
-                    _turret._activated = true;
+                   // _selectFlag = 0;
+                    if (_selectFlag == 1 && _node != null)
+                        _node._activated = false;
+                    if (_selectFlag == 2)
+                        _turret._activated = false;
                 }
             }
             if ((PositionTouch.X >= _position[13].X && PositionTouch.X <= (_position[13].X + _position[13].Width)) &&
@@ -104,6 +112,12 @@ namespace Electric_Potatoe_TD
                     _selectFlag = 0;
                     create_tower(EType.GENERATOR);
                 }
+
+                Node new_turret = TurretList.Last<Node>();
+                int i = 0;
+
+                while (new_turret.getNodeLevel() < _node.getNodeLevel())
+                    new_turret.levelUpNode();
             }
             if (_selectFlag == 1)
             {

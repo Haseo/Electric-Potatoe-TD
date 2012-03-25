@@ -44,7 +44,7 @@ namespace Electric_Potatoe_TD
             {
                 _origin.spriteBatch.DrawString(RageMetter_font, "Node", new Vector2(_position[5].X, _position[5].Y), Color.Black);
                 _origin.spriteBatch.DrawString(RageMetter_font, "     Level : " + _node.getTowerLevel().ToString(), new Vector2(_position[6].X, _position[6].Y), Color.Black);
-                if (_node.getTowerLevel() < 4)
+                if (_node.getNodeLevel() < 3)
                     _origin.spriteBatch.DrawString(RageMetter_font, "Upgrade Node :\n    Cost : " + _node.getCost(), new Vector2(_position[7].X, _position[7].Y),
                         (_node.getCost() >= _central.getCapital() ? Color.LightSlateGray : Color.Black));
             }
