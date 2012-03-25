@@ -82,6 +82,8 @@ namespace Electric_Potatoe_TD
 
         public void change_statut(Game_Statut statut)
         {
+            if (statut == Game_Statut.DataCenter)
+                _datacenter.Restart();
             _statut = statut;
         }
 

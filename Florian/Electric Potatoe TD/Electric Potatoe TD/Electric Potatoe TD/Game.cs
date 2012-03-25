@@ -171,7 +171,7 @@ namespace Electric_Potatoe_TD
             TypeTexture[EType.SHOOTER] = _origin.Content.Load<Texture2D>("TowerNormal");
             TypeTexture[EType.STRENGHT] = _origin.Content.Load<Texture2D>("TowerHeavy");
             TypeTexture[EType.NODE] = _origin.Content.Load<Texture2D>("Node");
-            TypeTexture[EType.GENERATOR] = _origin.Content.Load<Texture2D>("TowerFast");
+            TypeTexture[EType.GENERATOR] = _origin.Content.Load<Texture2D>("TowerGenerator");
             NoConstruct = _origin.Content.Load<Texture2D>("NoConstruct");
             LevelColor[0] = Color.White;
             LevelColor[1] = Color.Green;

@@ -15,13 +15,16 @@ namespace Electric_Potatoe_TD
 {
     class TowerData
     {
-        Game1 _origin;
+        DataCenter _origin;
         Texture2D Logo;
-        Texture2D Start;
-        Texture2D Quit;
+        Texture2D Button;
+        Texture2D[] Tower;
+        SpriteFont Font;
+        SpriteFont MenuIGFont;
         Rectangle[] _position;
+        string[] _description;
 
-        public TowerData(Game1 game)
+        public TowerData(DataCenter game)
         {
             _origin = game;
         }
@@ -29,17 +32,43 @@ namespace Electric_Potatoe_TD
         public void Initialize()
         {
             _position = new Rectangle[]
-             {  new Rectangle(_origin.graphics.PreferredBackBufferWidth / 3, _origin.graphics.PreferredBackBufferHeight / 12, 248, 248),
-                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 3, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 100, 60),
-                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 2 / 3, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 100, 60),
+             {
+                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 8, _origin._origin.graphics.PreferredBackBufferHeight * 20 / 128, 100, 60),
+                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 8, _origin._origin.graphics.PreferredBackBufferHeight * 36 / 128, 100, 60),
+                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 8, _origin._origin.graphics.PreferredBackBufferHeight * 55 / 128, 100, 60),
+                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 8, _origin._origin.graphics.PreferredBackBufferHeight * 71 / 128, 100, 60),
+                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 8, _origin._origin.graphics.PreferredBackBufferHeight * 87 / 128, 100, 60),
+                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 3 / 8, _origin._origin.graphics.PreferredBackBufferHeight * 10 / 128, 100, 60),
+
+                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 70, _origin._origin.graphics.PreferredBackBufferHeight * 20 / 128, 70, 50),
+                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 70, _origin._origin.graphics.PreferredBackBufferHeight * 36 / 128, 50, 50),
+                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 70, _origin._origin.graphics.PreferredBackBufferHeight * 55 / 128, 50, 50),
+                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 70, _origin._origin.graphics.PreferredBackBufferHeight * 71 / 128, 50, 50),
+                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 70, _origin._origin.graphics.PreferredBackBufferHeight * 87 / 128, 50, 50),
+   
+                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 3 / 8, _origin._origin.graphics.PreferredBackBufferHeight * 110 / 128, 120, 60),
              };
+            _description = new string[6];
+            _description[5] = "STRUCTURE";
+            _description[0] = "Ici text";
+            _description[1] = "Ici text";
+            _description[2] = "Ici text";
+            _description[3] = "Ici text";
+            _description[4] = "Ici text";
         }
 
         public void LoadContent()
         {
-            Logo = _origin.Content.Load<Texture2D>("Logo");
-            Start = _origin.Content.Load<Texture2D>("Start");
-            Quit = _origin.Content.Load<Texture2D>("Quit");
+            Logo = _origin._origin.Content.Load<Texture2D>("Logo");
+            Button = _origin._origin.Content.Load<Texture2D>("Button");
+            Font = _origin._origin.Content.Load<SpriteFont>("MenuFont");
+            MenuIGFont = _origin._origin.Content.Load<SpriteFont>("MenuIG");
+            Tower = new Texture2D[5];
+            Tower[0] = _origin._origin.Content.Load<Texture2D>("ReactorA");
+            Tower[1] = _origin._origin.Content.Load<Texture2D>("TowerFast");
+            Tower[2] = _origin._origin.Content.Load<Texture2D>("TowerNormal");
+            Tower[3] = _origin._origin.Content.Load<Texture2D>("TowerHeavy");
+            Tower[4] = _origin._origin.Content.Load<Texture2D>("Node");
         }
 
         public void UnloadContent()
@@ -59,16 +88,10 @@ namespace Electric_Potatoe_TD
                     {
                         Vector2 PositionTouch = touches[0].Position;
 
-                        if ((PositionTouch.X >= _position[1].X && PositionTouch.X <= (_position[1].X + _position[1].Width)) &&
-                            (PositionTouch.Y >= _position[1].Y && PositionTouch.Y <= (_position[1].Y + _position[1].Height)))
+                        if ((PositionTouch.X >= _position[11].X && PositionTouch.X <= (_position[11].X + _position[11].Width)) &&
+                            (PositionTouch.Y >= _position[11].Y && PositionTouch.Y <= (_position[11].Y + _position[11].Height)))
                         {
-                            _origin.Restart_game();
-                            _origin.change_statut(Game1.Game_Statut.Game);
-                        }
-                        if ((PositionTouch.X >= _position[2].X && PositionTouch.X <= (_position[2].X + _position[2].Width)) &&
-                            (PositionTouch.Y >= _position[2].Y && PositionTouch.Y <= (_position[2].Y + _position[2].Height)))
-                        {
-                            _origin.Exit();
+                            _origin.change_statut(DataCenter.DataCenter_statut.Main);
                         }
                     }
                 }
@@ -77,9 +100,22 @@ namespace Electric_Potatoe_TD
 
         public void draw()
         {
-            _origin.spriteBatch.Draw(Logo, _position[0], Color.White);
-            _origin.spriteBatch.Draw(Start, _position[1], Color.White);
-            _origin.spriteBatch.Draw(Quit, _position[2], Color.White);
+            _origin._origin.spriteBatch.Draw(Tower[0], _position[6], Color.White);
+            _origin._origin.spriteBatch.Draw(Tower[1], _position[7], new Rectangle(0, 0, 40, 40), Color.White);
+            _origin._origin.spriteBatch.Draw(Tower[2], _position[8], new Rectangle(0, 0, 40, 40), Color.White);
+            _origin._origin.spriteBatch.Draw(Tower[3], _position[9], new Rectangle(0, 0, 40, 40), Color.White);
+            _origin._origin.spriteBatch.Draw(Tower[4], _position[10], new Rectangle(0, 0, 40, 40), Color.White);
+
+
+            _origin._origin.spriteBatch.DrawString(MenuIGFont, _description[0], new Vector2(_position[0].X, _position[0].Y), Color.Black);
+            _origin._origin.spriteBatch.DrawString(MenuIGFont, _description[1], new Vector2(_position[1].X, _position[1].Y), Color.Black);
+            _origin._origin.spriteBatch.DrawString(MenuIGFont, _description[2], new Vector2(_position[2].X, _position[2].Y), Color.Black);
+            _origin._origin.spriteBatch.DrawString(MenuIGFont, _description[3], new Vector2(_position[3].X, _position[3].Y), Color.Black);
+            _origin._origin.spriteBatch.DrawString(MenuIGFont, _description[4], new Vector2(_position[4].X, _position[4].Y), Color.Black);
+            _origin._origin.spriteBatch.DrawString(MenuIGFont, _description[5], new Vector2(_position[5].X, _position[5].Y), Color.Black);
+
+            _origin._origin.spriteBatch.Draw(Button, _position[11], Color.White);
+            _origin._origin.spriteBatch.DrawString(Font, "Back", new Vector2(_position[11].X + (_position[11].Width / 4), (_position[11].Y + (_position[11].Height / 3))), Color.Black);
         }
     }
 }

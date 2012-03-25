@@ -15,15 +15,33 @@ namespace Electric_Potatoe_TD
 {
     class DataCenter
     {
-        Game1 _origin;
+        public enum DataCenter_statut
+        {
+            Bestiaire,
+            TowerData,
+            Main,
+        };
+
+        public Game1 _origin;
         Texture2D Logo;
         Texture2D Button;
         SpriteFont Font;
         Rectangle[] _position;
+        DataCenter_statut _statut;
+        Bestiaire _bestiaire;
+        TowerData _towerdata;
 
         public DataCenter(Game1 game)
         {
             _origin = game;
+            _bestiaire = new Bestiaire(this);
+            _towerdata = new TowerData(this);
+            _statut = DataCenter_statut.Main;
+        }
+
+        public void Restart()
+        {
+            _statut = DataCenter_statut.Main;
         }
 
         public void Initialize()
@@ -33,8 +51,9 @@ namespace Electric_Potatoe_TD
                 new Rectangle(_origin.graphics.PreferredBackBufferWidth * 1 / 30, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 180, 90),
                 new Rectangle(_origin.graphics.PreferredBackBufferWidth * 8 / 30, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 180, 90),
                 new Rectangle(_origin.graphics.PreferredBackBufferWidth * 15 / 30, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 180, 90),
-                new Rectangle(_origin.graphics.PreferredBackBufferWidth * 22 / 30, _origin.graphics.PreferredBackBufferHeight * 3 / 4, 180, 90),
              };
+            _bestiaire.Initialize();
+            _towerdata.Initialize();
         }
 
         public void LoadContent()
@@ -42,14 +61,35 @@ namespace Electric_Potatoe_TD
             Logo = _origin.Content.Load<Texture2D>("Logo");
             Button = _origin.Content.Load<Texture2D>("Button");
             Font = _origin.Content.Load<SpriteFont>("MenuFont");
+            _bestiaire.LoadContent();
+            _towerdata.LoadContent();
         }
 
         public void UnloadContent()
         {
+            _bestiaire.UnloadContent();
+            _towerdata.UnloadContent();
         }
 
+        public void change_statut(DataCenter_statut statut)
+        {
+            _statut = statut;
+        }
 
         public void update()
+        {
+            switch (_statut)
+            {
+                case DataCenter_statut.Main :
+                    update_Main();break;
+                case DataCenter_statut.Bestiaire :
+                    _bestiaire.update();break;
+                case DataCenter_statut.TowerData :
+                    _towerdata.update();break;
+            }
+        }
+
+        public void update_Main()
         {
             TouchPanelCapabilities touchCap = TouchPanel.GetCapabilities();
             if (touchCap.IsConnected)
@@ -64,23 +104,17 @@ namespace Electric_Potatoe_TD
                         if ((PositionTouch.X >= _position[1].X && PositionTouch.X <= (_position[1].X + _position[1].Width)) &&
                             (PositionTouch.Y >= _position[1].Y && PositionTouch.Y <= (_position[1].Y + _position[1].Height)))
                         {
-                            _origin.Restart_game();
-                            _origin.change_statut(Game1.Game_Statut.Game);
+                            _statut = DataCenter_statut.Bestiaire;
                         }
                         if ((PositionTouch.X >= _position[2].X && PositionTouch.X <= (_position[2].X + _position[2].Width)) &&
                             (PositionTouch.Y >= _position[2].Y && PositionTouch.Y <= (_position[2].Y + _position[2].Height)))
                         {
-                            _origin.change_statut(Game1.Game_Statut.Tutorial);
+                            _statut = DataCenter_statut.TowerData;
                         }
                         if ((PositionTouch.X >= _position[3].X && PositionTouch.X <= (_position[3].X + _position[3].Width)) &&
                             (PositionTouch.Y >= _position[3].Y && PositionTouch.Y <= (_position[3].Y + _position[3].Height)))
                         {
-                            _origin.change_statut(Game1.Game_Statut.DataCenter);
-                        }
-                        if ((PositionTouch.X >= _position[4].X && PositionTouch.X <= (_position[4].X + _position[4].Width)) &&
-                            (PositionTouch.Y >= _position[4].Y && PositionTouch.Y <= (_position[4].Y + _position[4].Height)))
-                        {
-                            _origin.Exit();
+                            _origin.change_statut(Game1.Game_Statut.Menu);
                         }
                     }
                 }
@@ -89,15 +123,26 @@ namespace Electric_Potatoe_TD
 
         public void draw()
         {
+            switch (_statut)
+            {
+                case DataCenter_statut.Main:
+                    draw_Main(); break;
+                case DataCenter_statut.Bestiaire:
+                    _bestiaire.draw(); break;
+                case DataCenter_statut.TowerData:
+                    _towerdata.draw(); break;
+            }
+        }
+
+        public void draw_Main()
+        {
             _origin.spriteBatch.Draw(Logo, _position[0], Color.White);
             _origin.spriteBatch.Draw(Button, _position[1], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Play", new Vector2(_position[1].X + (_position[1].Width / 3), (_position[1].Y + (_position[1].Height / 3))), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "Bestiaire", new Vector2(_position[1].X + (_position[1].Width / 3), (_position[1].Y + (_position[1].Height / 3))), Color.Black);
             _origin.spriteBatch.Draw(Button, _position[2], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Tutorial", new Vector2(_position[2].X + (_position[2].Width / 3), (_position[2].Y + (_position[2].Height / 3))), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "Turret", new Vector2(_position[2].X + (_position[2].Width / 3), (_position[2].Y + (_position[2].Height / 3))), Color.Black);
             _origin.spriteBatch.Draw(Button, _position[3], Color.White);
-            _origin.spriteBatch.DrawString(Font, "DataCenter", new Vector2(_position[3].X + (_position[3].Width / 4), (_position[3].Y + (_position[3].Height / 3))), Color.Black);
-            _origin.spriteBatch.Draw(Button, _position[4], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Quit", new Vector2(_position[4].X + (_position[4].Width / 3), (_position[4].Y + (_position[4].Height / 3))), Color.Black);
-        }
+            _origin.spriteBatch.DrawString(Font, "Back", new Vector2(_position[3].X + (_position[3].Width / 4), (_position[3].Y + (_position[3].Height / 3))), Color.Black);
+       }
     }
 }
