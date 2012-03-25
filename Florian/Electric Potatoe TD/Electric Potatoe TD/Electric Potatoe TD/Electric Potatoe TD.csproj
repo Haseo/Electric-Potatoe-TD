@@ -118,6 +118,7 @@
     <Compile Include="Mob\Tank.cs" />
     <Compile Include="Mob\Wave.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="Pair.cs" />
     <Compile Include="Potatoe.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Shooter.cs" />
@@ -146,6 +147,7 @@
     <ProjectReference Include="..\Electric Potatoe TDContent\Electric Potatoe TDContent.contentproj">
       <Name>Electric_Potatoe_TDContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{376F74FB-B766-404C-A358-6426DB6A57D8}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

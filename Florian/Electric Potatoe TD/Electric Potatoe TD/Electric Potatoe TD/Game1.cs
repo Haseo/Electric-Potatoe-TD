@@ -30,7 +30,7 @@ namespace Electric_Potatoe_TD
         public SpriteBatch spriteBatch;
         public Game_Statut _statut;
         private Menu _menu;
-        private Game _game;
+        public Game _game;
         private Tutorial _tuto;
         private DataCenter _datacenter;
         private Menu_IG _menuIg;
