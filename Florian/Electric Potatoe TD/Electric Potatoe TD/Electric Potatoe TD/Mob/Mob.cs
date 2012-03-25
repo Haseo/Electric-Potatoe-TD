@@ -38,7 +38,7 @@ namespace Electric_Potatoe_TD.Mob
         protected EMobType            mobType;
         #endregion
 
-        #region asseceurs
+        #region accesseurs
 
         public EMobType MobType { get { return this.mobType; } }
         public String ModName {get{return this.mobName;}}
@@ -68,7 +68,7 @@ namespace Electric_Potatoe_TD.Mob
 
         protected virtual int Attack()
         {
-            if (this.Waypoint != null && this.Waypoint.Count < 0)
+            if (this.Waypoint != null && this.Waypoint.Count > 0)
                 if (this.Waypoint.Count == 1 && this.Waypoint[0] == this.mobPos)
                 {
                     Console.WriteLine("le mob attaque la central : ");
