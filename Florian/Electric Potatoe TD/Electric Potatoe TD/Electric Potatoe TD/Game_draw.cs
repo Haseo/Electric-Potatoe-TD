@@ -268,7 +268,7 @@ namespace Electric_Potatoe_TD
                     pos.X = (((int)(myBullet.Coord.X / size_case) - Zoom.X) * size_caseZoom) + (size_caseZoom - (diff.X % size_caseZoom) >= 0 ? size_caseZoom - (diff.X % size_caseZoom) : -1 * (size_caseZoom - (diff.X % size_caseZoom)));
                     pos.Y = (((int)(myBullet.Coord.Y / size_case) - Zoom.Y) * size_caseZoom) + (size_caseZoom - (diff.Y % size_caseZoom) >= 0 ? size_caseZoom - (diff.Y % size_caseZoom) : -1 * (size_caseZoom - (diff.Y % size_caseZoom)));
 
-                    _origin.spriteBatch.Draw(BulletTexture[(EBulletType)myBullet.GetType()], new Rectangle((int)pos.X - size_caseZoom + 20, (int)pos.Y - size_caseZoom + 20, size_caseZoom / 2, size_caseZoom / 2), new Rectangle(CurrentFrame * BulletFrameSize.X, 0, BulletFrameSize.X, BulletFrameSize.Y), Color.White);
+                    _origin.spriteBatch.Draw(BulletTexture[(EBulletType)myBullet.GetBulletType()], new Rectangle((int)pos.X - size_caseZoom + 20, (int)pos.Y - size_caseZoom + 20, size_caseZoom / 2, size_caseZoom / 2), new Rectangle(CurrentFrame * BulletFrameSize.X, 0, BulletFrameSize.X, BulletFrameSize.Y), Color.White);
                 }
                 i += 20;
             }
@@ -294,9 +294,9 @@ namespace Electric_Potatoe_TD
         {
             foreach (Shoot myBullet in BulletList)
             {
-                EBulletType bulletText = (EBulletType)myBullet.GetType();
+                EBulletType bulletText = (EBulletType)myBullet.GetBulletType();
 
-                _origin.spriteBatch.Draw(BulletTexture[(EBulletType)myBullet.GetType()], new Rectangle((int)myBullet.Coord.X + size_case / 2, (int)myBullet.Coord.Y + size_case / 2, size_case / 2, size_case / 2), new Rectangle(CurrentFrame * BulletFrameSize.X, 0, BulletFrameSize.X, BulletFrameSize.Y), Color.White);
+                _origin.spriteBatch.Draw(BulletTexture[(EBulletType)myBullet.GetBulletType()], new Rectangle((int)myBullet.Coord.X + size_case / 2, (int)myBullet.Coord.Y + size_case / 2, size_case / 2, size_case / 2), new Rectangle(CurrentFrame * BulletFrameSize.X, 0, BulletFrameSize.X, BulletFrameSize.Y), Color.White);
                 //new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), 
             }
         }

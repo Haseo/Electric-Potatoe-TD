@@ -28,7 +28,7 @@ namespace Electric_Potatoe_TD
             this._area = 0;
         }
 
-        public override EBulletType GetType()
+        public override EBulletType GetBulletType()
         {
             return (EBulletType.FAST);
         }

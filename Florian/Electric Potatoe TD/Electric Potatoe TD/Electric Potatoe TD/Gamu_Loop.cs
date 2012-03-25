@@ -76,7 +76,7 @@ namespace Electric_Potatoe_TD
 
         public void checkBulletHit()
         {
-            int i, j;
+            int i;
 
             i = 0;
             while (i < BulletList.Count)
@@ -92,6 +92,7 @@ namespace Electric_Potatoe_TD
                 /* Spread method
                  * 
                  * 
+                 *  int j;
                     j = 0;
                     while (j < BulletList[i].Target.Count)
                     {
