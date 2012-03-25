@@ -17,6 +17,7 @@ namespace Electric_Potatoe_TD
 {
     public partial class Game
     {
+
         public void updateSelected_item(Vector2 PositionTouch)
         {
             if ((_selectFlag == 1 || _selectFlag == 2) && _node != null)
@@ -24,16 +25,15 @@ namespace Electric_Potatoe_TD
                 if ((PositionTouch.X >= _position[7].X && PositionTouch.X <= (_position[7].X + _position[7].Width)) &&
                 (PositionTouch.Y >= _position[7].Y && PositionTouch.Y <= (_position[7].Y + _position[7].Height)))
                 {
-                   // _selectFlag = 0;
-                    if (_node.getNodeLevel() < 3 && _node.getCost() < _central.getCapital())
+                    // _selectFlag = 0;
+                    if (_node.getNodeLevel() < 3 && _node.getCostNode() < _central.getCapital())
                     {
+                        _central.subCapital(_node.getCostNode());
                         _node.levelUpNode();
                         if (_selectFlag == 2 && _turret.getNodeLevel() < 3)
                         {
                             _turret.levelUpNode();
                         }
-                      //  test = "Level UP !!!";
-                        //  _central.
                     }
                 }
             }
@@ -42,10 +42,10 @@ namespace Electric_Potatoe_TD
                 if ((PositionTouch.X >= _position[10].X && PositionTouch.X <= (_position[10].X + _position[10].Width)) &&
                 (PositionTouch.Y >= _position[10].Y && PositionTouch.Y <= (_position[10].Y + _position[10].Height)))
                 {
-                    if (_turret.getTowerLevel() < 4 && _turret.getCost() < _central.getCapital())
+                    if (_turret.getTowerLevel() < 4 && _turret.getCostTower() < _central.getCapital())
                     {
+                        _central.subCapital(_turret.getCostTower());
                         _turret.levelUpTower();
-                        //  _central.
                     }
                 }
             }
@@ -54,7 +54,7 @@ namespace Electric_Potatoe_TD
                 if ((PositionTouch.X >= _position[11].X && PositionTouch.X <= (_position[11].X + _position[11].Width)) &&
                 (PositionTouch.Y >= _position[11].Y && PositionTouch.Y <= (_position[11].Y + _position[11].Height)))
                 {
-                  //  _selectFlag = 0;
+                    //  _selectFlag = 0;
                     if (_selectFlag == 1 && _node != null)
                         _node._activated = true;
                     if (_selectFlag == 2)
@@ -63,7 +63,7 @@ namespace Electric_Potatoe_TD
                 if ((PositionTouch.X >= _position[12].X && PositionTouch.X <= (_position[12].X + _position[12].Width)) &&
                 (PositionTouch.Y >= _position[12].Y && PositionTouch.Y <= (_position[12].Y + _position[12].Height)))
                 {
-                   // _selectFlag = 0;
+                    // _selectFlag = 0;
                     if (_selectFlag == 1 && _node != null)
                         _node._activated = false;
                     if (_selectFlag == 2)
@@ -77,29 +77,37 @@ namespace Electric_Potatoe_TD
             }
             if (_selectFlag == 3)
             {
-                if ((PositionTouch.X >= _position[15].X && PositionTouch.X <= (_position[15].X + _position[15].Width)) &&
-                (PositionTouch.Y >= _position[15].Y && PositionTouch.Y <= (_position[15].Y + _position[15].Height)))
+                if (Tower.get_cost_tower(EType.SHOOTER) < _central.getCapital() &&
+                    (PositionTouch.X >= _position[15].X && PositionTouch.X <= (_position[15].X + _position[15].Width)) &&
+                    (PositionTouch.Y >= _position[15].Y && PositionTouch.Y <= (_position[15].Y + _position[15].Height)))
                 {
                     _selectFlag = 0;
                     create_tower(EType.SHOOTER);
+                    _central.subCapital(Tower.get_cost_tower(EType.SHOOTER));
                 }
-                if ((PositionTouch.X >= _position[16].X && PositionTouch.X <= (_position[16].X + _position[16].Width)) &&
-                (PositionTouch.Y >= _position[16].Y && PositionTouch.Y <= (_position[16].Y + _position[16].Height)))
+                if (Tower.get_cost_tower(EType.STRENGHT) < _central.getCapital() &&
+                    (PositionTouch.X >= _position[16].X && PositionTouch.X <= (_position[16].X + _position[16].Width)) &&
+                    (PositionTouch.Y >= _position[16].Y && PositionTouch.Y <= (_position[16].Y + _position[16].Height)))
                 {
                     _selectFlag = 0;
                     create_tower(EType.STRENGHT);
+                    _central.subCapital(Tower.get_cost_tower(EType.STRENGHT));
                 }
-                if ((PositionTouch.X >= _position[17].X && PositionTouch.X <= (_position[17].X + _position[17].Width)) &&
-                (PositionTouch.Y >= _position[17].Y && PositionTouch.Y <= (_position[17].Y + _position[17].Height)))
+                if (Tower.get_cost_tower(EType.SPEED) < _central.getCapital() &&
+                    (PositionTouch.X >= _position[17].X && PositionTouch.X <= (_position[17].X + _position[17].Width)) &&
+                    (PositionTouch.Y >= _position[17].Y && PositionTouch.Y <= (_position[17].Y + _position[17].Height)))
                 {
                     _selectFlag = 0;
                     create_tower(EType.SPEED);
+                    _central.subCapital(Tower.get_cost_tower(EType.SPEED));
                 }
-                if ((PositionTouch.X >= _position[18].X && PositionTouch.X <= (_position[18].X + _position[18].Width)) &&
-                (PositionTouch.Y >= _position[18].Y && PositionTouch.Y <= (_position[18].Y + _position[18].Height)))
+                if (Tower.get_cost_tower(EType.GENERATOR) < _central.getCapital() &&
+                    (PositionTouch.X >= _position[18].X && PositionTouch.X <= (_position[18].X + _position[18].Width)) &&
+                    (PositionTouch.Y >= _position[18].Y && PositionTouch.Y <= (_position[18].Y + _position[18].Height)))
                 {
                     _selectFlag = 0;
                     create_tower(EType.GENERATOR);
+                    _central.subCapital(Tower.get_cost_tower(EType.GENERATOR));
                 }
 
                 Node new_turret = TurretList.Last<Node>();
@@ -122,17 +130,21 @@ namespace Electric_Potatoe_TD
         {
             switch (type_tower)
             {
-                case EType.GENERATOR :
+                case EType.GENERATOR:
                     this.TurretList.Add(new Generator(_node._position.X, _node._position.Y, this));
+                    transfert_connect(_node._position);
                     break;
-                case EType.SHOOTER :
+                case EType.SHOOTER:
                     this.TurretList.Add(new Shooter(_node._position.X, _node._position.Y, 10, 10, this));
+                    transfert_connect(_node._position);
                     break;
-                case EType.SPEED :
+                case EType.SPEED:
                     this.TurretList.Add(new Speed(_node._position.X, _node._position.Y, 10, 10, this));
+                    transfert_connect(_node._position);
                     break;
-                case EType.STRENGHT :
+                case EType.STRENGHT:
                     this.TurretList.Add(new Strenght(_node._position.X, _node._position.Y, 10, 10, this));
+                    transfert_connect(_node._position);
                     break;
             }
         }

@@ -26,16 +26,21 @@ namespace Electric_Potatoe_TD
         public double _intensity { get; set; }
 
         public List<Node> _peerOut { get; set; }
-        public Boolean _activated {set; get;}
+        public Boolean _activated { set; get; }
 
         public int getCost()
         {
             return _cost;
         }
 
-        public Game getGame()
+        public int getCostNode()
         {
-            return _game;
+            return _cost * (_nodeLvl + 1);
+        }
+
+        public virtual int getCostTower()
+        {
+            return _cost;
         }
 
         public int getNodeLevel()
@@ -48,21 +53,18 @@ namespace Electric_Potatoe_TD
             return 0;
         }
 
-        public virtual Boolean levelUpTower()
+        public virtual void levelUpTower()
         {
-            return false;
+
         }
 
-        public Boolean levelUpNode()//ref int capital)
+        public void levelUpNode()
         {
-           // if (_cost * _nodeLvl > capital)
-            //    return false;
-          //  capital -= _cost * _nodeLvl;
             _nodeLvl++;
-            return true;
         }
 
-        public Node(float xPos, float yPos, int resistor, int cost, Game data) : base(xPos, yPos)
+        public Node(float xPos, float yPos, int resistor, int cost, Game data)
+            : base(xPos, yPos)
         {
             _resistor = resistor;
             _cost = cost;
@@ -74,17 +76,8 @@ namespace Electric_Potatoe_TD
 
         public Boolean addLink(Node contact)
         {
-            bool buf = true;
-
             if (_peerOut.Count > 3)
                 return false;
-            _peerOut.ForEach(delegate(Node cib)
-            {
-                if (cib == contact)
-                    buf =  false;
-            });
-            if (buf == false)
-                return buf;
             _peerOut.Add(contact);
             return true;
         }
@@ -110,7 +103,12 @@ namespace Electric_Potatoe_TD
 
         public virtual EType getType()
         {
-         return   EType.NODE;
+            return EType.NODE;
+        }
+
+        public Game getGame()
+        {
+            return (_game);
         }
 
         public virtual void putInRange(Mob.Mob mob)

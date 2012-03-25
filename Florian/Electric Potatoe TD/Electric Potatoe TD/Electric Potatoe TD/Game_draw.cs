@@ -48,20 +48,20 @@ namespace Electric_Potatoe_TD
                 _origin.spriteBatch.DrawString(RageMetter_font, "Node", new Vector2(_position[5].X, _position[5].Y), Color.Black);
                 _origin.spriteBatch.DrawString(RageMetter_font, "     Level : " + _node.getTowerLevel().ToString(), new Vector2(_position[6].X, _position[6].Y), Color.Black);
                 if (_node.getNodeLevel() < 3)
-                    _origin.spriteBatch.DrawString(RageMetter_font, "Upgrade Node :\n    Cost : " + _node.getCost(), new Vector2(_position[7].X, _position[7].Y),
-                        (_node.getCost() >= _central.getCapital() ? Color.LightSlateGray : Color.Black));
+                    _origin.spriteBatch.DrawString(RageMetter_font, "Upgrade Node :\n    Cost : " + _node.getCostNode(), new Vector2(_position[7].X, _position[7].Y),
+                        (_node.getCostNode() >= _central.getCapital() ? Color.LightSlateGray : Color.Black));
             }
             if (_selectFlag == 1)
             {
                 _origin.spriteBatch.DrawString(RageMetter_font, "Create Tower", new Vector2(_position[8].X, _position[8].Y), (Color.Black));
             }
-            if (_selectFlag == 2  && _turret != null)
+            if (_selectFlag == 2 && _turret != null)
             {
                 _origin.spriteBatch.DrawString(RageMetter_font, "Turret", new Vector2(_position[8].X, _position[8].Y), Color.Black);
                 _origin.spriteBatch.DrawString(RageMetter_font, "     Level : " + _turret.getTowerLevel().ToString(), new Vector2(_position[9].X, _position[9].Y), Color.Black);
                 if (_turret.getTowerLevel() < 4)
-                    _origin.spriteBatch.DrawString(RageMetter_font, "Upgrade Turret :\n    Cost : " + _turret.getCost(), new Vector2(_position[10].X, _position[10].Y),
-                        (_turret.getCost() >= _central.getCapital() ? Color.LightSlateGray : Color.Black));
+                    _origin.spriteBatch.DrawString(RageMetter_font, "Upgrade Turret :\n    Cost : " + _turret.getCostTower(), new Vector2(_position[10].X, _position[10].Y),
+                        (_turret.getCostTower() >= _central.getCapital() ? Color.LightSlateGray : Color.Black));
             }
             if (_selectFlag == 1 || _selectFlag == 2)
             {
@@ -72,10 +72,37 @@ namespace Electric_Potatoe_TD
             if (_selectFlag == 3)
             {
                 _origin.spriteBatch.DrawString(RageMetter_font, "Create Turret", new Vector2(_position[14].X, _position[14].Y), Color.Black);
-                _origin.spriteBatch.DrawString(RageMetter_font, "Shooter", new Vector2(_position[15].X, _position[15].Y), Color.Black);
-                _origin.spriteBatch.DrawString(RageMetter_font, "Strengh", new Vector2(_position[16].X, _position[16].Y), Color.Black);
-                _origin.spriteBatch.DrawString(RageMetter_font, "Speed", new Vector2(_position[17].X, _position[17].Y), Color.Black);
-                _origin.spriteBatch.DrawString(RageMetter_font, "Generator", new Vector2(_position[18].X, _position[18].Y), Color.Black);
+                _origin.spriteBatch.DrawString(RageMetter_font, "Shooter : " + Tower.get_cost_tower(EType.SHOOTER).ToString(), new Vector2(_position[15].X, _position[15].Y),
+                    (Tower.get_cost_tower(EType.SHOOTER) >= _central.getCapital() ? Color.LightSlateGray : Color.Black));
+                _origin.spriteBatch.DrawString(RageMetter_font, "Strengh : " + Tower.get_cost_tower(EType.STRENGHT).ToString(), new Vector2(_position[16].X, _position[16].Y),
+                    (Tower.get_cost_tower(EType.STRENGHT) >= _central.getCapital() ? Color.LightSlateGray : Color.Black));
+                _origin.spriteBatch.DrawString(RageMetter_font, "Speed : " + Tower.get_cost_tower(EType.SPEED).ToString(), new Vector2(_position[17].X, _position[17].Y),
+                    (Tower.get_cost_tower(EType.SPEED) >= _central.getCapital() ? Color.LightSlateGray : Color.Black));
+                _origin.spriteBatch.DrawString(RageMetter_font, "Generator : " + Tower.get_cost_tower(EType.GENERATOR).ToString(), new Vector2(_position[18].X, _position[18].Y),
+                    (Tower.get_cost_tower(EType.GENERATOR) >= _central.getCapital() ? Color.LightSlateGray : Color.Black));
+            }
+        }
+
+        public void draw_newNode()
+        {
+            Vector2 stand = _ListWay.Last<Vector2>();
+
+            if (can_access() == true)
+            {
+                if (_central.CanaddLink() == true &&
+                    ((_central._position.X == Touch.X && _central._position.Y == Touch.Y) ||
+                    (_central._position.X == (Touch.X - 1) && _central._position.Y == Touch.Y) ||
+                    (_central._position.X == Touch.X && _central._position.Y == (Touch.Y + 1)) ||
+                    (_central._position.X == (Touch.X - 1) && _central._position.Y == (Touch.Y + 1))))
+                {
+                    _origin.spriteBatch.Draw(NoConstruct, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)stand.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)stand.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
+                }
+                else
+                    _origin.spriteBatch.Draw(TypeTexture[EType.NODE], new Rectangle((int)pos_map.X + (size_caseZoom * ((int)stand.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)stand.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), new Rectangle(0 * FrameSize.X, 0, FrameSize.X, FrameSize.Y), Color.White);
+            }
+            else
+            {
+                _origin.spriteBatch.Draw(NoConstruct, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)stand.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)stand.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
             }
         }
 
@@ -92,20 +119,6 @@ namespace Electric_Potatoe_TD
         public void drawLine(Vector2 origine, Vector2 dest)
         {
 
-        }
-
-        public void draw_newNode()
-        {
-            Vector2 stand = _ListWay.Last<Vector2>();
-
-            if (can_access() == true)
-            {
-                _origin.spriteBatch.Draw(TypeTexture[EType.NODE], new Rectangle((int)pos_map.X + (size_caseZoom * ((int)stand.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)stand.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), new Rectangle(0 * FrameSize.X, 0, FrameSize.X, FrameSize.Y), Color.White);
-            }
-            else
-            {
-                _origin.spriteBatch.Draw(NoConstruct, new Rectangle((int)pos_map.X + (size_caseZoom * ((int)stand.X - (int)Zoom.X)), (int)pos_map.Y + (size_caseZoom * ((int)stand.Y - (int)Zoom.Y)), size_caseZoom, size_caseZoom), Color.White);
-            }
         }
 
         public void draw_mapZoom(int FrameStart, int FPS, int CurrentFrame, int SheetSize)
