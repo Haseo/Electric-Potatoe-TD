@@ -22,6 +22,7 @@ namespace Electric_Potatoe_TD
             Menu_Ig,
             Tutorial,
             DataCenter,
+            EndGame,
         };
 
 
@@ -33,6 +34,7 @@ namespace Electric_Potatoe_TD
         private Tutorial _tuto;
         private DataCenter _datacenter;
         private Menu_IG _menuIg;
+        private Game_End _endgame;
         private int CurrentFrame;
         private int FrameStart;
         private int FPS;
@@ -50,6 +52,7 @@ namespace Electric_Potatoe_TD
             _menuIg = new Menu_IG(this);
             _tuto = new Tutorial(this);
             _datacenter = new DataCenter(this);
+            _endgame = new Game_End(this);
             TargetElapsedTime = TimeSpan.FromTicks(333333);
             FrameStart = 0;
             FPS = 30;
@@ -72,6 +75,8 @@ namespace Electric_Potatoe_TD
                     break;
                 case Game_Statut.Tutorial:
                     break;
+                case Game_Statut.EndGame:
+                    break;
             }
         }
 
@@ -92,6 +97,13 @@ namespace Electric_Potatoe_TD
             _game.Restart();
         }
 
+        public void End_Game(bool victory, int score)
+        {
+            _endgame.setVictory(victory);
+            _endgame.setScore(score);
+            _statut = Game_Statut.EndGame;
+        }
+
         protected override void Initialize()
         {
             base.Initialize();
@@ -100,6 +112,7 @@ namespace Electric_Potatoe_TD
             _menuIg.Initialize();
             _tuto.Initialize();
             _datacenter.Initialize();
+            _endgame.Initialize();
         }
 
         protected override void LoadContent()
@@ -110,6 +123,7 @@ namespace Electric_Potatoe_TD
             _menuIg.LoadContent();
             _tuto.LoadContent();
             _datacenter.LoadContent();
+            _endgame.LoadContent();
         }
 
         protected override void UnloadContent()
@@ -119,6 +133,7 @@ namespace Electric_Potatoe_TD
             _menuIg.UnloadContent();
             _tuto.UnloadContent();
             _datacenter.UnloadContent();
+            _endgame.UnloadContent();
         }
 
         protected override void Update(GameTime gameTime)
@@ -151,6 +166,8 @@ namespace Electric_Potatoe_TD
                     _tuto.update(); break;
                 case Game_Statut.DataCenter:
                     _datacenter.update(); break;
+                case Game_Statut.EndGame:
+                    _endgame.update();break;
             }
             base.Update(gameTime);
         }
@@ -172,6 +189,8 @@ namespace Electric_Potatoe_TD
                     _tuto.draw(); break;
                 case Game_Statut.DataCenter:
                     _datacenter.draw(); break;
+                case Game_Statut.EndGame:
+                    _endgame.draw();break;
             }
             spriteBatch.End();
 

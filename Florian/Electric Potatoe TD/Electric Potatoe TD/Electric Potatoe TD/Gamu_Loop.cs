@@ -46,11 +46,13 @@ namespace Electric_Potatoe_TD
                     myTurret.update();
                 }
             }
+            if (_central.getCapital() == 0)
+              _origin.End_Game(false, 0); // Fin du jeu avec defaite du joueur
         }
 
         private void spawningManager(GameTime gameTime)
         {
-            if (NewMap.ListOfWaves[currentWave].ListOfMonster.Count > 0)
+            if (currentWave < NewMap.ListOfWaves.Count && NewMap.ListOfWaves[currentWave].ListOfMonster.Count > 0)
             {
                 if (gameTime.TotalGameTime - previousSpawnTime > mobSpawnTime)
                 {
@@ -60,13 +62,14 @@ namespace Electric_Potatoe_TD
             }
             else
             {
-                if (currentWave == NewMap.ListOfWaves.Count - 1)
+                if (currentWave == NewMap.ListOfWaves.Count - 1 && MobList.Count == 0)
                 {
-                    ; // Fin du jeu avec victoire du joueur
+                    _origin.End_Game(true, _central.getCapital()); // Fin du jeu avec victoire du joueur
                     // Pour l'instant remplacer par un return
                     return;
                 }
-                currentWave++;
+                if (MobList.Count == 0)
+                  currentWave++;
             }
         }
     }
