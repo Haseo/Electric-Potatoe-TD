@@ -30,6 +30,8 @@ namespace Electric_Potatoe_TD
     public enum EBulletType
     { 
         BULLET = 0,
+        FAST = 1,
+        SPREAD = 2,
     };
 
     public enum EMapTexture
@@ -156,6 +158,10 @@ namespace Electric_Potatoe_TD
 
         public void Initialize()
         {
+            MobList = new List<Mob.Mob>();
+            TurretList = new List<Node>();
+            BulletList = new List<Shoot>();
+
             int stand = (_origin.graphics.PreferredBackBufferHeight - (_origin.graphics.PreferredBackBufferHeight / 6)) / 55;
 
             _ListWay = new List<Vector2>();
@@ -229,7 +235,9 @@ namespace Electric_Potatoe_TD
             LevelTexture[2] = _origin.Content.Load<Texture2D>("Level2");
             LevelTexture[3] = _origin.Content.Load<Texture2D>("Level3");
             LevelTexture[4] = _origin.Content.Load<Texture2D>("Level4");
-            BulletTexture[0] = _origin.Content.Load<Texture2D>("BulletNormal");
+            BulletTexture[EBulletType.BULLET] = _origin.Content.Load<Texture2D>("BulletNormal");
+            BulletTexture[EBulletType.FAST] = _origin.Content.Load<Texture2D>("BulletFast");
+            BulletTexture[EBulletType.SPREAD] = _origin.Content.Load<Texture2D>("BulletHeavy");
         }
 
         public void UnloadContent()
@@ -342,9 +350,14 @@ namespace Electric_Potatoe_TD
             _moveTouch = false;
             _zoom = false;
             mapFiller();
-            turretFiller();
-            FakeModFiller();
-            FakeBulletFiller();
+            //turretFiller();
+            //FakeModFiller();
+            //FakeBulletFiller();
+            
+            TurretList.Clear();
+            MobList.Clear();
+            BulletList.Clear();
+            _central.setCapital(1000);
         }
 
         public int getScore()

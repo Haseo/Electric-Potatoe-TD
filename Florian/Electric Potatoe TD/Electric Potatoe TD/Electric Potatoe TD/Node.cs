@@ -53,7 +53,7 @@ namespace Electric_Potatoe_TD
             return 0;
         }
 
-        public Game getGame()
+        public virtual Game getGame()
         {
             return _game;
         }

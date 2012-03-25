@@ -149,7 +149,14 @@ namespace Electric_Potatoe_TD
 
         public void shoot(Mob.Mob mob)
         {
-            Bullet bullet = new Bullet(mob, this);
+            Shoot bullet;
+
+            switch (getType())
+            {
+                case EType.SPEED: {bullet = new Fast(mob, this); break;}
+                case EType.STRENGHT: { bullet = new Spread(mob, this); break; }
+                default: {bullet = new Bullet(mob, this); break;}
+            }
             _game.BulletList.Add(bullet);
         }
 
@@ -165,7 +172,7 @@ namespace Electric_Potatoe_TD
             }
         }
 
-        public Game getGame()
+        public override Game getGame()
         {
             return (_game);
         }
