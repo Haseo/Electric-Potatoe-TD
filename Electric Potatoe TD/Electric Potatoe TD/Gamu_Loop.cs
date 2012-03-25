@@ -48,7 +48,7 @@ namespace Electric_Potatoe_TD
             ElectricityManager.ElecticityUpdate(this, _central);
             checkBulletHit();
             if (_central.getCapital() <= 0)
-              _origin.End_Game(false, 0); // Fin du jeu avec defaite du joueur
+              _origin.End_Game(false, 0);
         }
 
         private void spawningManager(GameTime gameTime)
@@ -83,29 +83,13 @@ namespace Electric_Potatoe_TD
             {
                 if (BulletList[i].update() == true)
                 {
-                    mobIsDead(BulletList[i].Target[0]);
+                    if (BulletList[i].Target[0].IsDead())
+                        mobIsDead(BulletList[i].Target[0]);
                     BulletList.RemoveAt(i);
                     i = 0;
                 }
                 else
                     i++;
-                /* Spread method
-                 * 
-                 * 
-                 *  int j;
-                    j = 0;
-                    while (j < BulletList[i].Target.Count)
-                    {
-                        if (BulletList[i].Target[j].IsDead())
-                        {
-                            mobIsDead(BulletList[i].Target[j]);
-                            BulletList[i].Target.RemoveAt(j);
-                            BulletList.RemoveAt(i);
-                        }
-                        else
-                            j++;
-                    }
-                 * */
             }
         }
     }

@@ -23,11 +23,15 @@ namespace Electric_Potatoe_TD
         protected List<Mob.Mob> _target;
         protected int _area;
         protected Vector2 lastTargetPos;
+        protected int loopLife = 0;
+        protected int loopLifeMax;
 
         public int Dmg { get { return _dmg; } }
         public int Speed { get { return _speed; } }
         public Vector2 Coord { get { return _coord; } }
         public List<Mob.Mob> Target { get { return _target; } }
+
+        public TimeSpan creationTime;
 
         protected virtual void move()
         {
@@ -98,15 +102,20 @@ namespace Electric_Potatoe_TD
 
         public virtual bool update()
         {
-            this.move();
-            return this.hit();
+            if (this.loopLife < loopLifeMax)
+            {
+                this.move();
+                loopLife++;
+                return this.hit();
+            }
+            return true;
         }
 
         protected virtual bool hit()
         {
            // getTargetCoord();
-            if (lastTargetPos.X <= _coord.X + (_game.size_case / 3) && lastTargetPos.X >= _coord.X - (_game.size_case / 3) &&
-                lastTargetPos.Y <= _coord.Y + (_game.size_case / 3) && lastTargetPos.Y >= _coord.Y - (_game.size_case / 3))
+            if (lastTargetPos.X <= _coord.X + (_game.size_case / 4) && lastTargetPos.X >= _coord.X - (_game.size_case / 4) &&
+                lastTargetPos.Y <= _coord.Y + (_game.size_case / 4) && lastTargetPos.Y >= _coord.Y - (_game.size_case / 4))
             {
                 this.touch();
                 return true;

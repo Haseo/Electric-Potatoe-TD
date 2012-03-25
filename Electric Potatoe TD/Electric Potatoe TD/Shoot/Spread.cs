@@ -26,6 +26,7 @@ namespace Electric_Potatoe_TD
             this._target = new List<Mob.Mob>();
             this._target.Add(newTarget);
             this._area = 0;
+            this.loopLifeMax = 150;
         }
 
         public override EBulletType GetBulletType()

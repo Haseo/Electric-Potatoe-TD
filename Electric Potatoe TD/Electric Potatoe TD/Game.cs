@@ -378,6 +378,7 @@ namespace Electric_Potatoe_TD
         {
             int i = 0;
 
+            _central.AddCapital((int) (mob.MobMaxPV * CoefBonus));
             while (i < MobList.Count)
             {
                 if (mob == MobList[i])

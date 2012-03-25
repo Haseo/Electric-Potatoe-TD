@@ -15,9 +15,9 @@ namespace Electric_Potatoe_TD
 {
     class Strenght : Tower
     {
-        const float POWER = 20;
-        const float SPEED = 10;
-        const float RANGE = 100;
+        const float POWER = 60;
+        const float SPEED = 20;
+        const float RANGE = 150;
 
         const double COEF_POWER = 1.4;
         const double COEF_SPEED = 1.1;
