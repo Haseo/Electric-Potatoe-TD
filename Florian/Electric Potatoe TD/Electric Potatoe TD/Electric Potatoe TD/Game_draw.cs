@@ -33,6 +33,7 @@ namespace Electric_Potatoe_TD
                 draw_contentZoom();
                 if (_moveTouch == true && _ListWay.Count > 0)
                     draw_newNode();
+                blanco();
                 if (_selectFlag > 0)
                     draw_Selected();
             }
@@ -232,6 +233,12 @@ namespace Electric_Potatoe_TD
         {
             //     _origin.spriteBatch.DrawString(RageMetter_font, "Capital : " + _central.getCapital().ToString(), new Vector2(_position[4].X, _position[4].Y), Color.Black);
             _origin.spriteBatch.DrawString(RageMetter_font, "test : " + test, new Vector2(_position[4].X, _position[4].Y), Color.Black);
+        }
+
+        public void blanco()
+        {
+
+            _origin.spriteBatch.Draw(Blanco, new Rectangle((_origin.graphics.PreferredBackBufferWidth / 3) * 2, 0, _origin.graphics.PreferredBackBufferWidth/ 3, _origin.graphics.PreferredBackBufferHeight), Color.White);
         }
     }
 }
