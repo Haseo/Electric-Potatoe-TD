@@ -23,7 +23,7 @@ namespace Electric_Potatoe_TD
             {
                 draw_map(FrameStart, FPS, CurrentFrame, SheetSize);
                 draw_content();
-                draw_mobs();
+                draw_mobs(CurrentFrame);
             }
             else
             {
@@ -169,16 +169,20 @@ namespace Electric_Potatoe_TD
             }
         }
 
-        public void draw_mobs()
+        public void draw_mobs(int CurrentFrame)
         {
+            Vector2 pos = new Vector2();
             _origin.spriteBatch.DrawString(RageMetter_font, "Test : " + WayPoints[0].X.ToString() + " " + WayPoints[0].Y.ToString(), new Vector2(_position[4].X + 200, _position[4].Y), Color.Black);
             foreach (Mob.Mob myMob in MobList)
             {
+                pos.X = (int)pos_map.X + (size_case * (int)myMob.MobPos.X);
+                pos.Y = (int)pos_map.Y + (size_case * (int)myMob.MobPos.Y);
                 //foreach (Vector2 myPoint in WayPoints)
                 {
                     //    _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)myPoint.X * size_case, (int)myPoint.Y * size_case, size_case, size_case), Color.White);
                 }
-                _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)myMob.MobPos.X, (int)myMob.MobPos.Y, size_case, size_case), Color.Red);
+                _origin.spriteBatch.Draw(MobTexture[(EMobType)myMob.GetMobType()], new Rectangle((int)myMob.MobPos.X, (int)myMob.MobPos.Y, size_case, size_case), new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), Color.White);
+                //new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), 
             }
         }
 

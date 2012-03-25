@@ -67,6 +67,7 @@ namespace Electric_Potatoe_TD
 
         //Animations
         Point   FrameSize;
+        Point   BulletFrameSize;
 
         int RageMetter;
         int RageMetter_flag;
@@ -126,6 +127,7 @@ namespace Electric_Potatoe_TD
             LevelColor = new Dictionary<int, Color>();
             LevelTexture = new Dictionary<int, Texture2D>();
             FrameSize = new Point(40, 40);
+            BulletFrameSize = new Point(20, 20);
         }
 
         public void Oriented_changed()
