@@ -201,13 +201,14 @@ namespace Electric_Potatoe_TD
             MobTexture[EMobType.SPEED] = _origin.Content.Load<Texture2D>("Mob4");
             MobTexture[EMobType.TANK] = _origin.Content.Load<Texture2D>("Mob2");
             MobTexture[EMobType.BERSERK] = _origin.Content.Load<Texture2D>("Mob1");
-            MapTexture[EMapTexture.GROUND] = _origin.Content.Load<Texture2D>("Ground");
-            MapTexture[EMapTexture.HORIZONTAL] = _origin.Content.Load<Texture2D>("CanyonHorizontal");
-            MapTexture[EMapTexture.VERTICAL] = _origin.Content.Load<Texture2D>("CanyonVertical");
-            MapTexture[EMapTexture.TOPLEFT] = _origin.Content.Load<Texture2D>("CanyonTopLeft");
-            MapTexture[EMapTexture.TOPRIGHT] = _origin.Content.Load<Texture2D>("CanyonTopRight");
-            MapTexture[EMapTexture.BOTLEFT] = _origin.Content.Load<Texture2D>("CanyonBotLeft");
-            MapTexture[EMapTexture.BOTRIGHT] = _origin.Content.Load<Texture2D>("CanyonBotRight");
+            MobTexture[EMobType.BOSS] = _origin.Content.Load<Texture2D>("MobBoss");
+            MapTexture[EMapTexture.GROUND] = _origin.Content.Load<Texture2D>("GeometryGround");
+            MapTexture[EMapTexture.HORIZONTAL] = _origin.Content.Load<Texture2D>("GeometryCanyonHorizontal");
+            MapTexture[EMapTexture.VERTICAL] = _origin.Content.Load<Texture2D>("GeometryCanyonVertical");
+            MapTexture[EMapTexture.TOPLEFT] = _origin.Content.Load<Texture2D>("GeometryCanyonTopLeft");
+            MapTexture[EMapTexture.TOPRIGHT] = _origin.Content.Load<Texture2D>("GeometryCanyonTopRight");
+            MapTexture[EMapTexture.BOTLEFT] = _origin.Content.Load<Texture2D>("GeometryCanyonBotLeft");
+            MapTexture[EMapTexture.BOTRIGHT] = _origin.Content.Load<Texture2D>("GeometryCanyonBotRight");
             MapTexture[EMapTexture.CENTRALTEX] = _origin.Content.Load<Texture2D>("ReactorN");
             TypeTexture[EType.SPEED] = _origin.Content.Load<Texture2D>("TowerFast");
             TypeTexture[EType.SHOOTER] = _origin.Content.Load<Texture2D>("TowerNormal");
@@ -235,8 +236,13 @@ namespace Electric_Potatoe_TD
         {
             int x, y;
 
-            if (pos.X >= ((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) ||
-                pos.Y >= ((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10))
+            if (_zoom == false &&
+                (pos.X >= ((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) ||
+                pos.Y >= ((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10)))
+                return (new Vector2(-1, -1));
+            if (_zoom == true && 
+                (pos.X >= ((_origin.graphics.PreferredBackBufferWidth * 8 / 12) - 10) ||
+                pos.Y >= ((_origin.graphics.PreferredBackBufferHeight * 8 / 10) - 10)))
                 return (new Vector2(-1, -1));
             if (_zoom == true)
             {

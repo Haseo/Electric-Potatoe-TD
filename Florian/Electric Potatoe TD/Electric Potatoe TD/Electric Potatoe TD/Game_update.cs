@@ -114,7 +114,6 @@ namespace Electric_Potatoe_TD
                 }
 
                 Node new_turret = TurretList.Last<Node>();
-                int i = 0;
 
                 while (new_turret.getNodeLevel() < _node.getNodeLevel())
                     new_turret.levelUpNode();
@@ -222,7 +221,7 @@ namespace Electric_Potatoe_TD
                                 _moveTouch = false;
                             }
                         }
-                        else if (_ValueTouch > 20 && _zoom == true)
+                        else if (_ValueTouch > 15 && _zoom == true)
                         {
                             Select_Node();
                             _ValueTouch = 0;
@@ -237,6 +236,8 @@ namespace Electric_Potatoe_TD
                             Touch = ident_pos(PositionTouch);
                             if (Touch.X != -1 && Touch.Y != -1)
                                 add_wayTouch();
+                            else
+                                _moveTouch = false;
                             _TouchFlag = -1;
                         }
                         if (_zoom == true && touches[0].State == TouchLocationState.Released)
@@ -244,6 +245,8 @@ namespace Electric_Potatoe_TD
                             Touch = ident_pos(PositionTouch);
                             if (Touch.X != -1 && Touch.Y != -1)
                                 end_wayTouch();
+                            else
+                                _moveTouch = false;
                             _moveTouch = false;
                             _TouchFlag = -1;
                         }

@@ -40,11 +40,11 @@ namespace Electric_Potatoe_TD
                  new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 8, _origin._origin.graphics.PreferredBackBufferHeight * 87 / 128, 100, 60),
                  new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 3 / 8, _origin._origin.graphics.PreferredBackBufferHeight * 10 / 128, 100, 60),
 
-                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 70, _origin._origin.graphics.PreferredBackBufferHeight * 20 / 128, 70, 70),
-                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 70, _origin._origin.graphics.PreferredBackBufferHeight * 36 / 128, 70, 70),
-                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 70, _origin._origin.graphics.PreferredBackBufferHeight * 55 / 128, 70, 70),
-                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 70, _origin._origin.graphics.PreferredBackBufferHeight * 71 / 128, 70, 70),
-                 new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 1 / 70, _origin._origin.graphics.PreferredBackBufferHeight * 87 / 128, 70, 70),
+                 new Rectangle(4, _origin._origin.graphics.PreferredBackBufferHeight * 20 / 128, 50, 50), //_origin._origin.graphics.PreferredBackBufferHeight * 20
+                 new Rectangle(4, _origin._origin.graphics.PreferredBackBufferHeight * 36 / 128, 50, 50), //_origin._origin.graphics.PreferredBackBufferHeight * 36
+                 new Rectangle(4, _origin._origin.graphics.PreferredBackBufferHeight * 55 / 128, 50, 50), //_origin._origin.graphics.PreferredBackBufferHeight * 55
+                 new Rectangle(4, _origin._origin.graphics.PreferredBackBufferHeight * 71 / 128, 50, 50), //_origin._origin.graphics.PreferredBackBufferHeight * 71
+                 new Rectangle(4, _origin._origin.graphics.PreferredBackBufferHeight * 87 / 128, 70, 70),
    
                  new Rectangle(_origin._origin.graphics.PreferredBackBufferWidth * 3 / 8, _origin._origin.graphics.PreferredBackBufferHeight * 110 / 128, 120, 60),
              };
@@ -63,11 +63,12 @@ namespace Electric_Potatoe_TD
             Button = _origin._origin.Content.Load<Texture2D>("Button");
             Font = _origin._origin.Content.Load<SpriteFont>("MenuFont");
             MenuIGFont = _origin._origin.Content.Load<SpriteFont>("MenuIG");
-            Mob = new Texture2D[4];
-            Mob[0] = _origin._origin.Content.Load<Texture2D>("Mob1");
+            Mob = new Texture2D[5];
+            Mob[0] = _origin._origin.Content.Load<Texture2D>("Mob3");
             Mob[1] = _origin._origin.Content.Load<Texture2D>("Mob2");
-            Mob[2] = _origin._origin.Content.Load<Texture2D>("Mob3");
-            Mob[3] = _origin._origin.Content.Load<Texture2D>("Mob4");
+            Mob[2] = _origin._origin.Content.Load<Texture2D>("Mob4");
+            Mob[3] = _origin._origin.Content.Load<Texture2D>("Mob1");
+            Mob[4] = _origin._origin.Content.Load<Texture2D>("MobBoss");
         }
 
         public void UnloadContent()
@@ -99,10 +100,7 @@ namespace Electric_Potatoe_TD
 
         public void draw()
         {
-            _origin._origin.spriteBatch.Draw(Mob[0], _position[6], Color.White);
-            _origin._origin.spriteBatch.Draw(Mob[1], _position[7], Color.White);
-            _origin._origin.spriteBatch.Draw(Mob[2], _position[8], Color.White);
-            _origin._origin.spriteBatch.Draw(Mob[3], _position[9], Color.White);
+            Rectangle Frame = new Rectangle(0, 0, 40, 40);
 
             _origin._origin.spriteBatch.DrawString(MenuIGFont, _description[0], new Vector2(_position[0].X, _position[0].Y), Color.Black);
             _origin._origin.spriteBatch.DrawString(MenuIGFont, _description[1], new Vector2(_position[1].X, _position[1].Y), Color.Black);
@@ -110,6 +108,12 @@ namespace Electric_Potatoe_TD
             _origin._origin.spriteBatch.DrawString(MenuIGFont, _description[3], new Vector2(_position[3].X, _position[3].Y), Color.Black);
             _origin._origin.spriteBatch.DrawString(MenuIGFont, _description[4], new Vector2(_position[4].X, _position[4].Y), Color.Black);
             _origin._origin.spriteBatch.DrawString(MenuIGFont, _description[5], new Vector2(_position[5].X, _position[5].Y), Color.Black);
+
+            _origin._origin.spriteBatch.Draw(Mob[0], _position[6], Frame, Color.Black);
+            _origin._origin.spriteBatch.Draw(Mob[1], _position[7], Frame, Color.Black);
+            _origin._origin.spriteBatch.Draw(Mob[2], _position[8], Frame, Color.Black);
+            _origin._origin.spriteBatch.Draw(Mob[3], _position[9], Frame, Color.Black);
+            _origin._origin.spriteBatch.Draw(Mob[4], _position[10], Frame, Color.Black);
 
             _origin._origin.spriteBatch.Draw(Button, _position[11], Color.White);
             _origin._origin.spriteBatch.DrawString(Font, "Back", new Vector2(_position[11].X + (_position[11].Width / 4), (_position[11].Y + (_position[11].Height / 3))), Color.Black);

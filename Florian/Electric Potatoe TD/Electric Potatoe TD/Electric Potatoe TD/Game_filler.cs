@@ -46,6 +46,7 @@ namespace Electric_Potatoe_TD
             MobList.Add(new Mob.Speed(WayPoints));
             MobList.Add(new Mob.Peon(WayPoints));
             MobList.Add(new Mob.Tank(WayPoints));
+            MobList.Add(new Mob.Boss(WayPoints));
         }
 
         public void FakeBulletFiller()
@@ -71,10 +72,10 @@ namespace Electric_Potatoe_TD
             {
                 size_case = (((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10) / mapY);
             }
-            if ((((_origin.graphics.PreferredBackBufferWidth * 8 / 10) - 10) / 7) <=
+            if ((((_origin.graphics.PreferredBackBufferWidth * 8 / 12) - 10) / 7) <=
                 (((_origin.graphics.PreferredBackBufferHeight * 8 / 10) - 10) / 5))
             {
-                size_caseZoom = (((_origin.graphics.PreferredBackBufferWidth * 8 / 10) - 10) / 7);
+                size_caseZoom = (((_origin.graphics.PreferredBackBufferWidth * 8 / 12) - 10) / 7);
             }
             else
             {

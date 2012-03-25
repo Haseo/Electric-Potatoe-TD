@@ -16,7 +16,8 @@ namespace Electric_Potatoe_TD
     class Game_End
     {
         Game1 _origin;
-        Texture2D Logo;
+        Texture2D LogoWin;
+        Texture2D LogoLoose;
         Texture2D Button;
         SpriteFont Font;
         Rectangle[] _position;
@@ -53,7 +54,8 @@ namespace Electric_Potatoe_TD
 
         public void LoadContent()
         {
-            Logo = _origin.Content.Load<Texture2D>("Logo");
+            LogoWin = _origin.Content.Load<Texture2D>("ReactorH");
+            LogoLoose = _origin.Content.Load<Texture2D>("ReactorD");
             Button = _origin.Content.Load<Texture2D>("Button");
             Font = _origin.Content.Load<SpriteFont>("MenuFont");
         }
@@ -87,13 +89,18 @@ namespace Electric_Potatoe_TD
 
         public void draw()
         {
-            _origin.spriteBatch.Draw(Logo, _position[0], Color.White);
             _origin.spriteBatch.Draw(Button, _position[1], Color.White);
             _origin.spriteBatch.DrawString(Font, "Back", new Vector2(_position[1].X + (_position[1].Width / 3), (_position[1].Y + (_position[1].Height / 3))), Color.Black);
             if (_victory == true)
+            {
+                _origin.spriteBatch.Draw(LogoWin, _position[0], Color.White);
                 draw_victory();
+            }
             else
+            {
+                _origin.spriteBatch.Draw(LogoLoose, _position[0], Color.White);
                 draw_lose();
+            }
         }
 
         public void draw_victory()
