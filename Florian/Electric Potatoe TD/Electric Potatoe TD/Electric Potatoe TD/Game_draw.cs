@@ -242,8 +242,10 @@ namespace Electric_Potatoe_TD
 
         public void draw_bullet(int CurrentFrame)
         {
-            foreach (Bullet myBullet in BulletList)
+            foreach (Shoot myBullet in BulletList)
             {
+                EBulletType bulletText = (EBulletType)myBullet.GetType();
+
                 _origin.spriteBatch.Draw(BulletTexture[(EBulletType)myBullet.GetType()], new Rectangle((int)myBullet.Coord.X + size_case / 2, (int)myBullet.Coord.Y + size_case / 2, size_case / 2, size_case / 2), new Rectangle(CurrentFrame * BulletFrameSize.X, 0, BulletFrameSize.X, BulletFrameSize.Y), Color.White);
                 //new Rectangle(CurrentFrame * FrameSize.X, 0, FrameSize.X, FrameSize.Y), 
             }
