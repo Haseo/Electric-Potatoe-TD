@@ -188,10 +188,10 @@ namespace Electric_Potatoe_TD
             RageMetter_mid = _origin.Content.Load<Texture2D>("RageMeterMiddle");
             RageMetter_bot = _origin.Content.Load<Texture2D>("RageMeterLow");
             RageMetter_font = _origin.Content.Load<SpriteFont>("RageMetter");
-            MobTexture[EMobType.PEON] = _origin.Content.Load<Texture2D>("Mob1");
-            MobTexture[EMobType.SPEED] = _origin.Content.Load<Texture2D>("Mob2");
-            MobTexture[EMobType.TANK] = _origin.Content.Load<Texture2D>("Mob3");
-            MobTexture[EMobType.BERSERK] = _origin.Content.Load<Texture2D>("Mob4");
+            MobTexture[EMobType.PEON] = _origin.Content.Load<Texture2D>("Mob3");
+            MobTexture[EMobType.SPEED] = _origin.Content.Load<Texture2D>("Mob4");
+            MobTexture[EMobType.TANK] = _origin.Content.Load<Texture2D>("Mob2");
+            MobTexture[EMobType.BERSERK] = _origin.Content.Load<Texture2D>("Mob1");
             MapTexture[EMapTexture.GROUND] = _origin.Content.Load<Texture2D>("Ground");
             MapTexture[EMapTexture.HORIZONTAL] = _origin.Content.Load<Texture2D>("CanyonHorizontal");
             MapTexture[EMapTexture.VERTICAL] = _origin.Content.Load<Texture2D>("CanyonVertical");

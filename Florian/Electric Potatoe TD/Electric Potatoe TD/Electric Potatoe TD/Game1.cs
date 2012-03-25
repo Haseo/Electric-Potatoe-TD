@@ -36,10 +36,12 @@ namespace Electric_Potatoe_TD
         private Menu_IG _menuIg;
         private Game_End _endgame;
         private int CurrentFrame;
+        private int CurrentMobFrame;
         private int FrameStart;
         private int FPS;
         private int SheetSize;
         private int FrameCounter;
+        private int MobFrameCounter;
 
 
         public Game1()
@@ -58,6 +60,9 @@ namespace Electric_Potatoe_TD
             FPS = 30;
             SheetSize = 5;
             FrameCounter = 0;
+            MobFrameCounter = 0;
+            CurrentFrame = 0;
+            CurrentMobFrame = 0;
             this.Window.OrientationChanged += new EventHandler<EventArgs>(this.Oriented_changed);
         }
 
@@ -143,8 +148,14 @@ namespace Electric_Potatoe_TD
             FrameStart += gameTime.ElapsedGameTime.Milliseconds;
             if (FrameStart > FPS)
             {
+                ++MobFrameCounter;
                 ++FrameCounter;
                 FrameStart -= FPS;
+                if (MobFrameCounter == 2)
+                {
+                    ++CurrentMobFrame;
+                    MobFrameCounter = 0;
+                }
                 if (FrameCounter == 4)
                 {
                     ++CurrentFrame;
@@ -152,6 +163,8 @@ namespace Electric_Potatoe_TD
                 }
                 if (CurrentFrame >= SheetSize)
                     CurrentFrame = 0;
+                if (CurrentMobFrame >= SheetSize)
+                    CurrentMobFrame = 0;
             }
 
             switch (_statut)
@@ -182,7 +195,7 @@ namespace Electric_Potatoe_TD
                 case Game_Statut.Menu:
                     _menu.draw(); break;
                 case Game_Statut.Game:
-                    _game.draw(FrameStart, FPS, CurrentFrame, SheetSize); break;
+                    _game.draw(FrameStart, FPS, CurrentFrame, CurrentMobFrame, SheetSize); break;
                 case Game_Statut.Menu_Ig:
                     _menuIg.draw(); break;
                 case Game_Statut.Tutorial:

@@ -17,13 +17,13 @@ namespace Electric_Potatoe_TD
 {
     public partial class Game
     {
-        public void draw(int FrameStart, int FPS, int CurrentFrame, int SheetSize)
+        public void draw(int FrameStart, int FPS, int CurrentFrame, int CurrentMobFrame, int SheetSize)
         {
             if (_zoom == false)
             {
                 draw_map(FrameStart, FPS, CurrentFrame, SheetSize);
                 draw_content();
-                draw_mobs(CurrentFrame);
+                draw_mobs(CurrentMobFrame);
             }
             else
             {
