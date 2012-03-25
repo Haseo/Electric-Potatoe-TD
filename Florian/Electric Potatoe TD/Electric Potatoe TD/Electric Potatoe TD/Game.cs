@@ -105,7 +105,7 @@ namespace Electric_Potatoe_TD
             _moveTouch = false;
             _zoom = false;
             Zoom = new Vector2(0, 0);
-            _central = new Potatoe();
+            _central = new Potatoe(0, 0, this);
             TypeTexture = new Dictionary<EType, Texture2D>();
             MobTexture = new Dictionary<EMobType, Texture2D>();
             accSensor = new Accelerometer();
