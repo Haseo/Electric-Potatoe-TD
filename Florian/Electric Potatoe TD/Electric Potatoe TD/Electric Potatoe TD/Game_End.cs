@@ -90,7 +90,7 @@ namespace Electric_Potatoe_TD
         public void draw()
         {
             _origin.spriteBatch.Draw(Button, _position[1], Color.White);
-            _origin.spriteBatch.DrawString(Font, "Back", new Vector2(_position[1].X + (_position[1].Width / 3), (_position[1].Y + (_position[1].Height / 3))), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "RETOUR", new Vector2(_position[1].X + (4 * _position[1].Width / 17), (_position[1].Y + (_position[1].Height / 3))), Color.White);
             if (_victory == true)
             {
                 _origin.spriteBatch.Draw(LogoWin, _position[0], Color.White);
@@ -105,13 +105,13 @@ namespace Electric_Potatoe_TD
 
         public void draw_victory()
         {
-            _origin.spriteBatch.DrawString(Font, "You Win The Game", new Vector2(_position[2].X, _position[2].Y), Color.Black);
-            _origin.spriteBatch.DrawString(Font, "Your score is : " + _score.ToString(), new Vector2(_position[3].X, _position[3].Y), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "BIEN JOUÉ !", new Vector2(_position[2].X + (3 * _position[1].Width / 11), _position[2].Y), Color.White);
+            _origin.spriteBatch.DrawString(Font, "Votre score est de " + _score.ToString() + "pts.", new Vector2(_position[3].X, _position[3].Y), Color.White);
         }
 
         public void draw_lose()
         {
-            _origin.spriteBatch.DrawString(Font, "You Lose The Game", new Vector2(_position[2].X, _position[2].Y), Color.Black);
+            _origin.spriteBatch.DrawString(Font, "VOUS AVEZ PERDU !", new Vector2(_position[2].X + (2 * _position[1].Width / 11), _position[2].Y), Color.White);
         }
     }
 }
