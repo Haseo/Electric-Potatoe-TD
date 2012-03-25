@@ -225,8 +225,13 @@ namespace Electric_Potatoe_TD
         {
             int x, y;
 
-            if (pos.X >= ((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) ||
-                pos.Y >= ((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10))
+            if (_zoom == false &&
+                (pos.X >= ((_origin.graphics.PreferredBackBufferWidth * 9 / 10) - 10) ||
+                pos.Y >= ((_origin.graphics.PreferredBackBufferHeight * 9 / 10) - 10)))
+                return (new Vector2(-1, -1));
+            if (_zoom == true && 
+                (pos.X >= ((_origin.graphics.PreferredBackBufferWidth * 8 / 12) - 10) ||
+                pos.Y >= ((_origin.graphics.PreferredBackBufferHeight * 8 / 10) - 10)))
                 return (new Vector2(-1, -1));
             if (_zoom == true)
             {
