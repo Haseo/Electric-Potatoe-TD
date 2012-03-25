@@ -17,15 +17,19 @@ namespace Electric_Potatoe_TD
     public class Bullet : Shoot
     {
         public  Bullet(Mob.Mob newTarget, Tower tower)
-    {
-        this._dmg = 20;
-        this._speed = 5;
-        this._game = tower.getGame();
-        this._coord = tower.getPosition();
-        this._target = new List<Mob.Mob>();
-        this._target.Add(newTarget);
-        this._area = 0;
-    }
+        {
+            this._dmg = 20;
+            this._speed = 2;
+            this._game = tower.getGame();
+            this._coord = tower.getPosition();
+            this._target = new List<Mob.Mob>();
+            this._target.Add(newTarget);
+            this._area = 0;
+        }
 
+        public EBulletType GetType()
+        {
+            return (EBulletType.BULLET);
+        }
     }
 }

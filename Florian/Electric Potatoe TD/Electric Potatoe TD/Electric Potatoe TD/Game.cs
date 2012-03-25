@@ -27,6 +27,11 @@ namespace Electric_Potatoe_TD
         CANYON_BOTRIGHT = 7,
     };
 
+    public enum EBulletType
+    { 
+        BULLET = 0,
+    };
+
     public enum EMapTexture
     {
         GROUND = 0,
@@ -53,6 +58,7 @@ namespace Electric_Potatoe_TD
         Texture2D RageMetter_bot;
         SpriteFont RageMetter_font;
         Rectangle[] _position;
+        Dictionary<EBulletType, Texture2D> BulletTexture;
         Dictionary<EType, Texture2D> TypeTexture;
         Dictionary<EMobType, Texture2D> MobTexture;
         Dictionary<EMapTexture, Texture2D> MapTexture;
@@ -60,6 +66,7 @@ namespace Electric_Potatoe_TD
         Dictionary<int, Texture2D> LevelTexture;
         Texture2D NoConstruct;
         public List<Node> TurretList;
+        public List<Bullet> BulletList;
         public List<Mob.Mob> MobList;
         MapLoader NewMap = new MapLoader();
 
@@ -77,8 +84,8 @@ namespace Electric_Potatoe_TD
         int mapX, mapY;
         Vector2 pos_map;
         List<Vector2> WayPoints;
-        int size_case;
-        int size_caseZoom;
+        public int size_case;
+        public int size_caseZoom;
 
         Vector2 Touch;
         bool _moveTouch;
@@ -118,6 +125,8 @@ namespace Electric_Potatoe_TD
             _zoom = false;
             Zoom = new Vector2(0, 0);
             _central = new Potatoe(0, 0, this);
+            BulletList = new List<Bullet>();
+            BulletTexture = new Dictionary<EBulletType, Texture2D>();
             TypeTexture = new Dictionary<EType, Texture2D>();
             MobTexture = new Dictionary<EMobType, Texture2D>();
             accSensor = new Accelerometer();
@@ -215,6 +224,7 @@ namespace Electric_Potatoe_TD
             LevelTexture[2] = _origin.Content.Load<Texture2D>("Level2");
             LevelTexture[3] = _origin.Content.Load<Texture2D>("Level3");
             LevelTexture[4] = _origin.Content.Load<Texture2D>("Level4");
+            BulletTexture[0] = _origin.Content.Load<Texture2D>("BulletNormal");
         }
 
         public void UnloadContent()
@@ -291,6 +301,7 @@ namespace Electric_Potatoe_TD
             mapFiller();
             turretFiller();
             FakeModFiller();
+            FakeBulletFiller();
         }
 
         public int getScore()
@@ -302,15 +313,15 @@ namespace Electric_Potatoe_TD
         {
             int i = 0;
 
-            while (i <= MobList.Count)
+            while (i < MobList.Count)
             {
                 if (mob == MobList[i])
                     MobList.RemoveAt(i);
                 i++;
             }
-            foreach (Tower myTurret in TurretList)
+            foreach (Node myTurret in TurretList)
             {
-                myTurret.removeMobCorpse(mob);
+               myTurret.removeMobCorpse(mob);
             }
         }
 

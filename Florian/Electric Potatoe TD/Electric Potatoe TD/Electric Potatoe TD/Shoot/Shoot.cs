@@ -37,7 +37,6 @@ namespace Electric_Potatoe_TD
             int move_y;
             Vector2 triangle = new Vector2();
 
-
             getTargetCoord();
             getdistance(triangle);
             triangle.X = Math.Abs(lastTargetPos.X - _coord.X);
@@ -120,6 +119,5 @@ namespace Electric_Potatoe_TD
                 idx++;
             }
         }
-
     }
 }

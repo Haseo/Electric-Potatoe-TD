@@ -23,7 +23,7 @@ namespace Electric_Potatoe_TD
             int capital = 6000;
             TurretList = new List<Node>();
             TurretList.Add(new Node(0, 1, 10, 10, this));
-            TurretList.Add(new Strenght(2, 4, 10, 10, this));
+            TurretList.Add(new Strenght(8, 4, 10, 10, this));
             TurretList.Add(new Speed(4, 2, 10, 10, this));
             TurretList.Add(new Shooter(0, 0, 10, 10, this));
            /* TurretList[2].levelUpNode(ref capital);
@@ -46,6 +46,11 @@ namespace Electric_Potatoe_TD
             MobList.Add(new Mob.Speed(WayPoints));
             MobList.Add(new Mob.Peon(WayPoints));
             MobList.Add(new Mob.Tank(WayPoints));
+        }
+
+        public void FakeBulletFiller()
+        {
+            BulletList.Add(new Bullet(MobList[0], (Tower)TurretList[1]));
         }
 
         public void mapFiller()
