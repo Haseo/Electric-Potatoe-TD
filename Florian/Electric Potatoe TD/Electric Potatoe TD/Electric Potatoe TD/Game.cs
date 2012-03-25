@@ -46,13 +46,15 @@ namespace Electric_Potatoe_TD
 
     public partial class Game
     {
-        double CoefBonus;
+        public double CoefBonus;
+        public List<Pair <Vector2, Vector2>> nodeLink = new List<Pair<Vector2,Vector2>>(); 
         Accelerometer accSensor;
         Vector3 accelReading = new Vector3();
         Vector3 accelBuff = new Vector3();
         Boolean AccAllow;
         Game1 _origin;
         Texture2D Menu;
+        Texture2D Blanco;
         Texture2D RageMetter_top;
         Texture2D RageMetter_mid;
         Texture2D RageMetter_bot;
@@ -114,6 +116,7 @@ namespace Electric_Potatoe_TD
 
         public Game(Game1 game)
         {
+            CoefBonus = 1;
             RageMetter_tmp = 0;
             _origin = game;
             RageMetter = 0;
@@ -193,6 +196,7 @@ namespace Electric_Potatoe_TD
         public void LoadContent()
         {
             Menu = _origin.Content.Load<Texture2D>("Menu");
+            Blanco = _origin.Content.Load<Texture2D>("blanco");
             RageMetter_top = _origin.Content.Load<Texture2D>("RageMeterHigh");
             RageMetter_mid = _origin.Content.Load<Texture2D>("RageMeterMiddle");
             RageMetter_bot = _origin.Content.Load<Texture2D>("RageMeterLow");
@@ -278,21 +282,55 @@ namespace Electric_Potatoe_TD
 
         private void make_connect(Vector2 new_node, Vector2 old_node)
         {
-            Node newn = null, oldn = null;
+            Node newn = null, oldn = null, oldt = null;
 
             foreach (Node turret in TurretList)
             {
                 if (turret._position.X == new_node.X && turret._position.Y == new_node.Y)
                     newn = turret;
                 if (turret._position.X == old_node.X && turret._position.Y == old_node.Y)
-                    oldn = turret;
+                {
+                    if (turret.getType() != EType.NODE)
+                        oldt = turret;
+                    else
+                        oldn = turret;
+                }
+            }
+            if (newn != null && (oldn != null || oldt != null))
+            {
+                if (oldt != null)
+                    ElectricityManager.linkNode(oldt, newn);
+                else
+                    ElectricityManager.linkNode(oldn, newn);
+            }
+        }
+
+        private void transfert_connect(Vector2 position)
+        {
+            Node oldn = null, newn = null;
+
+            foreach (Node turret in TurretList)
+            {
+                if (turret._position.X == position.X && turret._position.Y == position.Y)
+                {
+                    if (turret.getType() != EType.NODE)
+                        newn = turret;
+                    else
+                        oldn = turret;
+                }
             }
             if (newn != null && oldn != null)
             {
-                newn.addLink(oldn);
-                oldn.addLink(newn);
+                List<Node> listLink = oldn._peerOut;
+
+                while (listLink.Count > 0)
+                {
+                    ElectricityManager.linkNode(newn, listLink.First<Node>());
+                    ElectricityManager.unlinkNode(oldn, listLink.First<Node>());
+                }
             }
         }
+
 
         public void Restart()
         {

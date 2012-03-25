@@ -29,5 +29,17 @@ namespace Electric_Potatoe_TD
         {
             return (_capital);
         }
+
+        public void subCapital(int value)
+        {
+            _capital -= value;
+            if (_capital < 0)
+                _capital = 0;
+        }
+
+        public void AddCapital(int value)
+        {
+            _capital += value;
+        }
     }
 }

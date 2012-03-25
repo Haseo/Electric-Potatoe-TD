@@ -37,16 +37,17 @@ namespace Electric_Potatoe_TD
         {
         }
 
-        public override Boolean levelUpTower()
+        public override void levelUpTower()
         {
-          //  if (_cost * _level > capital)
-           //     return false;
-           // capital -= _cost * _level;
             _level += 1;
             _multPowerAtt *= _coef_power;
             _multSpeedAtt *= _coef_speed;
             _range *= _coef_range;
-            return true;
+        }
+
+        public override int getCostTower()
+        {
+            return _cost * (_level + 1);
         }
 
         public override int getTowerLevel()
@@ -167,6 +168,22 @@ namespace Electric_Potatoe_TD
         public Game getGame()
         {
             return (_game);
+        }
+
+        public static int get_cost_tower(EType type)
+        {
+            switch (type)
+            {
+                case EType.GENERATOR:
+                    return (50);
+                case EType.SHOOTER:
+                    return (30);
+                case EType.SPEED:
+                    return (100);
+                case EType.STRENGHT:
+                    return (100);
+            }
+            return (0);
         }
     }
 }
