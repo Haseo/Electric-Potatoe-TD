@@ -58,7 +58,7 @@ namespace Electric_Potatoe_TD
                 }
             }
             if (_selectFlag > 0)
-              test = "Select_Node" + Touch.X + "/" + Touch.Y + "   flag = " + _selectFlag.ToString();
+                test = "Select_Node" + Touch.X + "/" + Touch.Y + "   flag = " + _selectFlag.ToString();
             return (true);
         }
 
@@ -91,6 +91,17 @@ namespace Electric_Potatoe_TD
                     return (true);
                 }
             }
+            if (_central.CanaddLink() == true &&
+                ((_central._position.X == Touch.X && _central._position.Y == Touch.Y) ||
+                (_central._position.X == (Touch.X - 1) && _central._position.Y == Touch.Y) ||
+                (_central._position.X == Touch.X && _central._position.Y == (Touch.Y + 1)) ||
+                (_central._position.X == (Touch.X - 1) && _central._position.Y == (Touch.Y + 1))))
+            {
+                _ListWay.Add(Touch);
+                _ValidWay.Add(true);
+                test = "init_wayTouch : Central : " + Touch.X + "/" + Touch.Y; ;
+                return (true);
+            }
             test = "init_wayTouch : " + Touch.X + "/" + Touch.Y; ;
             return (false);
         }
@@ -106,7 +117,16 @@ namespace Electric_Potatoe_TD
                     x = stand;
                 stand++;
             }
-            if (x != -1)
+            if (((_central._position.X == Touch.X && _central._position.Y == Touch.Y) ||
+                (_central._position.X == (Touch.X - 1) && _central._position.Y == Touch.Y) ||
+                (_central._position.X == Touch.X && _central._position.Y == (Touch.Y + 1)) ||
+                (_central._position.X == (Touch.X - 1) && _central._position.Y == (Touch.Y + 1))))
+            {
+                _ListWay.Add(Touch);
+                _ValidWay.Add(true);
+                return true;
+            }
+            else if (x != -1)
             {
                 if (x < _ListWay.Count)
                 {
@@ -142,6 +162,16 @@ namespace Electric_Potatoe_TD
 
         public bool end_wayTouch()
         {
+
+            if (((_central._position.X == _ListWay.Last<Vector2>().X && _central._position.Y == _ListWay.Last<Vector2>().Y) ||
+                (_central._position.X == (_ListWay.Last<Vector2>().X - 1) && _central._position.Y == _ListWay.Last<Vector2>().Y) ||
+                (_central._position.X == _ListWay.Last<Vector2>().X && _central._position.Y == (_ListWay.Last<Vector2>().Y + 1)) ||
+                (_central._position.X == (_ListWay.Last<Vector2>().X - 1) && _central._position.Y == (_ListWay.Last<Vector2>().Y + 1))))
+            {
+                _ListWay.Clear();
+                _ValidWay.Clear();
+                return (true);
+            }
             if (can_access() == true && _ListWay.Count > 0)
             {
                 Vector2 stand = _ListWay.Last<Vector2>();
