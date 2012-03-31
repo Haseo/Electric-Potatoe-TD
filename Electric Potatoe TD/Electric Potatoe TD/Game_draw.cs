@@ -163,7 +163,14 @@ namespace Electric_Potatoe_TD
                 for (y = (int)Zoom.Y; y < Zoom.Y + 5 && y < mapY; y++)
                 {
                     if (this.map[x, y] == EMap.CENTRAL)
-                        _origin.spriteBatch.Draw(MapTexture[EMapTexture.CENTRALTEX], new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), ((int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y))) - size_caseZoom, size_caseZoom * 2, size_caseZoom * 2), Color.White);
+                    {
+                         if (this.CoefBonus == 4)
+                             _origin.spriteBatch.Draw(MapTexture[EMapTexture.CENTRALHIGH], new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), ((int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y))) - size_caseZoom, size_caseZoom * 2, size_caseZoom * 2), Color.White);
+                         else if (this.CoefBonus == 0)
+                             _origin.spriteBatch.Draw(MapTexture[EMapTexture.CENTRALLOW], new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), ((int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y))) - size_caseZoom, size_caseZoom * 2, size_caseZoom * 2), Color.White);
+                         else
+                             _origin.spriteBatch.Draw(MapTexture[EMapTexture.CENTRALTEX], new Rectangle((int)pos_map.X + (size_caseZoom * (x - (int)Zoom.X)), ((int)pos_map.Y + (size_caseZoom * (y - (int)Zoom.Y))) - size_caseZoom, size_caseZoom * 2, size_caseZoom * 2), Color.White);
+                     }
                 }
             }
             foreach (Node myTurret in TurretList)
@@ -208,7 +215,14 @@ namespace Electric_Potatoe_TD
                 for (y = 0; y < mapY; y++)
                 {
                     if (this.map[x, y] == EMap.CENTRAL)
-                        _origin.spriteBatch.Draw(MapTexture[EMapTexture.CENTRALTEX], new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y) - size_case, size_case * 2, size_case * 2), Color.White);
+                    {
+                         if (this.CoefBonus == 4)
+                             _origin.spriteBatch.Draw(MapTexture[EMapTexture.CENTRALHIGH], new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y) - size_case, size_case * 2, size_case * 2), Color.White);
+                         else if (this.CoefBonus == 0)
+                             _origin.spriteBatch.Draw(MapTexture[EMapTexture.CENTRALLOW], new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y) - size_case, size_case * 2, size_case * 2), Color.White);
+                         else
+                             _origin.spriteBatch.Draw(MapTexture[EMapTexture.CENTRALTEX], new Rectangle((int)pos_map.X + (size_case * x), (int)pos_map.Y + (size_case * y) - size_case, size_case * 2, size_case * 2), Color.White);
+                     }
                 }
             }
             Vector2 pos = new Vector2();
@@ -301,6 +315,7 @@ namespace Electric_Potatoe_TD
             }
             _origin.spriteBatch.Draw(RageMetter_bot, _position[3], (RageMetter > 0 ? Color.Red : Color.White));
             _origin.spriteBatch.DrawString(RageMetter_font, RageMetter.ToString(), new Vector2(_position[3].X + (_position[3].Width / 3), _position[3].Y + (_position[3].Height / 3)), Color.White);
+            _origin.spriteBatch.DrawString(RageMetter_font, "Bonus: x" + CoefBonus.ToString(), new Vector2(_position[4].X + (_position[3].Width / 3), _position[3].Y + (_position[3].Height / 3)), Color.White);
             _origin.spriteBatch.DrawString(RageMetter_font, "RESOURCES : " + _central.getCapital().ToString(), new Vector2(_position[4].X, _position[4].Y), Color.White);
         }
 

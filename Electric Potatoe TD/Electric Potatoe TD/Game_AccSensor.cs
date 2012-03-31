@@ -64,25 +64,20 @@ namespace Electric_Potatoe_TD
             }
             else
             {
-                if (RageMetter < 15)
+                if (RageMetter < 35)
                 {
                     moreThan = 0.25;
-                    CoefBonus = 1.5;
-                }
-                else if (RageMetter < 35)
-                {
-                    moreThan = 0.2;
-                    CoefBonus = 2;
+                    CoefBonus = 1;
                 }
                 else if (RageMetter < 65)
                 {
-                    moreThan = 0.14;
-                    CoefBonus = 3.5;
+                    moreThan = 0.2;
+                    CoefBonus = 1.5;
                 }
-                else if (RageMetter < 85)
+                else if (RageMetter < 82)
                 {
-                    moreThan = 0.07;
-                    CoefBonus = 4;
+                    moreThan = 0.14;
+                    CoefBonus = 2.75;
                 }
                 else if (RageMetter < 100)
                 {

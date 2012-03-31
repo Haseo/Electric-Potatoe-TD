@@ -44,6 +44,8 @@ namespace Electric_Potatoe_TD
         TOPRIGHT = 5,
         BOTRIGHT = 6,
         CENTRALTEX = 7,
+        CENTRALLOW,
+        CENTRALHIGH
     };
 
     public partial class Game
@@ -122,8 +124,8 @@ namespace Electric_Potatoe_TD
             CoefBonus = 1;
             RageMetter_tmp = 0;
             _origin = game;
-            RageMetter = 0;
-            RageMetter_flag = 0;
+            RageMetter = 1;
+            RageMetter_flag = 1;
             _TouchFlag = 0;
             _ValueTouch = 0;
             _selectFlag = 0;
@@ -221,6 +223,8 @@ namespace Electric_Potatoe_TD
             MapTexture[EMapTexture.BOTLEFT] = _origin.Content.Load<Texture2D>("GeometryCanyonBotLeft");
             MapTexture[EMapTexture.BOTRIGHT] = _origin.Content.Load<Texture2D>("GeometryCanyonBotRight");
             MapTexture[EMapTexture.CENTRALTEX] = _origin.Content.Load<Texture2D>("ReactorN");
+            MapTexture[EMapTexture.CENTRALLOW] = _origin.Content.Load<Texture2D>("ReactorD");
+            MapTexture[EMapTexture.CENTRALHIGH] = _origin.Content.Load<Texture2D>("ReactorH");       
             TypeTexture[EType.SPEED] = _origin.Content.Load<Texture2D>("TowerFast");
             TypeTexture[EType.SHOOTER] = _origin.Content.Load<Texture2D>("TowerNormal");
             TypeTexture[EType.STRENGHT] = _origin.Content.Load<Texture2D>("TowerHeavy");
